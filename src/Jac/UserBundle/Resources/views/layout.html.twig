@@ -1,0 +1,41 @@
+{% extends "::layout.html.twig" %}
+{% block stylesheets %}
+    {{ parent()}}
+{% endblock %}
+
+{% block container %}
+    <div class="row">
+        <div class="col-md-5 col-md-offset-1">
+            <div id="login-alt-container">
+                <!-- Title -->
+                <h1 class="push-top-bottom">
+                    <i class="gi gi-flash"></i> <strong>Regiss - Pro</strong><br>
+                    <small>Bienvenue sur regiss pro !</small>
+                </h1>
+                <!-- END Title -->
+
+                <!-- Key Features -->
+                <ul class="fa-ul text-muted">
+                    <li><i class="fa fa-check fa-li text-success"></i> Gestion des Appels</li>
+                    <li><i class="fa fa-check fa-li text-success"></i> Gestion des Encaissements</li>
+                    <li><i class="fa fa-check fa-li text-success"></i> Gestion du Coffr-Fort</li>
+                    <li><i class="fa fa-check fa-li text-success"></i> Gestion des CMD</li>
+                    <li><i class="fa fa-check fa-li text-success"></i> Justification des sorties de fonds</li>
+                </ul>
+                <!-- END Key Features -->
+
+                <!-- Footer -->
+                <footer class="text-muted push-top-bottom">
+                    <small><span id="year-copy"></span> &copy; <a href="#" target="_blank">beticonsulting V-1.0.0</a></small>
+                </footer>
+                <!-- END Footer -->
+            </div>
+        </div>
+        <div class="col-md-5">
+        {% block fos_user_content %}
+
+        {% endblock %}
+        </div>
+    </div>
+
+{% endblock %}

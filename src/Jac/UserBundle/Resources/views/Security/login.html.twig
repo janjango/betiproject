@@ -1,0 +1,62 @@
+{% extends "JacUserBundle::layout.html.twig" %}
+
+{# Le titre de l'entête du document #}
+{% block entetetitle %}Connexion | {{ parent() }}{% endblock %}
+
+{% block titre %} Connexion  <span style="font-size: 12px;float: right; color: #720e9e;">  <i class="fa fa-phone"> </i> MyContacts </span>{% endblock  %}
+
+{% block fos_user_content %}
+
+    {% trans_default_domain 'FOSUserBundle' %}
+
+            <!-- Login Container -->
+            <div id="login-container">
+                <!-- Login Title -->
+                <div class="login-title text-center">
+                    <h1><strong>Authentification</strong>  <strong></strong></h1>
+                </div>
+                <!-- END Login Title -->
+
+                <!-- Login Block -->
+                <div class="block push-bit">
+                    <!-- Login Form -->
+                    <form  method="post" id="form-login" class="form-horizontal" action="{{ path("fos_user_security_check") }}">
+                    {% if error %}
+                        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    {% endif %}
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+        
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="gi gi-envelope"></i></span>
+                                    <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" class="form-control input-lg" placeholder="login">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="gi gi-asterisk"></i></span>
+                                    <input type="password" id="password" name="_password" required="required" class="form-control input-lg" placeholder="password">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group form-actions">
+                            <div class="col-xs-4">
+
+                            </div>
+                            <div class="col-xs-8 text-right">
+                                <button type="submit" id="_submit" name="_submit" class="btn btn-sm btn-primary"><i class="fa fa-angle-right"></i> Connexion</button>
+                            </div>
+                        </div>
+
+                    </form>
+                    <!-- END Login Form -->
+
+                </div>
+                <!-- END Login Block -->
+            </div>
+            <!-- END Login Container -->
+
+{% endblock  %}

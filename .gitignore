@@ -1,0 +1,10 @@
+/app/config/parameters.yml
+/build/
+/phpunit.xml
+/var/logs/
+/var/cache/
+/var/sessions/
+!var/SymfonyRequirements.php
+/vendor/
+/web/bundles/
+/nbproject/

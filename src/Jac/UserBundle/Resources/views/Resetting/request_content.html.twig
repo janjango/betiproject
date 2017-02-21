@@ -1,0 +1,16 @@
+<form action="{{ path('fos_user_resetting_send_email') }}" method="POST" class="">
+
+    <div class="form-group">
+        {% if invalid_username is defined %}
+            <p class="alert alert-error">{{ 'resetting.request.invalid_username'|trans({'%username%': invalid_username}, 'FOSUserBundle') }}</p>
+        {% endif %}
+        <label for="username">{{ 'resetting.request.username'|trans({}, 'FOSUserBundle') }}</label>
+        <input type="text" id="username" name="username" required="required" class="form-control"/>
+    </div>
+    <div>
+        
+        <a class="" href="{{ path("fos_user_security_login") }}">Connexion</a>
+        <button class="btn btn-primary btn-xs round-xl form-el-offset-1" type="submit">Rénitialiser</button>
+
+    </div>
+</form>

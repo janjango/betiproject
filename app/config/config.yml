@@ -1,0 +1,119 @@
+imports:
+    - { resource: parameters.yml }
+    - { resource: security.yml }
+    - { resource: services.yml }
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+    locale: fr
+    app.path.user_avatars: /uploads/images/avatars
+framework:
+    #esi:             ~
+    translator:      { fallbacks: ["%locale%"] }
+    secret:          "%secret%"
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: ~
+    form:            ~
+    csrf_protection: ~
+    validation:      { enable_annotations: true }
+    #serializer:      { enable_annotations: true }
+    templating:
+        engines: ['twig']
+    default_locale:  "%locale%"
+    trusted_hosts:   ~
+    trusted_proxies: ~
+    session:
+        # http://symfony.com/doc/current/reference/configuration/framework.html#handler-id
+        handler_id:  session.handler.native_file
+        save_path:   "%kernel.root_dir%/../var/sessions/%kernel.environment%"
+    fragments:       ~
+    http_method_override: true
+    assets: ~
+    php_errors:
+        log: true
+
+
+# Twig Configuration
+twig:
+    debug:            "%kernel.debug%"
+    strict_variables: "%kernel.debug%"
+    form_themes:
+        - 'JacUserBundle:Form:fields.html.twig'
+# Doctrine Configuration
+doctrine:
+    dbal:
+        default_connection: default
+        connections:
+            #Mysql
+            default:
+                driver:   pdo_mysql
+                host:     "%database_host%"
+                port:     "%database_port%"
+                dbname:   "%database_name%"
+                user:     "%database_user%"
+                password: "%database_password%"
+                charset:  UTF8
+
+            #Postgresql
+            pgsql:
+                driver:   pdo_pgsql
+                host:     "%psql_database_host%"
+                port:     "%psql_database_port%"
+                dbname:   "%psql_database_name%"
+                user:     "%psql_database_user%"
+                password: "%psql_database_password%"
+                charset:  UTF8
+
+    orm:
+        auto_generate_proxy_classes: "%kernel.debug%"
+        naming_strategy: doctrine.orm.naming_strategy.underscore
+        auto_mapping: true
+
+# Swiftmailer Configuration
+swiftmailer:
+    transport: "%mailer_transport%"
+    host:      "%mailer_host%"
+    username:  "%mailer_user%"
+    password:  "%mailer_password%"
+    spool:     { type: memory }
+
+fos_user:
+    db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
+    firewall_name: main
+    user_class: Jac\UserBundle\Entity\User
+    from_email:
+        address:        %from_email_address%
+        sender_name:    %from_email_sender_name%
+  # Configuration concernant l'inscription d'un nouvel utilisateur.
+    registration:
+        form:
+            type: Jac\UserBundle\Form\Type\RegistrationType
+
+        confirmation:
+            enabled:    true
+  # Configuration concernant la mise à jour du profile
+    profile:
+        form:
+            type: jac_user_profile
+    service:
+        mailer: fos_user.mailer.twig_swift
+
+    resetting:
+        token_ttl: 86400
+        form:
+          type: jac_user_resetting
+        email:
+            template: JacUserBundle:Resetting:resetting.email.html.twig
+
+vich_uploader:
+    db_driver: orm
+    mappings:
+        product_image:
+            uri_prefix:         %app.path.user_avatars%
+            upload_destination: %kernel.root_dir%/../web/uploads/images/avatars
+
+            inject_on_load:     false
+            delete_on_update:   true
+            delete_on_remove:   true

@@ -1,0 +1,155 @@
+fos_user:
+    username:
+        already_used: Le nom d'utilisateur est déjà utilisé
+        blank: Entrez un nom d'utilisateur s'il vous plait
+        short: "[-Inf,Inf]Le nom d'utilisateur est trop court"
+        long: "[-Inf,Inf]Le nom d'utilisateur est trop long"
+    email:
+        already_used: L'adresse e-mail est déjà utilisée
+        blank: Entrez une adresse e-mail s'il vous plait
+        short: "[-Inf,Inf]L'adresse e-mail est trop courte"
+        long: "[-Inf,Inf]L'adresse e-mail est trop longue"
+        invalid: L'adresse e-mail est invalide
+    password:
+        blank: Entrez un mot de passe s'il vous plait
+        short: "[-Inf,Inf]Le mot de passe est trop court"
+        mismatch: Les deux mots de passe ne sont pas identiques
+    new_password:
+        blank: Entrez un nouveau mot de passe s'il vous plait
+        short: "[-Inf,Inf]Le nouveau mot de passe est trop court"
+    current_password:
+        invalid: Le mot de passe est invalide
+    group:
+        blank: Entrez un nom s'il vous plait
+        short: "[-Inf,Inf]Le nom est trop court"
+        long: "[-Inf,Inf]Le nom est trop long"
+
+# Group
+group:
+    edit:
+        submit: Mettre à jour le groupe
+    show:
+        name: Nom du groupe
+    new:
+        submit: Créer le groupe
+    flash:
+        updated: Le groupe a été mis à jour
+        created: Le groupe a été créé
+        deleted: Le groupe a été supprimé
+
+# Security
+"Bad credentials": Nom d'utilisateur ou mot de passe incorrect
+"User account is disabled.": Vous devez activer votre compte.
+"User account is locked.":   Le compte utilisateur est verrouillé.
+"User account has expired.": Le compte de l'utilisateur a expiré.
+"User credentials have expired.": Les informations d'identification ont expiré.
+
+security:
+    login:
+        title: Connexion
+        username: "Votre email :"
+        password: "Mot de passe :"
+        remember_me: Se souvenir de moi
+        submit: Connexion
+    forgotpassword: Mot de passe oublié ?
+
+# Profile
+profile:
+    title:  Profile
+    show:
+        username: Nom d'utilisateur
+        email: Adresse e-mail
+        liste_cours: Voir la liste des cours
+    edit:
+        submit: Mettre à jour
+        unsubscribe: Se désabonner
+    flash:
+        updated: Le profil a été mis à jour
+
+# Password change
+change_password:
+    title: Modifier Mot de Passe
+    submit: Modifier le mot de passe
+    flash:
+        success: Le mot de passe a été modifié
+
+# Registration
+registration:
+    title: S'inscrire
+    legend:
+        1: Connexion
+        2: Identité
+        3: Entreprise
+
+    name: Nom d'utilisateur
+    form_email: Votre email
+    password: Mot de passe
+    firstname: Prénom
+    lastname: Nom
+    phone: Téléphone
+    nomEntreprise: Nom de votre entreprise
+    # ( = celui de votre registre de commerce)
+    adresse: Adresse physique de votre entreprise
+    #(Rue, Numero,etc...)
+    ifu: Numéro IFU
+    rcc: Régistre de commerce
+    check_email: Un e-mail a été envoyé à l'adresse %email%. Il contient un lien d'activation sur lequel il vous faudra cliquer afin d'activer votre compte.
+    confirmed: Félicitations %username%, votre compte est maintenant activé.
+    back: Retour à la page d'origine.
+    submit: Commencez
+    flash:
+        user_created: L'utilisateur a été créé avec succès
+    email:
+        subject: Bienvenue %username% !
+        message: |
+            Bonjour %username% !
+
+            Pour valider votre compte utilisateur, merci de vous rendre sur %confirmationUrl%
+
+            Cordialement,
+            L'équipe.
+
+# Password
+resetting:
+    password_already_requested:
+        title:    Demande de réintialisation en cours
+        content:  Un nouveau mot de passe a déjà été demandé pour cet utilisateur dans les dernières 24 heures.
+    check_email:
+        title:  Consulter Votre boite de messagerie
+        content: Un e-mail a été envoyé à l'adresse %email%. Il contient un lien sur lequel il vous faudra cliquer afin de réinitialiser votre mot de passe.
+    request:
+        title: Réintialisation du mot de passe
+        invalid_username: Le nom d'utilisateur ou l'adresse e-mail "%username%" n'existe pas.
+        username: "Nom d'utilisateur ou adresse e-mail :"
+
+    reset:
+        title:  Modification du mot de passe
+        submit: Modifier
+    flash: Le mot de passe a été réinitialisé avec succès
+    email:
+        subject: Réinitialisation de votre mot de passe
+        message: |
+            Bonjour %username% !
+
+            Pour réinitialiser votre mot de passe, merci de vous rendre sur %confirmationUrl%
+
+            Cordialement,
+            L'équipe.
+
+# Global strings
+layout:
+    logout: Déconnexion
+    login: Se connecter
+    register: S'inscrire
+    logged_in_as: Connecté en tant que %username%
+
+# Form field labels
+form:
+    group_name: "Nom du groupe :"
+    username: "Nom d'utilisateur ou email :"
+    email: "Adresse e-mail :"
+    current_password: "Mot de passe actuel :"
+    password: "Mot de passe :"
+    password_confirmation: "Vérification :"
+    new_password: "Nouveau mot de passe :"
+    new_password_confirmation: "Vérification :"

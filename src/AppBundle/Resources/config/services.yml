@@ -1,0 +1,4 @@
+services:
+#    ben_agro.example:
+#        class: Ben\AgroBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]

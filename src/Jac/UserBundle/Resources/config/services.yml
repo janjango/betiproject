@@ -1,0 +1,29 @@
+parameters:
+    jac_user.register.form.type.class: Jac\UserBundle\Form\Type\RegistrationFormType
+    jac_user.resetting.form.type.class: Jac\UserBundle\Form\Type\ResettingFormType
+    jac_user.profile.form.type.class: Jac\UserBundle\Form\Type\ProfileFormType
+    fos_user.entity.user.class: Jac\UserBundle\Entity\User
+
+services:
+
+# Type de formulaire - Formulaire d'inscription
+    jac_user.register.form.type:
+        class: %jac_user.register.form.type.class%
+        tags:
+            - { name: form, alias: jac_user_registration }
+
+# Type de formulaire - Formulaire de réinitialisation
+
+    jac_user.resetting.form.type:
+        class: %jac_user.resetting.form.type.class%
+        arguments: [%fos_user.entity.user.class%]
+        tags:
+            - { name: form.type, alias: jac_user_resetting }
+
+# Type de formulaire - Formulaire de modification du profile
+    jac_user.profile.form.type:
+        class: %jac_user.profile.form.type.class%
+        arguments: [%fos_user.entity.user.class%]
+        tags:
+            - { name: form.type }
+

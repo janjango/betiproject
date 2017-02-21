@@ -1,0 +1,12 @@
+{{ form_start(form, {'method': 'POST', 'action': path('fos_user_registration_register'), 'attr':{ 'role': 'form' }}) }}
+{#
+<div class="alert alert-info">Tous les champs sont obligatioires</div>
+<form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">#}
+{{ form_widget(form) }}
+{#
+<div>
+    <input class="btn btn-primary" type="submit" value="{{ 'registration.submit'|trans({}, 'FOSUserBundle') }}" />
+</div>
+#}
+<div id="rendered"></div>
+<button class="btn btn-primary btn-xs " type="submit" style="float: right;margin-top: 2%;">{{ 'registration.submit'|trans({}, 'FOSUserBundle') }}</button>

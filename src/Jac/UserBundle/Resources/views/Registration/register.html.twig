@@ -1,0 +1,28 @@
+{% extends "JacUserBundle::layout.html.twig" %}
+
+{# Le titre de l'entête du document #}
+{% block entetetitle %}Inscription | {{ parent() }}{% endblock %}
+
+{% block titre %} <i class="fa fa-user"> </i> {{ 'registration.title'|trans({}, 'FOSUserBundle') }} ou <a class="btn btn-info btn-xs " href="{{ path("fos_user_security_login") }}"> Se connecter</a> <span style="font-size: 12px;float: right; color: #720e9e;">  <i class="fa fa-phone"> </i> MyContacts </span>{% endblock  %}
+{% block styleuser %} style="margin-top: -70%;" {% endblock  %}
+{% block fos_user_content %}
+
+    {% include "JacUserBundle:Registration:register_content.html.twig" %}
+
+    {# L'utilisateur est-il connecté ? #}
+    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        {# L'utilisateur e le rôle admin ? #}
+        {% if is_granted('ROLE_ADMIN') %}
+
+        {% endif %}
+    {% endif %}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        require(['user/Register']);
+    </script>
+{% endblock %}
+
