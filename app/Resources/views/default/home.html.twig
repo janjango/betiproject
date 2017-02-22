@@ -109,23 +109,33 @@
                                         </li> 
                                     </ul>
                                 </li>
-                                <li>
-                                    <a href="#" class="sidebar-nav-menu"><i class="fa fa-angle-left sidebar-nav-indicator sidebar-nav-mini-hide"></i><i class="fa fa-wrench sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Administration</span></a>
-                                    <ul>                                        
-                                        <li>
-                                            <a href="page_comp_carousel.html">Carousel</a>
-                                        </li>
-                                        <li>
-                                            <a href="page_comp_calendar.html">Calendar</a>
-                                        </li>
-                                        <li>
-                                            <a href="page_comp_animations.html">CSS3 Animations</a>
-                                        </li>
-                                        <li>
-                                            <a href="page_comp_syntax_highlighting.html">Syntax Highlighting</a>
-                                        </li>
-                                    </ul>
-                                </li>
+                                
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <li>
+                                        <a href="{{ path('easyadmin') }}" class="" target="_blank">
+                                            <i class="fa fa-angle-left sidebar-nav-indicator sidebar-nav-mini-hide"></i>
+                                            <i class="fa fa-wrench sidebar-nav-icon"></i>
+                                            <span class="sidebar-nav-mini-hide">Administration</span>
+                                        </a>
+                                        <!--
+                                        <ul>                                        
+                                            <li>
+                                                <a href="page_comp_carousel.html">Menu</a>
+                                            </li>
+                                            <li>
+                                                <a href="page_comp_calendar.html">Sous-menu</a>
+                                            </li>
+                                            <li>
+                                                <a href="page_comp_animations.html">CSS3 Animations</a>
+                                            </li>
+                                            <li>
+                                                <a href="page_comp_syntax_highlighting.html">Syntax Highlighting</a>
+                                            </li>
+                                        </ul>
+                                        -->
+                                    </li>
+                                {% endif %}
+                                
                             </ul>
                             <!-- END Sidebar Navigation -->                            
                         </div>
@@ -185,7 +195,7 @@
                                     </li>
                                     <li class="divider"></li>
                                     <li>
-                                        <a href="login.html"><i class="fa fa-ban fa-fw pull-right"></i> Déconnxion</a>
+                                        <a href="{{ path('fos_user_security_logout') }}"><i class="fa fa-ban fa-fw pull-right"></i> Déconnxion</a>
                                     </li>
                                     
                                 </ul>

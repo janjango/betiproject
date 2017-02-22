@@ -10,7 +10,7 @@ parameters:
     app.path.user_avatars: /uploads/images/avatars
 framework:
     #esi:             ~
-    translator:      { fallbacks: ["%locale%"] }
+    translator:      ~
     secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -117,3 +117,32 @@ vich_uploader:
             inject_on_load:     false
             delete_on_update:   true
             delete_on_remove:   true
+            
+easy_admin:
+    site_name: 'REGIS PRO ADMIN'
+#    design:
+#        brand_color: '#1ABC9C'
+
+    entities:
+
+        Menu:
+            class: AppBundle\Entity\Menu
+            
+        SousMenu:
+            class: AppBundle\Entity\SousMenu
+            
+        Direction:
+            class: AppBundle\Entity\Direction
+            
+        Service:
+            class: AppBundle\Entity\Service
+            
+        User:
+            class: Jac\UserBundle\Entity\User
+            
+        Privilege:
+            class: AppBundle\Entity\Privilege
+            
+
+            
+

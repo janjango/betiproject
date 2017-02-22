@@ -5,3 +5,8 @@ app:
 # Route de FOSUserBundle
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+    
+easy_admin_bundle:
+    resource: "@EasyAdminBundle/Controller/"
+    type:     annotation
+    prefix:   /_secret_backend  # <-- change this value
