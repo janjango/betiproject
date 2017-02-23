@@ -146,28 +146,4 @@ class SousMenu {
     {
         return $this->privileges;
     }
-
-    /**
-     * Set iconsousmenu
-     *
-     * @param string $iconsousmenu
-     *
-     * @return SousMenu
-     */
-    public function setIconsousmenu($iconsousmenu)
-    {
-        $this->iconsousmenu = $iconsousmenu;
-
-        return $this;
-    }
-
-    /**
-     * Get iconsousmenu
-     *
-     * @return string
-     */
-    public function getIconsousmenu()
-    {
-        return $this->iconsousmenu;
-    }
 }

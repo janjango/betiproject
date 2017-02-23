@@ -118,28 +118,4 @@ class Menu {
     {
         return $this->sousMenus;
     }
-
-    /**
-     * Set iconmenu
-     *
-     * @param string $iconmenu
-     *
-     * @return Menu
-     */
-    public function setIconmenu($iconmenu)
-    {
-        $this->iconmenu = $iconmenu;
-
-        return $this;
-    }
-
-    /**
-     * Get iconmenu
-     *
-     * @return string
-     */
-    public function getIconmenu()
-    {
-        return $this->iconmenu;
-    }
 }
