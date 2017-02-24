@@ -32,6 +32,13 @@ class Menu {
     private $libelle;
 
     /**
+     * @var string The iconmenu of the SousMenu.
+     * @ORM\Column(name="iconmenu", nullable=true)
+     * @Assert\Type(type="string")
+     */
+    private $iconmenu;
+
+    /**
      * @ORM\OneToMany(targetEntity="SousMenu", mappedBy="menu")
      */
     private $sousMenus;
@@ -110,5 +117,29 @@ class Menu {
     public function getSousMenus()
     {
         return $this->sousMenus;
+    }
+
+    /**
+     * Set iconmenu
+     *
+     * @param string $iconmenu
+     *
+     * @return Menu
+     */
+    public function setIconmenu($iconmenu)
+    {
+        $this->iconmenu = $iconmenu;
+
+        return $this;
+    }
+
+    /**
+     * Get iconmenu
+     *
+     * @return string
+     */
+    public function getIconmenu()
+    {
+        return $this->iconmenu;
     }
 }

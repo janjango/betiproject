@@ -1,0 +1,15 @@
+{% extends '@EasyAdmin/default/layout.html.twig' %}
+{% block header_custom_menu %}
+    <ul class="nav navbar-nav">
+        <li class="user custom-menu">
+            <a class="btn-xs btn-primary" href="{{ path('homepage') }}">
+                <i class="hidden-xs fa fa-home"> Accueil</i>
+            </a>
+        </li>
+        <li class="user user-menu">
+            {% block user_menu %}
+                {{ parent() }}
+            {% endblock user_menu %}
+        </li>
+    </ul>
+{% endblock header_custom_menu %}

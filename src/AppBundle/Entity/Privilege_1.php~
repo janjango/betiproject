@@ -9,11 +9,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  *
- * @ORM\Entity(repositoryClass="AppBundle\Repository\MenuRepository")
- * @ORM\Table("Menu")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\PrivilegeRepository")
+ * @ORM\Table("Privilege")
  * @ORM\HasLifecycleCallbacks()
  */
-class Menu {
+class Privilege {
 
     /**
      * @var int
@@ -25,24 +25,25 @@ class Menu {
     private $id;
 
     /**
-     * @var string The libelle of the Menu.
+     * @var string The libelle of the Privilege.
      * @ORM\Column(name="libelle", nullable=true)
      * @Assert\Type(type="string")
      */
     private $libelle;
 
-    /**
-     * @ORM\OneToMany(targetEntity="SousMenu", mappedBy="menu")
-     */
-    private $sousMenus;
 
     /**
-     * Constructor
+     * @ORM\ManyToOne(targetEntity="SousMenu")
+     * @ORM\JoinColumn(nullable=false)
      */
-    public function __construct()
-    {
-        $this->sousMenus = new \Doctrine\Common\Collections\ArrayCollection();
-    }
+    private $sousMenu;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Jac\UserBundle\Entity\User")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
 
     /**
      * Get id
@@ -59,7 +60,7 @@ class Menu {
      *
      * @param string $libelle
      *
-     * @return Menu
+     * @return Privilege
      */
     public function setLibelle($libelle)
     {
@@ -79,36 +80,50 @@ class Menu {
     }
 
     /**
-     * Add sousMenu
+     * Set sousMenu
      *
      * @param \AppBundle\Entity\SousMenu $sousMenu
      *
-     * @return Menu
+     * @return Privilege
      */
-    public function addSousMenu(\AppBundle\Entity\SousMenu $sousMenu)
+    public function setSousMenu(\AppBundle\Entity\SousMenu $sousMenu)
     {
-        $this->sousMenus[] = $sousMenu;
+        $this->sousMenu = $sousMenu;
 
         return $this;
     }
 
     /**
-     * Remove sousMenu
+     * Get sousMenu
      *
-     * @param \AppBundle\Entity\SousMenu $sousMenu
+     * @return \AppBundle\Entity\SousMenu
      */
-    public function removeSousMenu(\AppBundle\Entity\SousMenu $sousMenu)
+    public function getSousMenu()
     {
-        $this->sousMenus->removeElement($sousMenu);
+        return $this->sousMenu;
     }
 
     /**
-     * Get sousMenus
+     * Set user
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @param \Jac\UserBundle\Entity\User $user
+     *
+     * @return Privilege
      */
-    public function getSousMenus()
+    public function setUser(\Jac\UserBundle\Entity\User $user)
     {
-        return $this->sousMenus;
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Jac\UserBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

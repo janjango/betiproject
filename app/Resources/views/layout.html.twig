@@ -50,11 +50,9 @@
 {% block adminContainer %}
 {% endblock %}
 <!-- Login Alternative Row -->
-<div class="container">
-    {% block container %}
+{% block container %}
 
-    {% endblock %}
-</div>
+{% endblock %}
 <!-- END Login Alternative Row -->
 
 <!-- Include Jquery library from Google's CDN but if something goes wrong get Jquery from local file -->
@@ -65,9 +63,10 @@
 <script src="{{ asset('/bundles/app/js/vendor/bootstrap.min.js') }}"></script>
 <script src="{{ asset('/bundles/app/js/plugins.js') }}"></script>
 <script src="{{ asset('/bundles/app/js/app.js') }}"></script>
-
+<script src="{{ asset('/bundles/app/js/pages/tablesDatatables.js') }}"></script>
 <!-- Load and execute javascript code used only in this page -->
 <script src="{{ asset('/bundles/app/js/pages/login.js') }}"></script>
 <script>$(function(){ Login.init(); });</script>
+<script>$(function(){ TablesDatatables.init(); });</script>
 </body>
 </html>

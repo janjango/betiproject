@@ -32,13 +32,6 @@ class Menu {
     private $libelle;
 
     /**
-     * @var string The iconmenu of the SousMenu.
-     * @ORM\Column(name="iconmenu", nullable=true)
-     * @Assert\Type(type="string")
-     */
-    private $iconmenu;
-
-    /**
      * @ORM\OneToMany(targetEntity="SousMenu", mappedBy="menu")
      */
     private $sousMenus;

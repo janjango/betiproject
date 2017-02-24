@@ -10,7 +10,7 @@ parameters:
     app.path.user_avatars: /uploads/images/avatars
 framework:
     #esi:             ~
-    translator:      { fallbacks: ["%locale%"] }
+    translator:      ~
     secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -66,8 +66,6 @@ doctrine:
                 password: "%psql_database_password%"
                 charset:  UTF8
 
-
-
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
         naming_strategy: doctrine.orm.naming_strategy.underscore
@@ -89,16 +87,16 @@ fos_user:
         address:        %from_email_address%
         sender_name:    %from_email_sender_name%
   # Configuration concernant l'inscription d'un nouvel utilisateur.
-    registration:
-        form:
-            type: Jac\UserBundle\Form\Type\RegistrationType
-
-        confirmation:
-            enabled:    true
+#    registration:
+#        form:
+#            type: Jac\UserBundle\Form\Type\RegistrationType
+#
+#        confirmation:
+#            enabled:    false
   # Configuration concernant la mise à jour du profile
     profile:
         form:
-            type: jac_user_profile
+            type: Jac\UserBundle\Form\Type\ProfileFormType
     service:
         mailer: fos_user.mailer.twig_swift
 
@@ -119,3 +117,57 @@ vich_uploader:
             inject_on_load:     false
             delete_on_update:   true
             delete_on_remove:   true
+            
+easy_admin:
+    site_name: 'REGIS PRO ADMIN'
+#    design:
+#        brand_color: '#1ABC9C'
+
+    entities:
+
+        Menu:
+            class: AppBundle\Entity\Menu
+            
+        SousMenu:
+            class: AppBundle\Entity\SousMenu
+            
+        Direction:
+            class: AppBundle\Entity\Direction
+            
+        Service:
+            class: AppBundle\Entity\Service
+            
+        User:
+            class: Jac\UserBundle\Entity\User
+            list:
+                fields:
+                    - { property: 'username' }
+                    - { property: 'email' }
+                    - { property: 'firstName' }
+                    - { property: 'lastName' }
+                    - { property: 'phone' }
+                    - { property: 'enabled' }
+                    - { property: 'lastLogin' }
+ 
+            new:
+                fields:
+                    - { property: 'username' }
+                    - { property: 'email' }
+                    - { property: 'plainPassword', type: 'password' }
+                    - { property: 'firstName' }
+                    - { property: 'lastName' }
+                    - { property: 'phone' }
+
+            edit:
+                fields:
+                    - { property: 'username' }
+                    - { property: 'email' }
+                    - { property: 'plainPassword', type: 'password' }
+                    - { property: 'firstName' }
+                    - { property: 'lastName' }
+                    - { property: 'phone' }
+                    
+        Privilege:
+            class: AppBundle\Entity\Privilege
+            
+

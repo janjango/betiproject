@@ -9,11 +9,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  *
- * @ORM\Entity(repositoryClass="AppBundle\Repository\MenuRepository")
- * @ORM\Table("Menu")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ServiceRepository")
+ * @ORM\Table("Service")
  * @ORM\HasLifecycleCallbacks()
  */
-class Menu {
+class Service {
 
     /**
      * @var int
@@ -25,24 +25,17 @@ class Menu {
     private $id;
 
     /**
-     * @var string The libelle of the Menu.
+     * @var string The libelle of the Service.
      * @ORM\Column(name="libelle", nullable=true)
      * @Assert\Type(type="string")
      */
     private $libelle;
 
     /**
-     * @ORM\OneToMany(targetEntity="SousMenu", mappedBy="menu")
+     * @ORM\ManyToOne(targetEntity="Direction", inversedBy="services")
      */
-    private $sousMenus;
+    private $direction;
 
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->sousMenus = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
      * Get id
@@ -59,7 +52,7 @@ class Menu {
      *
      * @param string $libelle
      *
-     * @return Menu
+     * @return Service
      */
     public function setLibelle($libelle)
     {
@@ -79,36 +72,26 @@ class Menu {
     }
 
     /**
-     * Add sousMenu
+     * Set direction
      *
-     * @param \AppBundle\Entity\SousMenu $sousMenu
+     * @param \AppBundle\Entity\Direction $direction
      *
-     * @return Menu
+     * @return Service
      */
-    public function addSousMenu(\AppBundle\Entity\SousMenu $sousMenu)
+    public function setDirection(\AppBundle\Entity\Direction $direction = null)
     {
-        $this->sousMenus[] = $sousMenu;
+        $this->direction = $direction;
 
         return $this;
     }
 
     /**
-     * Remove sousMenu
+     * Get direction
      *
-     * @param \AppBundle\Entity\SousMenu $sousMenu
+     * @return \AppBundle\Entity\Direction
      */
-    public function removeSousMenu(\AppBundle\Entity\SousMenu $sousMenu)
+    public function getDirection()
     {
-        $this->sousMenus->removeElement($sousMenu);
-    }
-
-    /**
-     * Get sousMenus
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getSousMenus()
-    {
-        return $this->sousMenus;
+        return $this->direction;
     }
 }

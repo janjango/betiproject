@@ -9,11 +9,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  *
- * @ORM\Entity(repositoryClass="AppBundle\Repository\MenuRepository")
- * @ORM\Table("Menu")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\DirectionRepository")
+ * @ORM\Table("Direction")
  * @ORM\HasLifecycleCallbacks()
  */
-class Menu {
+class Direction {
 
     /**
      * @var int
@@ -25,23 +25,23 @@ class Menu {
     private $id;
 
     /**
-     * @var string The libelle of the Menu.
+     * @var string The libelle of the Direction.
      * @ORM\Column(name="libelle", nullable=true)
      * @Assert\Type(type="string")
      */
     private $libelle;
 
     /**
-     * @ORM\OneToMany(targetEntity="SousMenu", mappedBy="menu")
+     * @ORM\OneToMany(targetEntity="Service", mappedBy="direction")
      */
-    private $sousMenus;
+    private $services;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->sousMenus = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->services = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -59,7 +59,7 @@ class Menu {
      *
      * @param string $libelle
      *
-     * @return Menu
+     * @return Direction
      */
     public function setLibelle($libelle)
     {
@@ -79,36 +79,36 @@ class Menu {
     }
 
     /**
-     * Add sousMenu
+     * Add service
      *
-     * @param \AppBundle\Entity\SousMenu $sousMenu
+     * @param \AppBundle\Entity\Service $service
      *
-     * @return Menu
+     * @return Direction
      */
-    public function addSousMenu(\AppBundle\Entity\SousMenu $sousMenu)
+    public function addService(\AppBundle\Entity\Service $service)
     {
-        $this->sousMenus[] = $sousMenu;
+        $this->services[] = $service;
 
         return $this;
     }
 
     /**
-     * Remove sousMenu
+     * Remove service
      *
-     * @param \AppBundle\Entity\SousMenu $sousMenu
+     * @param \AppBundle\Entity\Service $service
      */
-    public function removeSousMenu(\AppBundle\Entity\SousMenu $sousMenu)
+    public function removeService(\AppBundle\Entity\Service $service)
     {
-        $this->sousMenus->removeElement($sousMenu);
+        $this->services->removeElement($service);
     }
 
     /**
-     * Get sousMenus
+     * Get services
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getSousMenus()
+    public function getServices()
     {
-        return $this->sousMenus;
+        return $this->services;
     }
 }
