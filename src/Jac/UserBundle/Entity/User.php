@@ -115,7 +115,11 @@ class User extends BaseUser {
      */
     private $privileges;
 
-
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Service", inversedBy="users")
+     */
+    private $service;
+    
     public function __construct() {
         parent::__construct();
     }
@@ -272,5 +276,29 @@ class User extends BaseUser {
     public function getPrivileges()
     {
         return $this->privileges;
+    }
+
+    /**
+     * Set service
+     *
+     * @param \AppBundle\Entity\Service $service
+     *
+     * @return User
+     */
+    public function setService(\AppBundle\Entity\Service $service = null)
+    {
+        $this->service = $service;
+
+        return $this;
+    }
+
+    /**
+     * Get service
+     *
+     * @return \AppBundle\Entity\Service
+     */
+    public function getService()
+    {
+        return $this->service;
     }
 }

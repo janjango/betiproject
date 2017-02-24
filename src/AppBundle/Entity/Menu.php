@@ -30,6 +30,20 @@ class Menu {
      * @Assert\Type(type="string")
      */
     private $libelle;
+    
+    /**
+     * @var string The routeName of the Menu.
+     * @ORM\Column(name="routeName", nullable=true)
+     * @Assert\Type(type="string")
+     */
+    private $routeName;
+    
+    /**
+     * @var string The iconClass of the Menu.
+     * @ORM\Column(name="fontIconClass", nullable=true)
+     * @Assert\Type(type="string")
+     */
+    private $fontIconClass;
 
     /**
      * @ORM\OneToMany(targetEntity="SousMenu", mappedBy="menu")
@@ -110,5 +124,57 @@ class Menu {
     public function getSousMenus()
     {
         return $this->sousMenus;
+    }
+    
+    public function __toString(){
+        return $this->getLibelle();
+    }
+
+    /**
+     * Set routeName
+     *
+     * @param string $routeName
+     *
+     * @return Menu
+     */
+    public function setRouteName($routeName)
+    {
+        $this->routeName = $routeName;
+
+        return $this;
+    }
+
+    /**
+     * Get routeName
+     *
+     * @return string
+     */
+    public function getRouteName()
+    {
+        return $this->routeName;
+    }
+
+    /**
+     * Set fontIconClass
+     *
+     * @param string $fontIconClass
+     *
+     * @return Menu
+     */
+    public function setFontIconClass($fontIconClass)
+    {
+        $this->fontIconClass = $fontIconClass;
+
+        return $this;
+    }
+
+    /**
+     * Get fontIconClass
+     *
+     * @return string
+     */
+    public function getFontIconClass()
+    {
+        return $this->fontIconClass;
     }
 }

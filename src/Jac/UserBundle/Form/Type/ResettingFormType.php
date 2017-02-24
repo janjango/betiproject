@@ -1,6 +1,6 @@
 <?php
 
-namespace Ben\UserBundle\Form\Type;
+namespace Jac\UserBundle\Form\Type;
 
 use FOS\UserBundle\Form\Type\ResettingFormType as BaseResettingFormType;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;

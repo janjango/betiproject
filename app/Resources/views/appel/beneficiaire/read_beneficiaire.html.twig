@@ -1,0 +1,69 @@
+{% extends "home/layout.html.twig" %}
+{% block stylesheet %}
+
+{% endblock %}
+ {% block titletopmeu %}
+     <li>Appel</li>
+     <li><a href="{{ path('create_beneficiaire')}}">Bénéficiaires</a></li>
+ {% endblock %}
+ {% block content %}
+     <!-- Datatables Content -->
+     <div class="block full">
+         <div class="block-title">
+
+             <h2><strong>Bénéficiaires</strong></h2>
+
+             <a  href="{{ path('create_beneficiaire')}}"  title="Ajouter" class="btn btn-xs btn-success" >
+                 <i  class="fa fa-plus"></i></a>
+         </div>
+
+         <div class="table-responsive">
+             <table id="example-datatable" class="table table-vcenter table-condensed table-bordered">
+                 <thead>
+                 <tr>
+                     <th class="text-center"> Code</th>
+                     <th class="text-center hide"> Etat </th>
+                     <th class="text-center "> Nom</th>
+                     <th class="text-center "> Numéro compte</th>
+                     <th class="text-center ">Intitulé compte</th>
+
+                     <th class="text-center">Actions</th>
+                 </tr>
+
+                 </thead>
+                 <tbody>
+                 {% for element in  beneficiaires %}
+                     <tr>
+                         <td class="text-left">  {{ element.code }} </td>
+                         <td class="text-center hide">
+                         </td>
+                         <td class="text-left">  {{ element.libBeneficiaire }}</td>
+                         <td class="text-left"> {{ element.numeroCompte }} </td>
+                         <td class="text-left ">  {{ element.intituleCompte }} </td>
+
+                         <td class="text-center">
+                             <a href="{{ path('update_beneficiaire', {'id': element.id } )}}" data-toggle="tooltip" title="Edit" class="btn btn-xs btn-default"><i class="fa fa-pencil"></i></a>
+
+                             <a href="#modal-regular{{ element.id }}" data-toggle="modal" title="Delete" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></a>
+                             {% include 'appel/beneficiaire/delete_beneficiaire.html.twig'  %}
+                         </td>
+                     </tr>
+                 {% endfor %}
+                 </tbody>
+             </table>
+         </div>
+     </div>
+     <!-- END Datatables Content -->
+
+ {% endblock %}
+
+{% block javascript %}
+    <!-- Load and execute javascript code used only in this page -->
+    <script src="{{ asset('/bundles/app/js/helpers/ckeditor/ckeditor.js') }}"></script>
+
+    <script src="{{ asset('/bundles/app/js/pages/tablesDatatables.js') }}"></script>
+    <script>$(function () {
+            TablesDatatables.init();
+        });</script>
+
+{% endblock %}

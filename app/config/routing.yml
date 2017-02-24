@@ -9,4 +9,4 @@ fos_user:
 easy_admin_bundle:
     resource: "@EasyAdminBundle/Controller/"
     type:     annotation
-    prefix:   /_secret_backend  # <-- change this value
+    prefix:   /rp_backend  # <-- change this value

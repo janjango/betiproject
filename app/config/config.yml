@@ -87,16 +87,16 @@ fos_user:
         address:        %from_email_address%
         sender_name:    %from_email_sender_name%
   # Configuration concernant l'inscription d'un nouvel utilisateur.
-    registration:
-        form:
-            type: Jac\UserBundle\Form\Type\RegistrationType
-
-        confirmation:
-            enabled:    true
+#    registration:
+#        form:
+#            type: Jac\UserBundle\Form\Type\RegistrationType
+#
+#        confirmation:
+#            enabled:    false
   # Configuration concernant la mise à jour du profile
     profile:
         form:
-            type: jac_user_profile
+            type: Jac\UserBundle\Form\Type\ProfileFormType
     service:
         mailer: fos_user.mailer.twig_swift
 
@@ -139,10 +139,38 @@ easy_admin:
             
         User:
             class: Jac\UserBundle\Entity\User
-            
+            list:
+                fields:
+                    - { property: 'username' }
+                    - { property: 'email' }
+                    - { property: 'firstName' }
+                    - { property: 'lastName' }
+                    - { property: 'phone' }
+                    - { property: 'enabled' }
+                    - { property: 'lastLogin' }
+                    - { property: 'service' }
+ 
+            new:
+                fields:
+                    - { property: 'username' }
+                    - { property: 'email' }
+                    - { property: 'plainPassword', type: 'password' }
+                    - { property: 'firstName' }
+                    - { property: 'lastName' }
+                    - { property: 'phone' }
+                    - { property: 'service' }
+
+            edit:
+                fields:
+                    - { property: 'username' }
+                    - { property: 'email' }
+                    - { property: 'plainPassword', type: 'password' }
+                    - { property: 'firstName' }
+                    - { property: 'lastName' }
+                    - { property: 'phone' }
+                    - { property: 'service' }
+                    
         Privilege:
             class: AppBundle\Entity\Privilege
-            
-
             
 
