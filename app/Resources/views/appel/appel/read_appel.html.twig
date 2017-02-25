@@ -13,7 +13,7 @@
 
              <h2>
                  <strong> Appels - </strong>
-                 <span> Report à nouveau = {{ solde|number_format(2, ',', '.') }} francs CFA</span>
+                 <span> Report à nouveau de l'exercice : {{ solde|number_format(2, ',', '.') }} francs CFA</span>
                  <select id="getExo" name="getExo" class="select-chosen ">
                      {% for elt in  exercices %}
                          <option value="{{ elt.id }}"  {% if elt.id==exercice %} selected="true" {% endif %}>{{ elt.libExercice }}</option>
@@ -69,9 +69,9 @@
                             {% if element.estAnnuler==0 %}
                              <a href="#modal-regular2{{ element.id }}" data-toggle="modal" title="Annuler" class="btn btn-xs btn-warning"><i class="fa fa-times-circle"></i></a>
                              {% include 'appel/appel/cancel_appel.html.twig'  %}
-                             {% endif %}
-                             <a href="{{ path('update_appel', {'id': element.id } )}}" data-toggle="tooltip" title="Edit" class="btn btn-xs btn-default"><i class="fa fa-pencil"></i></a>
 
+                             <a href="{{ path('update_appel', {'id': element.id } )}}" data-toggle="tooltip" title="Edit" class="btn btn-xs btn-default"><i class="fa fa-pencil"></i></a>
+                             {% endif %}
                              <a href="#modal-regular{{ element.id }}" data-toggle="modal" title="Delete" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></a>
                              {% include 'appel/appel/delete_appel.html.twig'  %}
 
