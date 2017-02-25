@@ -199,12 +199,8 @@ class Beneficiaire
     {
         return $this->appels;
     }
-<<<<<<< HEAD
-
     public function __toString() {
         return $this->libBeneficiaire;
     }
-    
-=======
->>>>>>> e90a8e86fcf344935894ebd685ca3527a71d55c4
+
 }

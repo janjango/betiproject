@@ -107,11 +107,8 @@ class ObjetAppel
     {
         return $this->appels;
     }
-<<<<<<< HEAD
 
     public function __toString() {
         return $this->libObjet;
     }
-=======
->>>>>>> e90a8e86fcf344935894ebd685ca3527a71d55c4
 }
