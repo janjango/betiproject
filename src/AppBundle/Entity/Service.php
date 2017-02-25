@@ -36,7 +36,11 @@ class Service {
      */
     private $direction;
 
-
+    /**
+     * @ORM\OneToMany(targetEntity="Jac\UserBundle\Entity\User", mappedBy="service")
+     */
+    private $users;
+    
     /**
      * Get id
      *
@@ -93,5 +97,50 @@ class Service {
     public function getDirection()
     {
         return $this->direction;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->users = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add user
+     *
+     * @param \Jac\UserBundle\Entity\User $user
+     *
+     * @return Service
+     */
+    public function addUser(\Jac\UserBundle\Entity\User $user)
+    {
+        $this->users[] = $user;
+
+        return $this;
+    }
+
+    /**
+     * Remove user
+     *
+     * @param \Jac\UserBundle\Entity\User $user
+     */
+    public function removeUser(\Jac\UserBundle\Entity\User $user)
+    {
+        $this->users->removeElement($user);
+    }
+
+    /**
+     * Get users
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUsers()
+    {
+        return $this->users;
+    }
+    
+    public function __toString(){
+        return $this->getLibelle();
     }
 }

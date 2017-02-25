@@ -32,6 +32,13 @@ class SousMenu {
     private $libelle;
 
     /**
+     * @var string The routeName of the Menu.
+     * @ORM\Column(name="routeName", nullable=true)
+     * @Assert\Type(type="string")
+     */
+    private $routeName;
+    
+    /**
      * @ORM\ManyToOne(targetEntity="Menu", inversedBy="sousMenus")
      */
     private $menu;
@@ -138,5 +145,9 @@ class SousMenu {
     public function getPrivileges()
     {
         return $this->privileges;
+    }
+    
+    public function __toString(){
+        return $this->getLibelle();
     }
 }

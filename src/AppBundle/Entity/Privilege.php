@@ -25,14 +25,6 @@ class Privilege {
     private $id;
 
     /**
-     * @var string The libelle of the Privilege.
-     * @ORM\Column(name="libelle", nullable=true)
-     * @Assert\Type(type="string")
-     */
-    private $libelle;
-
-
-    /**
      * @ORM\ManyToOne(targetEntity="SousMenu")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -53,30 +45,6 @@ class Privilege {
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set libelle
-     *
-     * @param string $libelle
-     *
-     * @return Privilege
-     */
-    public function setLibelle($libelle)
-    {
-        $this->libelle = $libelle;
-
-        return $this;
-    }
-
-    /**
-     * Get libelle
-     *
-     * @return string
-     */
-    public function getLibelle()
-    {
-        return $this->libelle;
     }
 
     /**
@@ -125,5 +93,9 @@ class Privilege {
     public function getUser()
     {
         return $this->user;
+    }
+    
+    public function __toString(){
+        return $this->getSousMenu() ." ". $this->getUser();
     }
 }

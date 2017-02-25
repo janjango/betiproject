@@ -10,6 +10,7 @@ namespace AppBundle\Repository;
  */
 class AppelRepository extends \Doctrine\ORM\EntityRepository
 {
+<<<<<<< HEAD
     public function getSommeajouter($exo)
     {
 //        $dql = "SELECT SUM(a.montantTtc) AS montantSum FROM AppBundle\Entity\Appel a " .
@@ -40,4 +41,6 @@ class AppelRepository extends \Doctrine\ORM\EntityRepository
 
     }
 
+=======
+>>>>>>> e90a8e86fcf344935894ebd685ca3527a71d55c4
 }

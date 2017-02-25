@@ -148,6 +148,10 @@ easy_admin:
                     - { property: 'phone' }
                     - { property: 'enabled' }
                     - { property: 'lastLogin' }
+<<<<<<< HEAD
+=======
+                    - { property: 'service' }
+>>>>>>> e90a8e86fcf344935894ebd685ca3527a71d55c4
  
             new:
                 fields:
@@ -157,6 +161,10 @@ easy_admin:
                     - { property: 'firstName' }
                     - { property: 'lastName' }
                     - { property: 'phone' }
+<<<<<<< HEAD
+=======
+                    - { property: 'service' }
+>>>>>>> e90a8e86fcf344935894ebd685ca3527a71d55c4
 
             edit:
                 fields:
@@ -166,6 +174,10 @@ easy_admin:
                     - { property: 'firstName' }
                     - { property: 'lastName' }
                     - { property: 'phone' }
+<<<<<<< HEAD
+=======
+                    - { property: 'service' }
+>>>>>>> e90a8e86fcf344935894ebd685ca3527a71d55c4
                     
         Privilege:
             class: AppBundle\Entity\Privilege

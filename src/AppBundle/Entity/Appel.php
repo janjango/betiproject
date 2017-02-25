@@ -14,17 +14,26 @@ class Appel
 {
     /**
      * @ORM\ManyToOne(targetEntity="ObjetAppel", inversedBy="appels")
+<<<<<<< HEAD
      * @ORM\JoinColumn(nullable=true)
+=======
+>>>>>>> e90a8e86fcf344935894ebd685ca3527a71d55c4
      */
     private $objetappel;
     /**
      * @ORM\ManyToOne(targetEntity="Exercice", inversedBy="appels")
+<<<<<<< HEAD
      * @ORM\JoinColumn(nullable=true)
+=======
+>>>>>>> e90a8e86fcf344935894ebd685ca3527a71d55c4
      */
     private $exercice;
     /**
      * @ORM\ManyToOne(targetEntity="Beneficiaire", inversedBy="appels")
+<<<<<<< HEAD
      * @ORM\JoinColumn(nullable=true)
+=======
+>>>>>>> e90a8e86fcf344935894ebd685ca3527a71d55c4
      */
     private $beneficiaire;
     /**
@@ -60,28 +69,44 @@ class Appel
     /**
      * @var string
      *
+<<<<<<< HEAD
      * @ORM\Column(name="refEngagement", type="string", length=255, nullable=true)
+=======
+     * @ORM\Column(name="refEngagement", type="string", length=255)
+>>>>>>> e90a8e86fcf344935894ebd685ca3527a71d55c4
      */
     private $refEngagement;
 
     /**
      * @var \DateTime
      *
+<<<<<<< HEAD
      * @ORM\Column(name="dateEngagement", type="datetime", nullable=true)
+=======
+     * @ORM\Column(name="dateEngagement", type="datetime")
+>>>>>>> e90a8e86fcf344935894ebd685ca3527a71d55c4
      */
     private $dateEngagement;
 
     /**
      * @var string
      *
+<<<<<<< HEAD
      * @ORM\Column(name="refBordereau", type="string", length=255, nullable=true)
+=======
+     * @ORM\Column(name="refBordereau", type="string", length=255)
+>>>>>>> e90a8e86fcf344935894ebd685ca3527a71d55c4
      */
     private $refBordereau;
 
     /**
      * @var \DateTime
      *
+<<<<<<< HEAD
      * @ORM\Column(name="dateBordereau", type="datetime", nullable=true)
+=======
+     * @ORM\Column(name="dateBordereau", type="datetime")
+>>>>>>> e90a8e86fcf344935894ebd685ca3527a71d55c4
      */
     private $dateBordereau;
 
@@ -102,49 +127,77 @@ class Appel
     /**
      * @var \DateTime
      *
+<<<<<<< HEAD
      * @ORM\Column(name="dateCreate", type="datetime", nullable=true, nullable=true)
+=======
+     * @ORM\Column(name="dateCreate", type="datetime")
+>>>>>>> e90a8e86fcf344935894ebd685ca3527a71d55c4
      */
     private $dateCreate;
 
     /**
      * @var string
      *
+<<<<<<< HEAD
      * @ORM\Column(name="userCreate", type="string", length=255, nullable=true)
+=======
+     * @ORM\Column(name="userCreate", type="string", length=255)
+>>>>>>> e90a8e86fcf344935894ebd685ca3527a71d55c4
      */
     private $userCreate;
 
     /**
      * @var \DateTime
      *
+<<<<<<< HEAD
      * @ORM\Column(name="dateModif", type="datetime", nullable=true)
+=======
+     * @ORM\Column(name="dateModif", type="datetime")
+>>>>>>> e90a8e86fcf344935894ebd685ca3527a71d55c4
      */
     private $dateModif;
 
     /**
      * @var string
      *
+<<<<<<< HEAD
      * @ORM\Column(name="userModif", type="string", length=255, nullable=true)
+=======
+     * @ORM\Column(name="userModif", type="string", length=255)
+>>>>>>> e90a8e86fcf344935894ebd685ca3527a71d55c4
      */
     private $userModif;
 
     /**
      * @var bool
      *
+<<<<<<< HEAD
      * @ORM\Column(name="estAnnuler", type="boolean", nullable=true)
+=======
+     * @ORM\Column(name="estAnnuler", type="boolean")
+>>>>>>> e90a8e86fcf344935894ebd685ca3527a71d55c4
      */
     private $estAnnuler;
 
     /**
      * @var string
      *
+<<<<<<< HEAD
      * @ORM\Column(name="montant", type="decimal", precision=10, scale=2, nullable=true)
+=======
+     * @ORM\Column(name="montant", type="decimal", precision=10, scale=2)
+>>>>>>> e90a8e86fcf344935894ebd685ca3527a71d55c4
      */
     private $montant;
 
     /**
      * @var string
      *
+<<<<<<< HEAD
      * @ORM\Column(name="solde", type="decimal", precision=10, scale=2, nullable=true)
+=======
+     * @ORM\Column(name="solde", type="decimal", precision=10, scale=2)
+>>>>>>> e90a8e86fcf344935894ebd685ca3527a71d55c4
      */
     private $solde;
 
