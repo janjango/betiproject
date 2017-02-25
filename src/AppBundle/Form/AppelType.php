@@ -3,15 +3,12 @@
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
-<<<<<<< HEAD
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-=======
->>>>>>> e90a8e86fcf344935894ebd685ca3527a71d55c4
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -22,7 +19,6 @@ class AppelType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-<<<<<<< HEAD
         $builder
 
             ->add('referenceAppel', TextType::class, array(
@@ -98,9 +94,7 @@ class AppelType extends AbstractType
                 'attr' =>array(
                     'class' =>'form-control'
                 )));
-=======
-        $builder->add('referenceAppel')->add('dateAppel')->add('refEngagement')->add('dateEngagement')->add('refBordereau')->add('dateBordereau')->add('montantHt')->add('montantTtc')->add('dateCreate')->add('userCreate')->add('dateModif')->add('userModif')->add('estAnnuler')->add('montant')->add('solde')        ;
->>>>>>> e90a8e86fcf344935894ebd685ca3527a71d55c4
+
     }
     
     /**
