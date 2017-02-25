@@ -10,4 +10,34 @@ namespace AppBundle\Repository;
  */
 class AppelRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getSommeajouter($exo)
+    {
+//        $dql = "SELECT SUM(a.montantTtc) AS montantSum FROM AppBundle\Entity\Appel a " .
+//            "WHERE a.estAnnuler = 0 AND a.exercice < :exo";
+//
+//        $balance =  $this->_em->createQuery($dql)
+//            ->setParameter('exo', $exo)
+//            ->getSingleScalarResult();
+        $q = $this->createQueryBuilder('a')
+            ->select('SUM(a.montantTtc)')
+            ->where('a.estAnnuler = 0')
+            ->andWhere('a.exercice < :exo')
+            ->setParameter('exo', $exo);
+
+        return $q->getQuery()->getSingleScalarResult();
+
+    }
+
+    public function getSommeannuler($exo)
+    {
+        $q = $this->createQueryBuilder('a')
+            ->select('SUM(a.montantTtc)')
+            ->where('a.estAnnuler = 1')
+            ->andWhere('a.exercice < :exo')
+            ->setParameter('exo', $exo);
+
+        return $q->getQuery()->getSingleScalarResult();
+
+    }
+
 }

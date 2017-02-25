@@ -101,7 +101,7 @@
                                         <a href="{{ path('read_beneficiaire') }}">Bénéficiaire</a>
                                     </li>
                                     <li>
-                                        <a href="{{ path('read_appel') }}">Appel</a>
+                                        <a href="{{ path('read_appel', {'exercice': 1}) }}">Appels</a>
                                     </li>
                                 </ul>
                             </li>      
@@ -217,6 +217,11 @@
                 <!-- END Header -->
                 <!-- Page content -->
                 <div id="page-content">
+                    <ul class="breadcrumb breadcrumb-top">
+                        {% block titletopmeu %}
+
+                        {% endblock %}
+                    </ul>
                     {% block content %}
 
                     {% endblock %} 

@@ -8,29 +8,30 @@
      <li><a href="{{ path('create_beneficiaire')}}">Enregistrement</a></li>
  {% endblock %}
  {% block content %}
-
-<div class="block col-sm-6">
-    <!-- Normal Form Title -->
-    <div class="block-title">
-        <div class="block-options pull-right">
-            <a href="{{ path('read_beneficiaire')}}" class="btn btn-alt btn-sm btn-default toggle-bordered enable-tooltip" >Retour</a>
+ <div class="row">
+    <div class="block col-sm-6 col-sm-offset-2">
+        <!-- Normal Form Title -->
+        <div class="block-title">
+            <div class="block-options pull-right">
+                <a href="{{ path('read_beneficiaire')}}" class="btn btn-alt btn-sm btn-default toggle-bordered enable-tooltip" >Retour</a>
+            </div>
+            <h2><strong>Nouveau Bénéficiaires</strong> </h2>
         </div>
-        <h2><strong>Nouveau Bénéficiaires</strong> </h2>
+        <!-- END Normal Form Title -->
+
+        <!-- Normal Form Content -->
+        <form action="{{ path('create_beneficiaire')}}" method="post" class="form-bordered">
+            <div class="form-group">
+                {{ form_widget(form) }}
+                {{ form_rest(form) }}
+            </div>
+            <div class="form-group form-actions">
+                <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Enregistrer</button>
+                <button type="reset" class="btn btn-sm btn-warning"><i class="fa fa-repeat"></i> Annuler</button>
+            </div>
+        </form>
+        <!-- END Normal Form Content -->
     </div>
-    <!-- END Normal Form Title -->
+ </div>
 
-    <!-- Normal Form Content -->
-    <form action="{{ path('create_beneficiaire')}}" method="post" class="form-bordered">
-
-        <div class="form-group">
-            {{ form_widget(form) }}
-            {{ form_rest(form) }}
-        </div>
-        <div class="form-group form-actions">
-            <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Enregistrer</button>
-            <button type="reset" class="btn btn-sm btn-warning"><i class="fa fa-repeat"></i> Annuler</button>
-        </div>
-    </form>
-    <!-- END Normal Form Content -->
-</div>
  {% endblock %}

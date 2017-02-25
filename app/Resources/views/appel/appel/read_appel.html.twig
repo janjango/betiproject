@@ -1,0 +1,107 @@
+{% extends "home/layout.html.twig" %}
+{% block stylesheet %}
+
+{% endblock %}
+ {% block titletopmeu %}
+    <li>Appel</li>
+    <li><a href="{{ path('read_appel',{'exercice': exercice})}}">Appels</a></li>
+{% endblock %}
+ {% block content %}
+     <!-- Datatables Content -->
+     <div class="block full">
+         <div class="block-title">
+
+             <h2>
+                 <strong> Appels - </strong>
+                 <span> Report à nouveau = {{ solde|number_format(2, ',', '.') }} francs CFA</span>
+                 <select id="getExo" name="getExo" class="select-chosen ">
+                     {% for elt in  exercices %}
+                         <option value="{{ elt.id }}"  {% if elt.id==exercice %} selected="true" {% endif %}>{{ elt.libExercice }}</option>
+                     {% endfor %}
+                 </select>
+
+
+             </h2>
+
+                <a  href="{{ path('create_appel',{'exercice': exercice })}}"  title="Ajouter" class="btn btn-xs btn-success" >
+                 <i  class="fa fa-plus"></i></a>
+
+         <div class="table-responsive">
+             <table id="example-datatable" class="table table-vcenter table-condensed table-bordered">
+                 <thead>
+                 <tr>
+                     <th class="text-center "> Date</th>
+                     <th class="text-center "> Référence</th>
+                     <th class="text-center "> Objet </th>
+                     <th class="text-center "> Montant Ttc </th>
+                     <th class="text-center "> Etat </th>
+                     <th class="text-center "> Solde </th>
+                     <th class="text-center">  Actions</th>
+                 </tr>
+
+                 </thead>
+                 <tbody>
+                  {% set valsolde=solde %}
+                 {% for element in  appels %}
+                     <tr>
+                         <td class="text-center"> {{ element.dateAppel|date('d/m/Y') }} </td>
+                         <td class="text-left">{{ element.referenceAppel }} </td>
+                         <td class="text-left"> {% if element.objetappel is not null %} {{ element.objetappel.libObjet }}  {% endif %}</td>
+                         <td class="text-right ">
+                            {% if element.estAnnuler==1 %} - {% endif %} {{ element.montantTtc|number_format(2, ',', '.') }}
+                         </td>
+                         <td class="text-center">
+                             {% if element.estAnnuler==0 %}
+                                 <label class="switch switch-success"><input type="checkbox" checked="" disabled=""><span></span></label>
+                             {% else %}
+                                 <label class="switch switch-danger"><input type="checkbox" unchecked="" disabled=""><span></span></label>
+                             {% endif %}
+                         </td>
+                         <td class="text-right">
+                           {% if element.estAnnuler==0 %}
+                                 {% set valsolde=valsolde+element.montantTtc %}
+                             {% else %}
+                                 {% set valsolde=valsolde-element.montantTtc %}
+                             {% endif %}
+                             {{ valsolde|number_format(2, ',', '.') }}
+                          </td>
+                         <td class="text-center">
+                            {% if element.estAnnuler==0 %}
+                             <a href="#modal-regular2{{ element.id }}" data-toggle="modal" title="Annuler" class="btn btn-xs btn-warning"><i class="fa fa-times-circle"></i></a>
+                             {% include 'appel/appel/cancel_appel.html.twig'  %}
+                             {% endif %}
+                             <a href="{{ path('update_appel', {'id': element.id } )}}" data-toggle="tooltip" title="Edit" class="btn btn-xs btn-default"><i class="fa fa-pencil"></i></a>
+
+                             <a href="#modal-regular{{ element.id }}" data-toggle="modal" title="Delete" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></a>
+                             {% include 'appel/appel/delete_appel.html.twig'  %}
+
+                             <a href="#modal-regular1{{ element.id }}" data-toggle="modal" title="Détails" class="btn btn-xs btn-primary"><i class="fa fa-copy"></i></a>
+                             {% include 'appel/appel/detail_appel.html.twig'  %}
+                         </td>
+                     </tr>
+                 {% endfor %}
+                 </tbody>
+             </table>
+         </div>
+     </div>
+     <!-- END Datatables Content -->
+
+ {% endblock %}
+
+         {% block customjavascript %}
+         <script>
+             $('#getExo').change(function () {
+                 if ($('#getExo').val() === "")
+                 {
+
+                 }
+                 else
+                 {
+                     // alert('route de la liste des estdirecteurtechniques de la structure '+$(this).val());
+                     var url = '{{ path("read_appel",{ 'exercice':  'exo', }) }}';
+                     url = url.replace("exo", $(this).val() === "" ? 0 : $(this).val());
+                     location.href = "" + url + "";
+                 }
+             });
+                 </script>
+{% endblock customjavascript %}
