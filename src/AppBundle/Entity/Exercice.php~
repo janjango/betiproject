@@ -17,6 +17,10 @@ class Exercice
      */
     private $appels;
     /**
+     * @ORM\OneToMany(targetEntity="Encaissement", mappedBy="exercice")
+     */
+    private $encaissements;
+    /**
      * @var int
      *
      * @ORM\Column(name="id", type="integer")

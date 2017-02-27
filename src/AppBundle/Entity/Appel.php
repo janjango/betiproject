@@ -13,15 +13,22 @@ use Doctrine\ORM\Mapping as ORM;
 class Appel
 {
     /**
+     * @ORM\OneToMany(targetEntity="Encaissement", mappedBy="appel")
+     */
+    private $encaissements;
+    /**
      * @ORM\ManyToOne(targetEntity="ObjetAppel", inversedBy="appels")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $objetappel;
     /**
      * @ORM\ManyToOne(targetEntity="Exercice", inversedBy="appels")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $exercice;
     /**
      * @ORM\ManyToOne(targetEntity="Beneficiaire", inversedBy="appels")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $beneficiaire;
     /**
@@ -57,28 +64,28 @@ class Appel
     /**
      * @var string
      *
-     * @ORM\Column(name="refEngagement", type="string", length=255)
+     * @ORM\Column(name="refEngagement", type="string", length=255, nullable=true)
      */
     private $refEngagement;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dateEngagement", type="datetime")
+     * @ORM\Column(name="dateEngagement", type="datetime", nullable=true)
      */
     private $dateEngagement;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="refBordereau", type="string", length=255)
+     * @ORM\Column(name="refBordereau", type="string", length=255, nullable=true)
      */
     private $refBordereau;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dateBordereau", type="datetime")
+     * @ORM\Column(name="dateBordereau", type="datetime", nullable=true)
      */
     private $dateBordereau;
 
@@ -99,52 +106,62 @@ class Appel
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dateCreate", type="datetime")
+     * @ORM\Column(name="dateCreate", type="datetime", nullable=true, nullable=true)
      */
     private $dateCreate;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="userCreate", type="string", length=255)
+     * @ORM\Column(name="userCreate", type="string", length=255, nullable=true)
      */
     private $userCreate;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dateModif", type="datetime")
+     * @ORM\Column(name="dateModif", type="datetime", nullable=true)
      */
     private $dateModif;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="userModif", type="string", length=255)
+     * @ORM\Column(name="userModif", type="string", length=255, nullable=true)
      */
     private $userModif;
 
     /**
      * @var bool
      *
-     * @ORM\Column(name="estAnnuler", type="boolean")
+     * @ORM\Column(name="estAnnuler", type="boolean", nullable=true)
      */
     private $estAnnuler;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="montant", type="decimal", precision=10, scale=2)
+     * @ORM\Column(name="montant", type="decimal", precision=10, scale=2, nullable=true)
      */
     private $montant;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="solde", type="decimal", precision=10, scale=2)
+     * @ORM\Column(name="solde", type="decimal", precision=10, scale=2, nullable=true)
      */
     private $solde;
 
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="estEncaisser", type="boolean", nullable=true)
+     */
+    private $estEncaisser;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="estParentannuler", type="boolean", nullable=true)
+     */
+    private $estParentannuler;
 
     /**
      * Get id
@@ -613,4 +630,99 @@ class Appel
     {
         return $this->observation;
     }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->encaissements = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add encaissement
+     *
+     * @param \AppBundle\Entity\Encaissement $encaissement
+     *
+     * @return Appel
+     */
+    public function addEncaissement(\AppBundle\Entity\Encaissement $encaissement)
+    {
+        $this->encaissements[] = $encaissement;
+
+        return $this;
+    }
+
+    /**
+     * Remove encaissement
+     *
+     * @param \AppBundle\Entity\Encaissement $encaissement
+     */
+    public function removeEncaissement(\AppBundle\Entity\Encaissement $encaissement)
+    {
+        $this->encaissements->removeElement($encaissement);
+    }
+
+    /**
+     * Get encaissements
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getEncaissements()
+    {
+        return $this->encaissements;
+    }
+
+    /**
+     * Set estEncaisser
+     *
+     * @param boolean $estEncaisser
+     *
+     * @return Appel
+     */
+    public function setEstEncaisser($estEncaisser)
+    {
+        $this->estEncaisser = $estEncaisser;
+
+        return $this;
+    }
+
+    /**
+     * Get estEncaisser
+     *
+     * @return boolean
+     */
+    public function getEstEncaisser()
+    {
+        return $this->estEncaisser;
+    }
+
+    /**
+     * Set estParentannuler
+     *
+     * @param boolean $estParentannuler
+     *
+     * @return Appel
+     */
+    public function setEstParentannuler($estParentannuler)
+    {
+        $this->estParentannuler = $estParentannuler;
+
+        return $this;
+    }
+
+    /**
+     * Get estParentannuler
+     *
+     * @return boolean
+     */
+    public function getEstParentannuler()
+    {
+        return $this->estParentannuler;
+    }
+
+
+    public function __toString() {
+        return 'Réf : '.$this->referenceAppel.' du '.$this->dateAppel->format('d-m-Y');
+    }
+
 }

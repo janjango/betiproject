@@ -150,4 +150,28 @@ class SousMenu {
     public function __toString(){
         return $this->getLibelle();
     }
+
+    /**
+     * Set routeName
+     *
+     * @param string $routeName
+     *
+     * @return SousMenu
+     */
+    public function setRouteName($routeName)
+    {
+        $this->routeName = $routeName;
+
+        return $this;
+    }
+
+    /**
+     * Get routeName
+     *
+     * @return string
+     */
+    public function getRouteName()
+    {
+        return $this->routeName;
+    }
 }

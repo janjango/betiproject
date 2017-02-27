@@ -3,13 +3,12 @@
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class AppelFond extends AbstractType
+class FournisseurType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -17,37 +16,36 @@ class AppelFond extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('referenceAppel', TextType::class, array(
-                'label' => 'Référence Appel',
+            ->add('code', TextType::class, array(
+                'label' => 'Code ',
                 'attr' =>array(
                     'class' =>'form-control'
                 )))
-            ->add('dateAppel')
-
-            ->add('refEngagement')
-            ->add('dateEngagement')
-            ->add('refBordereau')
-            ->add('dateBordereau')
-
-            ->add('montantHt', IntegerType::class, array(
-                'label' => 'Numéro Compte',
+            ->add('nom', TextType::class, array(
+                'label' => 'Nom',
                 'attr' =>array(
                     'class' =>'form-control'
                 )))
-            ->add('montantTtc', IntegerType::class, array(
-                'label' => 'Numéro Compte',
+            ->add('numifu', TextType::class, array(
+                'label' => 'N° IFU',
                 'attr' =>array(
                     'class' =>'form-control'
                 )))
-
-            ->add('observation', TextareaType::class, array(
-                'label' => 'Observations',
-                'required' => false,
+            ->add('tel', TextType::class, array(
+                'label' => 'Contact(s)',
                 'attr' =>array(
                     'class' =>'form-control'
                 )))
-            ->add('estAnnuler')
-            ->add('solde');
+            ->add('email', TextType::class, array(
+                'label' => 'email',
+                'attr' =>array(
+                    'class' =>'form-control'
+                )))
+            ->add('adresse', TextareaType::class, array(
+                'label' => 'Adresse',
+                'attr' =>array(
+                    'class' =>'form-control'
+                ))) ;
     }
     
     /**
@@ -56,7 +54,7 @@ class AppelFond extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Appel'
+            'data_class' => 'AppBundle\Entity\Fournisseur'
         ));
     }
 
@@ -65,7 +63,7 @@ class AppelFond extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'appbundle_appel';
+        return 'appbundle_fournisseur';
     }
 
 

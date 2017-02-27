@@ -56,6 +56,7 @@
 <!-- END Login Alternative Row -->
 
 <!-- Include Jquery library from Google's CDN but if something goes wrong get Jquery from local file -->
+{% block javascript %}
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script>!window.jQuery && document.write(decodeURI('%3Cscript src="{{ asset('/bundles/app/js/vendor/jquery-1.11.2.min.js') }}"%3E%3C/script%3E'));</script>
 
@@ -64,9 +65,19 @@
 <script src="{{ asset('/bundles/app/js/plugins.js') }}"></script>
 <script src="{{ asset('/bundles/app/js/app.js') }}"></script>
 <script src="{{ asset('/bundles/app/js/pages/tablesDatatables.js') }}"></script>
+<<<<<<< HEAD
+{% endblock %}
+=======
+>>>>>>> e90a8e86fcf344935894ebd685ca3527a71d55c4
 <!-- Load and execute javascript code used only in this page -->
 <script src="{{ asset('/bundles/app/js/pages/login.js') }}"></script>
 <script>$(function(){ Login.init(); });</script>
 <script>$(function(){ TablesDatatables.init(); });</script>
+<<<<<<< HEAD
+{% block customjavascript %}
+
+{% endblock %}
+=======
+>>>>>>> e90a8e86fcf344935894ebd685ca3527a71d55c4
 </body>
 </html>
