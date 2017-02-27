@@ -18,11 +18,19 @@ class ObjetAppelController extends Controller {
     public function read_objetappelAction(Request $request) {
         // replace this example code with whatever you need
 
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        $users = $this->getDoctrine()->getManager()
+            ->getRepository('Jac\UserBundle\Entity\User');
+        $menus = $users->getMenus($user->getId());
+        $sousMenus = $users->getSousMenus($user->getId());
+
         $objetappels= $this->getDoctrine()
             ->getManager()->getRepository('AppBundle:ObjetAppel')
             ->findBy(Array(),Array('libObjet'=>'ASC'));
         return $this->render('appel/objetappel/read_objetappel.html.twig', [
-            'objetappels' => $objetappels
+            'objetappels' => $objetappels,
+            'sousMenus' => $sousMenus,
+            'menus' => $menus
         ]);
 
     }
@@ -35,6 +43,12 @@ class ObjetAppelController extends Controller {
      */
     public function create_objetappelAction(Request $request)
     {
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        $users = $this->getDoctrine()->getManager()
+            ->getRepository('Jac\UserBundle\Entity\User');
+        $menus = $users->getMenus($user->getId());
+        $sousMenus = $users->getSousMenus($user->getId());
+
         $objetappel = new ObjetAppel();
         $form = $this->createForm('AppBundle\Form\ObjetAppelType', $objetappel);
         $form->handleRequest($request);
@@ -50,7 +64,9 @@ class ObjetAppelController extends Controller {
             return $this->redirectToRoute('create_objetappel');
         }
         return $this->render('appel/objetappel/create_objetappel.html.twig', [
-             'form'   => $form->createView()
+             'form'   => $form->createView(),
+            'sousMenus' => $sousMenus,
+            'menus' => $menus
         ]);
     }
 
@@ -62,6 +78,12 @@ class ObjetAppelController extends Controller {
      */
     public function update_objetappelAction(Request $request)
     {
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        $users = $this->getDoctrine()->getManager()
+            ->getRepository('Jac\UserBundle\Entity\User');
+        $menus = $users->getMenus($user->getId());
+        $sousMenus = $users->getSousMenus($user->getId());
+
         $objetappel = $this->getDoctrine()->getManager()->getRepository('AppBundle:ObjetAppel')
             ->find($request->get('id'));
         $form = $this->createForm('AppBundle\Form\ObjetAppelType', $objetappel);
@@ -77,7 +99,9 @@ class ObjetAppelController extends Controller {
             return $this->redirectToRoute('read_objetappel');
         }
         return $this->render('appel/objetappel/update_objetappel.html.twig', [
-            'form'   => $form->createView(), 'id'   => $request->get('id')
+            'form'   => $form->createView(), 'id'   => $request->get('id'),
+            'sousMenus' => $sousMenus,
+            'menus' => $menus
         ]);
     }
 

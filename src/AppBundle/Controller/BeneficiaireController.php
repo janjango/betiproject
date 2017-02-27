@@ -29,7 +29,7 @@ class BeneficiaireController extends Controller {
         return $this->render('appel/beneficiaire/read_beneficiaire.html.twig', [
             'beneficiaires' => $beneficiaires,
             'sousMenus' => $sousMenus,
-            'menus' => $menus,
+            'menus' => $menus
         ]);
 
     }
@@ -42,6 +42,12 @@ class BeneficiaireController extends Controller {
      */
     public function create_beneficiaireAction(Request $request)
     {
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        $users = $this->getDoctrine()->getManager()
+            ->getRepository('Jac\UserBundle\Entity\User');
+        $menus = $users->getMenus($user->getId());
+        $sousMenus = $users->getSousMenus($user->getId());
+
         $beneficiaire = new beneficiaire();
         $form = $this->createForm('AppBundle\Form\BeneficiaireType', $beneficiaire);
         $form->handleRequest($request);
@@ -57,7 +63,9 @@ class BeneficiaireController extends Controller {
             return $this->redirectToRoute('create_beneficiaire');
         }
         return $this->render('appel/beneficiaire/create_beneficiaire.html.twig', [
-             'form'   => $form->createView()
+             'form'   => $form->createView(),
+            'sousMenus' => $sousMenus,
+            'menus' => $menus
         ]);
     }
 
@@ -69,6 +77,12 @@ class BeneficiaireController extends Controller {
      */
     public function update_beneficiaireAction(Request $request)
     {
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        $users = $this->getDoctrine()->getManager()
+            ->getRepository('Jac\UserBundle\Entity\User');
+        $menus = $users->getMenus($user->getId());
+        $sousMenus = $users->getSousMenus($user->getId());
+
         $beneficiaire = $this->getDoctrine()->getManager()->getRepository('AppBundle:Beneficiaire')
             ->find($request->get('id'));
         $form = $this->createForm('AppBundle\Form\BeneficiaireType', $beneficiaire);
@@ -84,7 +98,9 @@ class BeneficiaireController extends Controller {
             return $this->redirectToRoute('read_beneficiaire');
         }
         return $this->render('appel/beneficiaire/update_beneficiaire.html.twig', [
-            'form'   => $form->createView(), 'id'   => $request->get('id')
+            'form'   => $form->createView(), 'id'   => $request->get('id'),
+            'sousMenus' => $sousMenus,
+            'menus' => $menus
         ]);
     }
 
