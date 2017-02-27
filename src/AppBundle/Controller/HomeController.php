@@ -22,13 +22,48 @@ class HomeController extends Controller {
      * @Route("/", name="homepage")
      */
     public function homeAction(Request $request) {
-        // replace this example code with whatever you need
+
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $users = $em->getRepository('Jac\UserBundle\Entity\User');
+/*        $privileges = $users->getSousMenus($user->getId());
+        $sousMenus = $privileges['sousMenus'];
+        $menu = $privileges['menu'];
+
+        var_dump($sousMenus);
+*//*
+        $aSousMenus = array();
+        $aSousMenu = array();
+        $aMenu = array();
+        $aMenus = array();
+
+        $privileges = $users->getPrivileges($user->getId());
+        $privileges = $privileges[0]['privileges'];
+        foreach ( $privileges as $privilege) {
+            $aSousMenu['routeName'] = $privilege['sousMenu']['routeName'];
+            $aMenu['libelle'] = $privilege['sousMenu']['menu']['libelle'];
+            array_push($aSousMenus, $aSousMenu);
+            array_push($aMenus, $aMenu);
+
+        }*/
+        $privileges = $users->getPrivileges($user->getId());
+        $privileges = $privileges[0]['privileges'];
+
+
+        foreach ($privileges as $privilege) {
+            var_dump($privilege['sousMenu']);
+        }
+
+        exit;
+        
         return $this->render('home/index.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..').DIRECTORY_SEPARATOR,
+//            'sousMenus' => $sousMenus,
+//            'menu' => $menu,
         ]);
 
     }
-    
+
     /**
      * Displays a form to edit an existing user entity.
      * @Route("/user/profile", name="home_user_profile")

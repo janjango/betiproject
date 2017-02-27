@@ -17,7 +17,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @see http://schema.org/Person Documentation on Schema.org
  *
  *
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="Jac\UserBundle\Entity\UserRepository")
  * @ORM\Table("User")
  * @UniqueEntity("email")
  * @UniqueEntity("username")
