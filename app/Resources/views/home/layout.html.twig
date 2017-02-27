@@ -84,73 +84,28 @@
 
 
                         <!-- Sidebar Navigation -->
+
+
                         <ul class="sidebar-nav">
-                            <li>
-                                <a href="#" class="sidebar-nav-menu">
-                                    <i class="fa fa-angle-left sidebar-nav-indicator sidebar-nav-mini-hide"></i>
-                                    <i class="gi gi-shopping_cart sidebar-nav-icon"></i>
-                                    <i class="gi  sidebar-nav-icon"></i>
-                                    <span class="sidebar-nav-mini-hide">Appel</span></a>
-                                <ul>
+                            {% if (menus is defined) %}
+                                {% for menu in menus %}     
                                     <li>
-                                        <a href="{{ path('read_exercice') }}">Exercices</a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ path('read_objetappel') }}">Objets appels</a>
-                                    </li>   
-                                    <li>
-                                        <a href="{{ path('read_beneficiaire') }}">Bénéficiaires</a>
 
+                                        <a href="#" class="sidebar-nav-menu">
+                                            <i class="fa fa-angle-left sidebar-nav-indicator sidebar-nav-mini-hide"></i>
+                                            <i class="{{ menu.fontIconClass }} sidebar-nav-icon"></i>
+                                            <span class="sidebar-nav-mini-hide">{{ menu.libelle }}</span></a>
+                                        <ul>
+                                            {% for sousMenu in sousMenus %}    
+                                                {% if  sousMenu.menu.id == menu.id %}
+                                                    <a href="{{ path(sousMenu.routeName) }}">{{ sousMenu.libelle }}</a>
+                                                {% endif %}    
+                                            {% endfor %} 
+                                        </ul>
                                     </li>
-                                    <li>
-                                        <a href="{{ path('read_appel', {'exercice': 1}) }}">Appels</a>
-                                    </li>
-                                    </li>
-                                </ul>
-                            </li>      
+                                {% endfor %}
 
-                            <li>
-                                <a href="#" class="sidebar-nav-menu"><i class="fa fa-angle-left sidebar-nav-indicator sidebar-nav-mini-hide"></i><i class="gi gi-package sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Encaissement</span></a>
-                                <ul>
-
-                                    <li>
-                                        <a href="{{ path('read_encaissement', {'exercice': 1}) }}">Encaissements</a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ path('read_fournisseur') }}">Fournisseurs</a>
-                                    </li>
-                                    <li>
-                                        <a href="page_ready_article.html">Paiements</a>
-                                    </li> 
-                                </ul>
-                            </li>
-
-                            {% if is_granted('ROLE_ADMIN')  %}
-                                <li>
-                                    <a href="{{ path('easyadmin') }}" class="" target="">
-                                        <i class="fa fa-angle-left sidebar-nav-indicator sidebar-nav-mini-hide"></i>
-                                        <i class="fa fa-wrench sidebar-nav-icon"></i>
-                                        <span class="sidebar-nav-mini-hide">Administration</span>
-                                    </a>
-                                    <!--
-                                    <ul>                                        
-                                        <li>
-                                            <a href="page_comp_carousel.html">Menu</a>
-                                        </li>
-                                        <li>
-                                            <a href="page_comp_calendar.html">Sous-menu</a>
-                                        </li>
-                                        <li>
-                                            <a href="page_comp_animations.html">CSS3 Animations</a>
-                                        </li>
-                                        <li>
-                                            <a href="page_comp_syntax_highlighting.html">Syntax Highlighting</a>
-                                        </li>
-                                    </ul>
-                                    -->
-                                </li>
                             {% endif %}
-
                         </ul>
                         <!-- END Sidebar Navigation -->                            
                     </div>

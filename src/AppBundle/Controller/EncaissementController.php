@@ -18,6 +18,12 @@ class EncaissementController extends Controller {
     public function read_encaissementAction(Request $request) {
         // replace this example code with whatever you need
 
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        $users = $this->getDoctrine()->getManager()
+            ->getRepository('Jac\UserBundle\Entity\User');
+        $menus = $users->getMenus($user->getId());
+        $sousMenus = $users->getSousMenus($user->getId());
+        
         $exercices= $this->getDoctrine()
             ->getManager()->getRepository('AppBundle:Exercice')
             ->findBy(Array(),Array('libExercice'=>'ASC'));
@@ -28,6 +34,8 @@ class EncaissementController extends Controller {
 
         return $this->render('encaissement/encaissement/read_encaissement.html.twig', [
             'encaissements' => $encaissements,'exercice'=>$request->get('exercice'),'exercices'=> $exercices,
+            'sousMenus' => $sousMenus,
+            'menus' => $menus
         ]);
 
     }
@@ -40,6 +48,12 @@ class EncaissementController extends Controller {
      */
     public function create_encaissementAction(Request $request)
     {
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        $users = $this->getDoctrine()->getManager()
+            ->getRepository('Jac\UserBundle\Entity\User');
+        $menus = $users->getMenus($user->getId());
+        $sousMenus = $users->getSousMenus($user->getId());
+
         $encaissement = new Encaissement();
         $form = $this->createForm('AppBundle\Form\EncaissementType', $encaissement);
         $form->handleRequest($request);
@@ -55,7 +69,9 @@ class EncaissementController extends Controller {
             return $this->redirectToRoute('create_encaissement', array('exercice' => $request->get('exercice')));
         }
         return $this->render('encaissement/encaissement/create_encaissement.html.twig', [
-             'form'   => $form->createView(),'exercice'=>$request->get('exercice')
+             'form'   => $form->createView(),'exercice'=>$request->get('exercice'),
+            'sousMenus' => $sousMenus,
+            'menus' => $menus
         ]);
     }
 
@@ -67,6 +83,12 @@ class EncaissementController extends Controller {
      */
     public function update_encaissementAction(Request $request)
     {
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        $users = $this->getDoctrine()->getManager()
+            ->getRepository('Jac\UserBundle\Entity\User');
+        $menus = $users->getMenus($user->getId());
+        $sousMenus = $users->getSousMenus($user->getId());
+        
         $encaissement = $this->getDoctrine()->getManager()->getRepository('AppBundle:Encaissement')
             ->find($request->get('id'));
         $form = $this->createForm('AppBundle\Form\EncaissementType', $encaissement);
@@ -82,7 +104,9 @@ class EncaissementController extends Controller {
             return $this->redirectToRoute('read_encaissement', array('exercice' =>$encaissement->getExercice()->getId()));
         }
         return $this->render('encaissement/encaissement/update_encaissement.html.twig', [
-            'form'   => $form->createView(), 'id'   => $request->get('id'),'exercice'=>$request->get('exercice')
+            'form'   => $form->createView(), 'id'   => $request->get('id'),'exercice'=>$request->get('exercice'),
+            'sousMenus' => $sousMenus,
+            'menus' => $menus
         ]);
     }
 

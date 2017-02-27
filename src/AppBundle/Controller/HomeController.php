@@ -24,42 +24,15 @@ class HomeController extends Controller {
     public function homeAction(Request $request) {
 
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
-        $em = $this->getDoctrine()->getManager();
-        $users = $em->getRepository('Jac\UserBundle\Entity\User');
-/*        $privileges = $users->getSousMenus($user->getId());
-        $sousMenus = $privileges['sousMenus'];
-        $menu = $privileges['menu'];
-
-        var_dump($sousMenus);
-*//*
-        $aSousMenus = array();
-        $aSousMenu = array();
-        $aMenu = array();
-        $aMenus = array();
-
-        $privileges = $users->getPrivileges($user->getId());
-        $privileges = $privileges[0]['privileges'];
-        foreach ( $privileges as $privilege) {
-            $aSousMenu['routeName'] = $privilege['sousMenu']['routeName'];
-            $aMenu['libelle'] = $privilege['sousMenu']['menu']['libelle'];
-            array_push($aSousMenus, $aSousMenu);
-            array_push($aMenus, $aMenu);
-
-        }*/
-        $privileges = $users->getPrivileges($user->getId());
-        $privileges = $privileges[0]['privileges'];
-
-
-        foreach ($privileges as $privilege) {
-            var_dump($privilege['sousMenu']);
-        }
-
-        exit;
-        
+        $users = $this->getDoctrine()->getManager()
+                ->getRepository('Jac\UserBundle\Entity\User');
+        $menus = $users->getMenus($user->getId());
+        $sousMenus = $users->getSousMenus($user->getId());
+               
         return $this->render('home/index.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..').DIRECTORY_SEPARATOR,
-//            'sousMenus' => $sousMenus,
-//            'menu' => $menu,
+            'sousMenus' => $sousMenus,
+            'menus' => $menus,
         ]);
 
     }

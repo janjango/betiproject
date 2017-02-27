@@ -26,26 +26,32 @@ class UserRepository extends EntityRepository
         return $query;
 
     }
+    
+    public function getMenus($user) {
+        $em = $this->getEntityManager();
+        $query = $em->createQuery( //creation de la requête
+            'SELECT DISTINCT m
+            FROM AppBundle:Menu m, AppBundle:SousMenu s, AppBundle:Privilege p
+            WHERE p.sousMenu = s.id 
+            AND s.menu = m.id
+            AND p.user = :param
+            ORDER BY m.id ASC'
+        )->setParameter('param', $user);
 
+        return $query->getResult(); //variable qui récupère la requête
+    }
+    
     public function getSousMenus($user) {
+        $em = $this->getEntityManager(); //on appelle Doctrine
+        $query = $em->createQuery( //creation de la requête
+            'SELECT DISTINCT s
+            FROM AppBundle:SousMenu s, AppBundle:Privilege p
+            WHERE p.sousMenu = s.id 
+            AND p.user = :param
+            ORDER BY s.id ASC'
+        )->setParameter('param', $user);
 
-        $privileges = $this->getPrivileges($user);
-        $privileges = $privileges[0]['privileges'];
-
-        $aSousMenus = array();
-        $aSousMenu = array();
-        $aMenu = array();
-
-        foreach ( $privileges as $privilsousMenuege) {
-            $aSousMenu['libelle'] = $privilege['sousMenu']['libelle'];
-            $aSousMenu['routeName'] = $privilege['sousMenu']['routeName'];
-            $aMenu = $privilege['']['menu'];
-            array_push($aSousMenus, $aSousMenu);
-        }
-        return array(
-            'sousMenus' =>$aSousMenus,
-            'menu' =>$aMenu
-        );
+        return $query->getResult(); //variable qui récupère la requête
     }
 //
 //    public function getMenus($user) {
