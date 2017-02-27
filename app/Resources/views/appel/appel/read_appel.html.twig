@@ -12,8 +12,8 @@
          <div class="block-title">
 
              <h2>
-                 <strong> Appels - </strong>
-                 <span> Report à nouveau de l'exercice : {{ solde|number_format(2, ',', '.') }} francs CFA</span>
+                 <strong> Appels  </strong>
+
                  <select id="getExo" name="getExo" class="select-chosen ">
                      {% for elt in  exercices %}
                          <option value="{{ elt.id }}"  {% if elt.id==exercice %} selected="true" {% endif %}>{{ elt.libExercice }}</option>
@@ -25,6 +25,7 @@
 
                 <a  href="{{ path('create_appel',{'exercice': exercice })}}"  title="Ajouter" class="btn btn-xs btn-success" >
                  <i  class="fa fa-plus"></i></a>
+                 <span style="margin-left: 10%;font-size: 14px;"> Report à nouveau de l'exercice :   <strong> {{ solde|number_format(2, ',', '.') }} francs CFA   </strong> </span>
 
          <div class="table-responsive">
              <table id="example-datatable" class="table table-vcenter table-condensed table-bordered">
@@ -66,15 +67,17 @@
                              {{ valsolde|number_format(2, ',', '.') }}
                           </td>
                          <td class="text-center">
-                            {% if element.estAnnuler==0 %}
-                             <a href="#modal-regular2{{ element.id }}" data-toggle="modal" title="Annuler" class="btn btn-xs btn-warning"><i class="fa fa-times-circle"></i></a>
-                             {% include 'appel/appel/cancel_appel.html.twig'  %}
-
-                             <a href="{{ path('update_appel', {'id': element.id } )}}" data-toggle="tooltip" title="Edit" class="btn btn-xs btn-default"><i class="fa fa-pencil"></i></a>
+                            {% if element.estAnnuler==0 and element.estParentannuler==0 %}
+                                {% if element.estEncaisser == null or element.estEncaisser == 0  %}
+                                     <a href="#modal-regular2{{ element.id }}" data-toggle="modal" title="Annuler" class="btn btn-xs btn-warning"><i class="fa fa-times-circle"></i></a>
+                                     {% include 'appel/appel/cancel_appel.html.twig'  %}
+                                 {% endif %}
+                                 <a href="{{ path('update_appel', {'id': element.id } )}}" data-toggle="tooltip" title="Edit" class="btn btn-xs btn-default"><i class="fa fa-pencil"></i></a>
                              {% endif %}
+                             {% if element.estEncaisser == null or element.estEncaisser == 0  %}
                              <a href="#modal-regular{{ element.id }}" data-toggle="modal" title="Delete" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></a>
                              {% include 'appel/appel/delete_appel.html.twig'  %}
-
+                            {% endif %}
                              <a href="#modal-regular1{{ element.id }}" data-toggle="modal" title="Détails" class="btn btn-xs btn-primary"><i class="fa fa-copy"></i></a>
                              {% include 'appel/appel/detail_appel.html.twig'  %}
                          </td>

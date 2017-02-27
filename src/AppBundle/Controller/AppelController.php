@@ -50,6 +50,8 @@ class AppelController extends Controller {
             $appel->setUserCreate($this->getUser()->getUsername());
             $appel->setDateCreate(new \ Datetime());
             $appel->setEstAnnuler(false);
+            $appel->setEstParentannuler(false);
+            $appel->setEstEncaisser(false);
             $appel->setExercice($this->getDoctrine()->getManager()->getRepository('AppBundle:Exercice')->find($request->get('exercice')));
             $em->persist($appel);
             $em->flush();
@@ -82,6 +84,8 @@ class AppelController extends Controller {
             $newappel->setUserCreate($this->getUser()->getUsername());
             $newappel->setDateCreate(new \ Datetime());
             $newappel->setEstAnnuler(true);
+            $newappel->setEstParentannuler(false);
+            $newappel->setEstEncaisser(false);
             $newappel->setExercice($appel->getExercice());
             $newappel->setBeneficiaire($appel->getBeneficiaire());
             $newappel->setDateAppel($appel->getDateAppel());
@@ -95,8 +99,8 @@ class AppelController extends Controller {
             $newappel->setRefBordereau($appel->getRefBordereau());
             $newappel->setRefEngagement($appel->getRefEngagement());
             $newappel->setReferenceAppel($appel->getReferenceAppel());
-
             $em->persist($newappel);
+            $appel->setEstParentannuler(true);
             $em->flush();
             $this->addFlash(
                 'success', "Modification effectué avec succès !"
@@ -121,7 +125,8 @@ class AppelController extends Controller {
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-
+            $appel->setUserModif($this->getUser()->getUsername());
+            $appel->setDateModif(new \ Datetime());
             $em->flush();
             $this->addFlash(
                 'success', "Modification effectué avec succès !"

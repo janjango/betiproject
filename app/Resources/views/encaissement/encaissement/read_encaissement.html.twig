@@ -1,0 +1,85 @@
+{% extends "home/layout.html.twig" %}
+{% block stylesheet %}
+
+{% endblock %}
+ {% block titletopmeu %}
+    <li>Encaissement</li>
+    <li><a href="{{ path('read_encaissement',{'exercice': exercice})}}">Encaissement</a></li>
+{% endblock %}
+ {% block content %}
+     <!-- Datatables Content -->
+     <div class="block full">
+         <div class="block-title">
+
+             <h2>
+                 <strong> Encaissements  </strong>
+
+                 <select id="getExo" name="getExo" class="select-chosen ">
+                     {% for elt in  exercices %}
+                         <option value="{{ elt.id }}"  {% if elt.id==exercice %} selected="true" {% endif %}>{{ elt.libExercice }}</option>
+                     {% endfor %}
+                 </select>
+
+             </h2>
+
+                <a  href="{{ path('create_encaissement',{'exercice': exercice })}}"  title="Ajouter" class="btn btn-xs btn-success" >
+                 <i  class="fa fa-plus"></i></a>
+
+         <div class="table-responsive">
+             <table id="example-datatable" class="table table-vcenter table-condensed table-bordered">
+                 <thead>
+                 <tr>
+                 <th class="text-center hide"> </th>
+                     <th class="text-center "> Date Encaissement</th>
+                     <th class="text-center "> Référence Appel</th>
+                     <th class="text-center "> Montant Encaissé </th>
+                     <th class="text-center "> Numéro de compte</th>
+                     <th class="text-center">  Actions</th>
+                 </tr>
+
+                 </thead>
+                 <tbody>
+                 {% for element in  encaissements %}
+                     <tr>
+                      <td class="text-left hide">  </td>
+                         <td class="text-center"> {{ element.dateEncaissement|date('d/m/Y') }} </td>
+                         <td class="text-left">{{ element.appel.referenceAppel }} </td>
+                         <td class="text-right ">
+                             {{ element.montantEncaisse|number_format(2, ',', '.') }}
+                         </td>
+                        <td class="text-right ">
+                             {{ element.numeroCompte }}
+                         </td>
+                         <td class="text-center">
+                            <a href="{{ path('update_encaissement', {'id': element.id } )}}" data-toggle="tooltip" title="Edit" class="btn btn-xs btn-default"><i class="fa fa-pencil"></i></a>
+                           <a href="#modal-regular{{ element.id }}" data-toggle="modal" title="Delete" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></a>
+                             {% include 'encaissement/encaissement/delete_encaissement.html.twig'  %}
+
+                         </td>
+                     </tr>
+                 {% endfor %}
+                 </tbody>
+             </table>
+         </div>
+     </div>
+     <!-- END Datatables Content -->
+
+ {% endblock %}
+
+         {% block customjavascript %}
+         <script>
+             $('#getExo').change(function () {
+                 if ($('#getExo').val() === "")
+                 {
+
+                 }
+                 else
+                 {
+                     // alert('route de la liste des estdirecteurtechniques de la structure '+$(this).val());
+                     var url = '{{ path("read_encaissement",{ 'exercice':  'exo', }) }}';
+                     url = url.replace("exo", $(this).val() === "" ? 0 : $(this).val());
+                     location.href = "" + url + "";
+                 }
+             });
+                 </script>
+{% endblock customjavascript %}
