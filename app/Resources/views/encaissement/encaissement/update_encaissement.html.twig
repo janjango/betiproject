@@ -1,0 +1,74 @@
+{% extends "home/layout.html.twig" %}
+{% block stylesheet %}
+
+{% endblock %}
+ {% block titletopmeu %}
+     <li>Encaissement</li>
+     <li><a href="{{ path('read_encaissement',{'exercice': exercice})}}">Encaissement</a></li>
+     <li><a href="{{ path('update_encaissement',{'id': id,'exercice': exercice } )}}">Modification</a></li>
+ {% endblock %}
+ {% block content %}
+
+<div class="row">
+    <div class="block">
+         <!-- Normal Form Title -->
+         <div class="block-title">
+             <div class="block-options pull-right">
+                 <a href="{{ path('read_encaissement',{'exercice': exercice})}}" class="btn btn-alt btn-sm btn-default toggle-bordered enable-tooltip" >Retour</a>
+             </div>
+             <h2><strong>Modifier appel</strong> </h2>
+             <div class="btn-group">
+                 <a href="javascript:void(0)" data-toggle="dropdown" class="btn btn-alt btn-primary dropdown-toggle" aria-expanded="false">
+                     Catégorie <span class="caret"></span></a>
+                 <ul class="dropdown-menu dropdown-custom text-left">
+                     <li class="dropdown-header">Choisissez</li>
+                     <li>
+                         <a href="#1" id="appelmandat"><i class="fa fa-plus pull-right"></i> Mandat</a>
+                         <a href="#2" id="appelfond"><i class="fa fa-plus-circle pull-right"></i>Appel de fond</a>
+                     </li>
+
+                 </ul>
+             </div>
+         </div>
+         <!-- END Normal Form Title -->
+
+         <!-- Normal Form Content -->
+         <form action="{{ path('update_encaissement',{'id': id } )}}" method="post" class="form-bordered">
+
+             <div class="form-group">
+                 {{ form_widget(form) }}
+                 {{ form_rest(form) }}
+             </div>
+             <div class="form-group form-actions">
+                 <button type="submit" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i> Modifier</button>
+                 <button type="reset" class="btn btn-sm btn-default"><i class="fa fa-repeat"></i> Annuler</button>
+             </div>
+         </form>
+         <!-- END Normal Form Content -->
+     </div>
+ {% endblock %}
+{% block customjavascript %}
+    <script>
+        $('#appbundle_appel_montantHt').keypress(function () {
+            $('#appbundle_appel_montantTtc').val($(this).val()*1.18);
+        })
+        $('#appbundle_appel_montantHt').keydown(function () {
+            $('#appbundle_appel_montantTtc').val($(this).val()*1.18);
+        })
+        $('#appelmandat').click(function () {
+            // alert('ok');
+            $("#appbundle_appel_refEngagement").parent().show();
+            $("#appbundle_appel_dateEngagement").parent().show();
+            $("#appbundle_appel_refBordereau").parent().show();
+            $("#appbundle_appel_dateBordereau").parent().show();
+        })
+        $('#appelfond').click(function () {
+            // alert('ok');
+            $("#appbundle_appel_refEngagement").parent().hide();
+            $("#appbundle_appel_dateEngagement").parent().hide();
+            $("#appbundle_appel_refBordereau").parent().hide();
+            $("#appbundle_appel_dateBordereau").parent().hide();
+        })
+    </script>
+{% endblock %}
+

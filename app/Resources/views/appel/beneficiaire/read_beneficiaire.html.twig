@@ -57,13 +57,3 @@
 
  {% endblock %}
 
-{% block javascript %}
-    <!-- Load and execute javascript code used only in this page -->
-    <script src="{{ asset('/bundles/app/js/helpers/ckeditor/ckeditor.js') }}"></script>
-
-    <script src="{{ asset('/bundles/app/js/pages/tablesDatatables.js') }}"></script>
-    <script>$(function () {
-            TablesDatatables.init();
-        });</script>
-
-{% endblock %}

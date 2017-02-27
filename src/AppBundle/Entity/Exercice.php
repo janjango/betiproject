@@ -17,6 +17,10 @@ class Exercice
      */
     private $appels;
     /**
+     * @ORM\OneToMany(targetEntity="Encaissement", mappedBy="exercice")
+     */
+    private $encaissements;
+    /**
      * @var int
      *
      * @ORM\Column(name="id", type="integer")
@@ -137,5 +141,39 @@ class Exercice
     public function getAppels()
     {
         return $this->appels;
+    }
+
+    /**
+     * Add encaissement
+     *
+     * @param \AppBundle\Entity\Encaissement $encaissement
+     *
+     * @return Exercice
+     */
+    public function addEncaissement(\AppBundle\Entity\Encaissement $encaissement)
+    {
+        $this->encaissements[] = $encaissement;
+
+        return $this;
+    }
+
+    /**
+     * Remove encaissement
+     *
+     * @param \AppBundle\Entity\Encaissement $encaissement
+     */
+    public function removeEncaissement(\AppBundle\Entity\Encaissement $encaissement)
+    {
+        $this->encaissements->removeElement($encaissement);
+    }
+
+    /**
+     * Get encaissements
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getEncaissements()
+    {
+        return $this->encaissements;
     }
 }

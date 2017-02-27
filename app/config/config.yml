@@ -148,6 +148,7 @@ easy_admin:
                     - { property: 'phone' }
                     - { property: 'enabled' }
                     - { property: 'lastLogin' }
+
                     - { property: 'service' }
  
             new:

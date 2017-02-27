@@ -88,18 +88,24 @@
                             <li>
                                 <a href="#" class="sidebar-nav-menu">
                                     <i class="fa fa-angle-left sidebar-nav-indicator sidebar-nav-mini-hide"></i>
+                                    <i class="gi gi-shopping_cart sidebar-nav-icon"></i>
                                     <i class="gi  sidebar-nav-icon"></i>
                                     <span class="sidebar-nav-mini-hide">Appel</span></a>
                                 <ul>
                                     <li>
-                                        <a href="{{ path('read_exercice') }}">Exercice</a>
+                                        <a href="{{ path('read_exercice') }}">Exercices</a>
                                     </li>
                                     <li>
                                         <a href="{{ path('read_objetappel') }}">Objets appels</a>
                                     </li>   
                                     <li>
-                                        <a href="{{ path('read_beneficiaire') }}">Bénéficiaire</a>
-                                    </li> 
+                                        <a href="{{ path('read_beneficiaire') }}">Bénéficiaires</a>
+
+                                    </li>
+                                    <li>
+                                        <a href="{{ path('read_appel', {'exercice': 1}) }}">Appels</a>
+                                    </li>
+                                    </li>
                                 </ul>
                             </li>      
 
@@ -108,10 +114,13 @@
                                 <ul>
 
                                     <li>
-                                        <a href="page_ready_search_results.html">Search Results (4)</a>
+                                        <a href="{{ path('read_encaissement', {'exercice': 1}) }}">Encaissements</a>
                                     </li>
                                     <li>
-                                        <a href="page_ready_article.html">Article</a>
+                                        <a href="{{ path('read_fournisseur') }}">Fournisseurs</a>
+                                    </li>
+                                    <li>
+                                        <a href="page_ready_article.html">Paiements</a>
                                     </li> 
                                 </ul>
                             </li>
@@ -214,6 +223,11 @@
                 <!-- END Header -->
                 <!-- Page content -->
                 <div id="page-content">
+                    <ul class="breadcrumb breadcrumb-top">
+                        {% block titletopmeu %}
+
+                        {% endblock %}
+                    </ul>
                     {% block content %}
 
                     {% endblock %} 

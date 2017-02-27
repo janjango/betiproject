@@ -3,17 +3,17 @@
 
 {% endblock %}
  {% block titletopmeu %}
-     <li>Appel</li>
-     <li><a href="{{ path('read_objetappel')}}">Objets Appels</a></li>
+     <li>Encaissement</li>
+     <li><a href="">Fournisseurs</a></li>
  {% endblock %}
  {% block content %}
      <!-- Datatables Content -->
      <div class="block full">
          <div class="block-title">
 
-             <h2><strong>Objets Appels</strong></h2>
+             <h2><strong>Fournisseurs</strong></h2>
 
-             <a  href="{{ path('create_objetappel')}}"  title="Ajouter" class="btn btn-xs btn-success" >
+             <a  href="{{ path('create_fournisseur')}}"  title="Ajouter" class="btn btn-xs btn-success" >
                  <i  class="fa fa-plus"></i></a>
          </div>
 
@@ -22,29 +22,29 @@
                  <thead>
                  <tr>
                      <th class="text-center hide"></th>
-                     <th class="text-center hide"></th>
-                     <th class="text-center hide"></th>
-                     <th class="text-center ">Objets Appels</th>
-                     <th class="text-center hide">  </th>
+                     <th class="text-center "> Code</th>
+                     <th class="text-center "> Nom </th>
+                     <th class="text-center ">Contact(s)</th>
+                     <th class="text-center"> email </th>
                      <th class="text-center">Actions</th>
                  </tr>
 
                  </thead>
                  <tbody>
-                 {% for element in  objetappels %}
+                 {% for element in  fournisseurs %}
                      <tr>
                          <td class="text-left hide"></td>
-                         <td class="text-left hide"></td>
-                         <td class="text-left hide"></td>
-                         <td class="text-left "> {{ element.libObjet }}</td>
-                         <td class="text-center hide">
-
+                         <td class="text-left ">{{ element.code }}</td>
+                         <td class="text-left "> {{ element.nom }}</td>
+                         <td class="text-left "> {{ element.tel }}</td>
+                         <td class="text-center">
+                             {{ element.email }}
                          </td>
                          <td class="text-center">
-                             <a href="{{ path('update_objetappel', {'id': element.id } )}}" data-toggle="tooltip" title="Edit" class="btn btn-xs btn-default"><i class="fa fa-pencil"></i></a>
+                             <a href="{{ path('update_fournisseur', {'id': element.id } )}}" data-toggle="tooltip" title="Edit" class="btn btn-xs btn-default"><i class="fa fa-pencil"></i></a>
 
                              <a href="#modal-regular{{ element.id }}" data-toggle="modal" title="Delete" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></a>
-                             {% include 'appel/objetappel/delete_objetappel.html.twig'  %}
+                             {% include 'encaissement/fournisseur/delete_fournisseur.html.twig'  %}
                          </td>
                      </tr>
                  {% endfor %}
