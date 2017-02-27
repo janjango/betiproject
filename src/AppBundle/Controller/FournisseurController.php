@@ -18,11 +18,19 @@ class FournisseurController extends Controller {
     public function read_fournisseurAction(Request $request) {
         // replace this example code with whatever you need
 
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        $users = $this->getDoctrine()->getManager()
+            ->getRepository('Jac\UserBundle\Entity\User');
+        $menus = $users->getMenus($user->getId());
+        $sousMenus = $users->getSousMenus($user->getId());
+
         $fournisseurs= $this->getDoctrine()
             ->getManager()->getRepository('AppBundle:Fournisseur')
             ->findBy(Array(),Array('nom'=>'ASC'));
         return $this->render('encaissement/fournisseur/read_fournisseur.html.twig', [
-            'fournisseurs' => $fournisseurs
+            'fournisseurs' => $fournisseurs,
+            'sousMenus' => $sousMenus,
+            'menus' => $menus
         ]);
 
     }
@@ -35,6 +43,12 @@ class FournisseurController extends Controller {
      */
     public function create_fournisseurAction(Request $request)
     {
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        $users = $this->getDoctrine()->getManager()
+            ->getRepository('Jac\UserBundle\Entity\User');
+        $menus = $users->getMenus($user->getId());
+        $sousMenus = $users->getSousMenus($user->getId());
+
         $fournisseur = new Fournisseur();
         $form = $this->createForm('AppBundle\Form\FournisseurType', $fournisseur);
         $form->handleRequest($request);
@@ -50,7 +64,9 @@ class FournisseurController extends Controller {
             return $this->redirectToRoute('create_fournisseur');
         }
         return $this->render('encaissement/fournisseur/create_fournisseur.html.twig', [
-             'form'   => $form->createView()
+             'form'   => $form->createView(),
+            'sousMenus' => $sousMenus,
+            'menus' => $menus
         ]);
     }
 
@@ -62,6 +78,12 @@ class FournisseurController extends Controller {
      */
     public function update_fournisseurAction(Request $request)
     {
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        $users = $this->getDoctrine()->getManager()
+            ->getRepository('Jac\UserBundle\Entity\User');
+        $menus = $users->getMenus($user->getId());
+        $sousMenus = $users->getSousMenus($user->getId());
+
         $fournisseur = $this->getDoctrine()->getManager()->getRepository('AppBundle:Fournisseur')
             ->find($request->get('id'));
         $form = $this->createForm('AppBundle\Form\FournisseurType', $fournisseur);
@@ -77,7 +99,9 @@ class FournisseurController extends Controller {
             return $this->redirectToRoute('read_fournisseur');
         }
         return $this->render('encaissement/fournisseur/update_fournisseur.html.twig', [
-            'form'   => $form->createView(), 'id'   => $request->get('id')
+            'form'   => $form->createView(), 'id'   => $request->get('id'),
+            'sousMenus' => $sousMenus,
+            'menus' => $menus
         ]);
     }
 

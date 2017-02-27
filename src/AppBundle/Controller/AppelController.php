@@ -28,8 +28,16 @@ class AppelController extends Controller {
 
         $solde=($this->getDoctrine()->getManager()->getRepository('AppBundle:Appel')->getSommeajouter($request->get('exercice')))-($this->getDoctrine()->getManager()->getRepository('AppBundle:Appel')->getSommeannuler($request->get('exercice')));
 
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        $users = $this->getDoctrine()->getManager()
+            ->getRepository('Jac\UserBundle\Entity\User');
+        $menus = $users->getMenus($user->getId());
+        $sousMenus = $users->getSousMenus($user->getId());
+
         return $this->render('appel/appel/read_appel.html.twig', [
-            'appels' => $appels, 'exercices'=> $exercices, 'exercice'=>$request->get('exercice'), 'solde'=> $solde
+            'appels' => $appels, 'exercices'=> $exercices, 'exercice'=>$request->get('exercice'), 'solde'=> $solde,
+            'sousMenus' => $sousMenus,
+            'menus' => $menus,
         ]);
 
     }
@@ -42,6 +50,11 @@ class AppelController extends Controller {
      */
     public function create_appelAction(Request $request)
     {
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        $users = $this->getDoctrine()->getManager()
+            ->getRepository('Jac\UserBundle\Entity\User');
+        $menus = $users->getMenus($user->getId());
+        $sousMenus = $users->getSousMenus($user->getId());
         $appel = new Appel();
         $form = $this->createForm('AppBundle\Form\AppelType', $appel);
         $form->handleRequest($request);
@@ -61,8 +74,11 @@ class AppelController extends Controller {
 
             return $this->redirectToRoute('create_appel', array('exercice' => $request->get('exercice')));
         }
+
         return $this->render('appel/appel/create_appel.html.twig', [
-             'form'   => $form->createView(),'exercice'=>$request->get('exercice')
+             'form'   => $form->createView(),'exercice'=>$request->get('exercice'),
+            'sousMenus' => $sousMenus,
+            'menus' => $menus,
         ]);
     }
 
@@ -74,6 +90,7 @@ class AppelController extends Controller {
      */
     public function cancel_appelAction(Request $request)
     {
+
         $newappel = new Appel();
         $appel = $this->getDoctrine()->getManager()->getRepository('AppBundle:Appel')
             ->find($request->get('id'));
@@ -119,6 +136,11 @@ class AppelController extends Controller {
      */
     public function update_appelAction(Request $request)
     {
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        $users = $this->getDoctrine()->getManager()
+            ->getRepository('Jac\UserBundle\Entity\User');
+        $menus = $users->getMenus($user->getId());
+        $sousMenus = $users->getSousMenus($user->getId());
         $appel = $this->getDoctrine()->getManager()->getRepository('AppBundle:Appel')
             ->find($request->get('id'));
         $form = $this->createForm('AppBundle\Form\AppelType', $appel);
@@ -135,7 +157,9 @@ class AppelController extends Controller {
             return $this->redirectToRoute('read_appel', array('exercice' => $appel->getExercice()->getId()));
         }
         return $this->render('appel/appel/update_appel.html.twig', [
-            'form'   => $form->createView(), 'id'   => $request->get('id'), 'appel'   => $appel
+            'form'   => $form->createView(), 'id'   => $request->get('id'), 'appel'   => $appel,
+            'sousMenus' => $sousMenus,
+            'menus' => $menus,
         ]);
     }
 
