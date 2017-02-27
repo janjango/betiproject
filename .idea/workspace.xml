@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c583bd1b-a9ff-45fe-845d-d6c444980d49" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Jac/UserBundle/Entity/UserRepository.php" afterPath="$PROJECT_DIR$/src/Jac/UserBundle/Entity/UserRepository.php" />
     </list>
     <ignored path="betiproject.iws" />
@@ -108,11 +107,11 @@
       <file leaf-file-name="UserRepository.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Jac/UserBundle/Entity/UserRepository.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="213">
-              <caret line="49" column="0" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
+            <state relative-caret-position="485">
+              <caret line="65" column="73" selection-start-line="65" selection-start-column="73" selection-end-line="65" selection-end-column="73" />
               <folding>
-                <marker date="1488193980146" expanded="true" signature="1522:1750" placeholder="SELECT DISTI... AppBundle" />
-                <marker date="1488193980146" expanded="true" signature="2058:2235" placeholder="SELECT DISTI... AppBundle" />
+                <marker date="1488208182931" expanded="true" signature="1532:1769" placeholder="SELECT DISTI... AppBundle" />
+                <marker date="1488208182931" expanded="true" signature="2095:2279" placeholder="SELECT DISTI... AppBundle" />
               </folding>
             </state>
           </provider>
@@ -683,12 +682,12 @@
       <workItem from="1488009554133" duration="101000" />
       <workItem from="1488009675056" duration="111000" />
       <workItem from="1488009822798" duration="15295000" />
-      <workItem from="1488178195094" duration="7213000" />
+      <workItem from="1488178195094" duration="7826000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="67680000" />
+    <option name="totallyTimeSpent" value="68293000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="886" extended-state="6" />
@@ -1143,11 +1142,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Jac/UserBundle/Entity/UserRepository.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="213">
-          <caret line="49" column="0" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
+        <state relative-caret-position="485">
+          <caret line="65" column="73" selection-start-line="65" selection-start-column="73" selection-end-line="65" selection-end-column="73" />
           <folding>
-            <marker date="1488193980146" expanded="true" signature="1522:1750" placeholder="SELECT DISTI... AppBundle" />
-            <marker date="1488193980146" expanded="true" signature="2058:2235" placeholder="SELECT DISTI... AppBundle" />
+            <marker date="1488208182931" expanded="true" signature="1532:1769" placeholder="SELECT DISTI... AppBundle" />
+            <marker date="1488208182931" expanded="true" signature="2095:2279" placeholder="SELECT DISTI... AppBundle" />
           </folding>
         </state>
       </provider>
