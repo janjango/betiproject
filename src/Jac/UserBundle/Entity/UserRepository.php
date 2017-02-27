@@ -53,41 +53,4 @@ class UserRepository extends EntityRepository
 
         return $query->getResult(); //variable qui récupère la requête
     }
-//
-//    public function getMenus($user) {
-//        $em = $this->getDoctrine()->getManager(); //on appelle Doctrine
-//        $query = $em->createQuery( //creation de la requête
-//            'SELECT DISTINCT m
-//            FROM AppBundle:Menu m, AppBundle:SousMenu s, AppBundle:Privilege p
-//            WHERE p.sousmenu = s.id
-//            AND s.menu = menu.id
-//            AND p.user = :param
-//            ORDER BY m.id ASC'
-//        )->setParameter('param', $user);
-//
-//        return $query->getResult(); //variable qui récupère la requête
-//    }
-//
-//    public function getSouMenus($user) {
-//        $em = $this->getDoctrine()->getManager(); //on appelle Doctrine
-//        $query = $em->createQuery( //creation de la requête
-//            'SELECT DISTINCT s
-//            FROM AppBundle:SousMenu s, AppBundle:Privilege p
-//            WHERE p.sousmenu = s.id
-//            AND p.user = :param
-//            ORDER BY m.id ASC'
-//        )->setParameter('param', $user);
-//
-////        return $query->getResult(); //variable qui récupère la requête
-//    }
-
 }
-/*
-array(1) { 
-    [0]=> array(18) { 
-        ["username"]=> string(5) "admin" ["usernameCanonical"]=> string(5) "admin" ["email"]=> string(17) "example@gmail.com" ["emailCanonical"]=> string(17) "example@gmail.com" ["enabled"]=> bool(true) ["salt"]=> NULL ["password"]=> string(60) "$2y$13$Wf5KjX2FpMU0TCNS.aLasuCZd7PwxGZYBTod.VCRWS5akE65iBEAy" ["lastLogin"]=> object(DateTime)#944 (3) { ["date"]=> string(26) "2017-02-25 09:34:07.000000" ["timezone_type"]=> int(3) ["timezone"]=> string(3) "UTC" } ["confirmationToken"]=> NULL ["passwordRequestedAt"]=> NULL ["roles"]=> array(1) { [0]=> string(16) "ROLE_SUPER_ADMIN" } ["id"]=> int(1) ["firstName"]=> string(7) "Jacques" ["lastName"]=> string(11) "Adjahoungbo" ["phone"]=> string(12) "+22997502447" ["birthDate"]=> NULL ["gender"]=> NULL
-["privileges"]=> array(3) { 
-            [0]=> array(2) { ["id"]=> int(1) ["sousMenu"]=> array(4) { ["id"]=> int(1) ["libelle"]=> string(8) "Exercice" ["routeName"]=> string(13) "read_exercice" 
-            ["menu"]=> array(4) { ["id"]=> int(1) ["libelle"]=> string(5) "Appel" ["routeName"]=> string(10) "read_appel" ["fontIconClass"]=> string(16) "gi-shopping_cart" } } } [1]=> array(2) { ["id"]=> int(2) ["sousMenu"]=> array(4) { ["id"]=> int(2) ["libelle"]=> string(11) "Objet appel" ["routeName"]=> string(15) "read_objetappel" ["menu"]=> array(4) { ["id"]=> int(1) ["libelle"]=> string(5) "Appel" ["routeName"]=> string(10) "read_appel" ["fontIconClass"]=> string(16) "gi-shopping_cart" } } } [2]=> array(2) { ["id"]=> int(3) ["sousMenu"]=> array(4) { ["id"]=> int(3) ["libelle"]=> string(14) "Bénéficiaire" ["routeName"]=> string(17) "read_beneficiaire"
- ["menu"]=> array(4) { ["id"]=> int(1) ["libelle"]=> string(5) "Appel" ["routeName"]=> string(10) "read_appel" ["fontIconClass"]=> string(16) "gi-shopping_cart" } } } } } }
-*/
