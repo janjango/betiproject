@@ -84,64 +84,25 @@
 
 
                         <!-- Sidebar Navigation -->
+
                         <ul class="sidebar-nav">
-                            <li>
-                                <a href="#" class="sidebar-nav-menu">
-                                    <i class="fa fa-angle-left sidebar-nav-indicator sidebar-nav-mini-hide"></i>
-                                    <i class="gi  sidebar-nav-icon"></i>
-                                    <span class="sidebar-nav-mini-hide">Appel</span></a>
-                                <ul>
+                            {% if (menus is defined) %}
+                                {% for menu in menus %}     
                                     <li>
-                                        <a href="{{ path('read_exercice') }}">Exercice</a>
+                                        <a href="#" class="sidebar-nav-menu">
+                                            <i class="fa fa-angle-left sidebar-nav-indicator sidebar-nav-mini-hide"></i>
+                                            <i class="{{ menu.fontIconClass }} sidebar-nav-icon"></i>
+                                            <span class="sidebar-nav-mini-hide">{{ menu.libelle }}</span></a>
+                                        <ul>
+                                            {% for sousMenu in sousMenus %}    
+                                                {% if  sousMenu.menu.id == menu.id %}
+                                                    <a href="{{ path(sousMenu.routeName) }}">{{ sousMenu.libelle }}</a>
+                                                {% endif %}    
+                                            {% endfor %} 
+                                        </ul>
                                     </li>
-                                    <li>
-                                        <a href="{{ path('read_objetappel') }}">Objets appels</a>
-                                    </li>   
-                                    <li>
-                                        <a href="{{ path('read_beneficiaire') }}">Bénéficiaire</a>
-                                    </li> 
-                                </ul>
-                            </li>      
-
-                            <li>
-                                <a href="#" class="sidebar-nav-menu"><i class="fa fa-angle-left sidebar-nav-indicator sidebar-nav-mini-hide"></i><i class="gi gi-package sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Encaissement</span></a>
-                                <ul>
-
-                                    <li>
-                                        <a href="page_ready_search_results.html">Search Results (4)</a>
-                                    </li>
-                                    <li>
-                                        <a href="page_ready_article.html">Article</a>
-                                    </li> 
-                                </ul>
-                            </li>
-
-                            {% if is_granted('ROLE_ADMIN')  %}
-                                <li>
-                                    <a href="{{ path('easyadmin') }}" class="" target="">
-                                        <i class="fa fa-angle-left sidebar-nav-indicator sidebar-nav-mini-hide"></i>
-                                        <i class="fa fa-wrench sidebar-nav-icon"></i>
-                                        <span class="sidebar-nav-mini-hide">Administration</span>
-                                    </a>
-                                    <!--
-                                    <ul>                                        
-                                        <li>
-                                            <a href="page_comp_carousel.html">Menu</a>
-                                        </li>
-                                        <li>
-                                            <a href="page_comp_calendar.html">Sous-menu</a>
-                                        </li>
-                                        <li>
-                                            <a href="page_comp_animations.html">CSS3 Animations</a>
-                                        </li>
-                                        <li>
-                                            <a href="page_comp_syntax_highlighting.html">Syntax Highlighting</a>
-                                        </li>
-                                    </ul>
-                                    -->
-                                </li>
+                                {% endfor %}
                             {% endif %}
-
                         </ul>
                         <!-- END Sidebar Navigation -->                            
                     </div>

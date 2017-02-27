@@ -17,12 +17,19 @@ class BeneficiaireController extends Controller {
      */
     public function read_beneficiaireAction(Request $request) {
         // replace this example code with whatever you need
-
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        $users = $this->getDoctrine()->getManager()
+                ->getRepository('Jac\UserBundle\Entity\User');
+        $menus = $users->getMenus($user->getId());
+        $sousMenus = $users->getSousMenus($user->getId());
+        
         $beneficiaires= $this->getDoctrine()
             ->getManager()->getRepository('AppBundle:Beneficiaire')
             ->findBy(Array(),Array('libBeneficiaire'=>'ASC'));
         return $this->render('appel/beneficiaire/read_beneficiaire.html.twig', [
-            'beneficiaires' => $beneficiaires
+            'beneficiaires' => $beneficiaires,
+            'sousMenus' => $sousMenus,
+            'menus' => $menus,
         ]);
 
     }

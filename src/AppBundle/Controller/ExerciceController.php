@@ -17,12 +17,19 @@ class ExerciceController extends Controller {
      */
     public function read_exerciceAction(Request $request) {
         // replace this example code with whatever you need
-
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        $users = $this->getDoctrine()->getManager()
+                ->getRepository('Jac\UserBundle\Entity\User');
+        $menus = $users->getMenus($user->getId());
+        $sousMenus = $users->getSousMenus($user->getId());
+        
         $exercices= $this->getDoctrine()
             ->getManager()->getRepository('AppBundle:Exercice')
             ->findBy(Array(),Array('libExercice'=>'ASC'));
         return $this->render('appel/exercice/read_exercice.html.twig', [
-            'exercices' => $exercices
+            'exercices' => $exercices,
+            'sousMenus' => $sousMenus,
+            'menus' => $menus,
         ]);
 
     }
