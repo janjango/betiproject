@@ -48,7 +48,32 @@ class UserRepository extends EntityRepository
         );
     }
 
+    public function getMenus($user) {
+        $em = $this->getDoctrine()->getManager(); //on appelle Doctrine
+        $query = $em->createQuery( //creation de la requête
+            'SELECT DISTINCT m
+            FROM AppBundle:Menu m, AppBundle:SousMenu s, AppBundle:Privilege p
+            WHERE p.sousmenu = s.id 
+            AND s.menu = menu.id
+            AND p.user = :param
+            ORDER BY m.id ASC'
+        )->setParameter('param', $user);
 
+        return $query->getResult(); //variable qui récupère la requête
+    }
+
+    public function getSouMenus($user) {
+        $em = $this->getDoctrine()->getManager(); //on appelle Doctrine
+        $query = $em->createQuery( //creation de la requête
+            'SELECT DISTINCT s
+            FROM AppBundle:SousMenu s, AppBundle:Privilege p
+            WHERE p.sousmenu = s.id 
+            AND p.user = :param
+            ORDER BY m.id ASC'
+        )->setParameter('param', $user);
+
+        return $query->getResult(); //variable qui récupère la requête
+    }
 
 }
 /*
