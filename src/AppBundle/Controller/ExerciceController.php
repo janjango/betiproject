@@ -92,7 +92,7 @@ class ExerciceController extends Controller {
 
             $em->flush();
             $this->addFlash(
-                'success', "Modification effectué avec succès !"
+                'warning', "Modification effectué avec succès !"
             );
 
             return $this->redirectToRoute('read_exercice');
@@ -119,7 +119,7 @@ class ExerciceController extends Controller {
             $em->remove($exercice);
             $em->flush();
             $this->addFlash(
-                'success', "Modification effectué avec succès !"
+                'danger', "Suppression effectué avec succès !"
             );
 
             return $this->redirectToRoute('read_exercice');

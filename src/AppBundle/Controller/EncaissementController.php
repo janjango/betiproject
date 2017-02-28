@@ -53,19 +53,18 @@ class EncaissementController extends Controller {
             ->getRepository('Jac\UserBundle\Entity\User');
         $menus = $users->getMenus($user->getId());
         $sousMenus = $users->getSousMenus($user->getId());
-        $erreur = array();
         $encaissement = new Encaissement();
         $form = $this->createForm('AppBundle\Form\EncaissementType', $encaissement);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             if($encaissement->getAppel()->getMontantEncaissement()+$encaissement->getMontantEncaisse() > $encaissement->getAppel()->getMontantTtc()){
-                $erreur['titre']="Erreur";
-                $erreur['message']="Le montant encaissé est supérieur au montant de l'appel";
+                $this->addFlash(
+                    'danger', "Le montant encaissé est supérieur à celui de l'appel !"
+                );
                 return $this->render('encaissement/encaissement/create_encaissement.html.twig', [
                     'form'   => $form->createView(),'exercice'=>$request->get('exercice'),
                     'sousMenus' => $sousMenus,
-                    'menus' => $menus,
-                    'erreur' =>$erreur
+                    'menus' => $menus
                 ]);
             }
 
@@ -83,8 +82,7 @@ class EncaissementController extends Controller {
         return $this->render('encaissement/encaissement/create_encaissement.html.twig', [
              'form'   => $form->createView(),'exercice'=>$request->get('exercice'),
             'sousMenus' => $sousMenus,
-            'menus' => $menus,
-            'erreur' =>$erreur
+            'menus' => $menus
         ]);
     }
 
@@ -111,7 +109,7 @@ class EncaissementController extends Controller {
 
             $em->flush();
             $this->addFlash(
-                'success', "Modification effectué avec succès !"
+                'warning', "Modification effectué avec succès !"
             );
 
             return $this->redirectToRoute('read_encaissement', array('exercice' =>$encaissement->getExercice()->getId()));
@@ -138,7 +136,7 @@ class EncaissementController extends Controller {
             $em->remove($encaissement);
             $em->flush();
             $this->addFlash(
-                'success', "Modification effectué avec succès !"
+                'danger', "Suppression effectué avec succès !"
             );
 
             return $this->redirectToRoute('read_encaissement', array('exercice' =>$encaissement->getExercice()->getId()));

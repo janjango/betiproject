@@ -93,7 +93,7 @@ class ObjetAppelController extends Controller {
 
             $em->flush();
             $this->addFlash(
-                'success', "Modification effectué avec succès !"
+                'warning', "Modification effectué avec succès !"
             );
 
             return $this->redirectToRoute('read_objetappel');
@@ -120,7 +120,7 @@ class ObjetAppelController extends Controller {
             $em->remove($objetappel);
             $em->flush();
             $this->addFlash(
-                'success', "Modification effectué avec succès !"
+                'danger', "Suppression effectué avec succès !"
             );
 
             return $this->redirectToRoute('read_objetappel');
