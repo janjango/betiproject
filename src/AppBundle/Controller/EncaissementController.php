@@ -53,15 +53,27 @@ class EncaissementController extends Controller {
             ->getRepository('Jac\UserBundle\Entity\User');
         $menus = $users->getMenus($user->getId());
         $sousMenus = $users->getSousMenus($user->getId());
-
+        $erreur = array();
         $encaissement = new Encaissement();
         $form = $this->createForm('AppBundle\Form\EncaissementType', $encaissement);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            if($encaissement->getAppel()->getMontantEncaissement()+$encaissement->getMontantEncaisse() > $encaissement->getAppel()->getMontantTtc()){
+                $erreur['titre']="Erreur";
+                $erreur['message']="Le montant encaissé est supérieur au montant de l'appel";
+                return $this->render('encaissement/encaissement/create_encaissement.html.twig', [
+                    'form'   => $form->createView(),'exercice'=>$request->get('exercice'),
+                    'sousMenus' => $sousMenus,
+                    'menus' => $menus,
+                    'erreur' =>$erreur
+                ]);
+            }
+
             $em = $this->getDoctrine()->getManager();
             $encaissement->setExercice($this->getDoctrine()->getManager()->getRepository('AppBundle:Exercice')->find($request->get('exercice')));
             $em->persist($encaissement);
             $em->flush();
+
             $this->addFlash(
                 'success', "Enregistrement effectué avec succès !"
             );
@@ -71,7 +83,8 @@ class EncaissementController extends Controller {
         return $this->render('encaissement/encaissement/create_encaissement.html.twig', [
              'form'   => $form->createView(),'exercice'=>$request->get('exercice'),
             'sousMenus' => $sousMenus,
-            'menus' => $menus
+            'menus' => $menus,
+            'erreur' =>$erreur
         ]);
     }
 

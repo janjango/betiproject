@@ -37,7 +37,7 @@ class SousMenu {
      * @Assert\Type(type="string")
      */
     private $routeName;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="Menu", inversedBy="sousMenus")
      */
@@ -174,4 +174,5 @@ class SousMenu {
     {
         return $this->routeName;
     }
+
 }

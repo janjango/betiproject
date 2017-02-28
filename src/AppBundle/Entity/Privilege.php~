@@ -25,17 +25,16 @@ class Privilege {
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="SousMenu")
+     * @ORM\ManyToOne(targetEntity="SousMenu", inversedBy="privileges")
      * @ORM\JoinColumn(nullable=false)
      */
     private $sousMenu;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Jac\UserBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="Jac\UserBundle\Entity\User", inversedBy="privileges")
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
-
 
     /**
      * Get id

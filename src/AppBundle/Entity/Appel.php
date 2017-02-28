@@ -3,12 +3,16 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Tests\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Appel
  *
  * @ORM\Table(name="appel")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\AppelRepository")
+ * @UniqueEntity("referenceAppel",
+ *  message="Cette référence existe déjà.")
  */
 class Appel
 {
@@ -725,4 +729,11 @@ class Appel
         return 'Réf : '.$this->referenceAppel.' du '.$this->dateAppel->format('d-m-Y');
     }
 
+    public function getMontantEncaissement(){
+        $i=0;
+        foreach ($this->getEncaissements() as $unencaissement){
+            $i += $unencaissement->getMontantEncaisse();
+        }
+        return $i;
+    }
 }

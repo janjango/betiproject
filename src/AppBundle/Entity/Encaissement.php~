@@ -279,4 +279,28 @@ class Encaissement
     {
         return $this->dateEncaissement;
     }
+
+    /**
+     * Set exercice
+     *
+     * @param \AppBundle\Entity\Exercice $exercice
+     *
+     * @return Encaissement
+     */
+    public function setExercice(\AppBundle\Entity\Exercice $exercice = null)
+    {
+        $this->exercice = $exercice;
+
+        return $this;
+    }
+
+    /**
+     * Get exercice
+     *
+     * @return \AppBundle\Entity\Exercice
+     */
+    public function getExercice()
+    {
+        return $this->exercice;
+    }
 }

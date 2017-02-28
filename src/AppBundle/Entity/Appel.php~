@@ -719,4 +719,10 @@ class Appel
     {
         return $this->estParentannuler;
     }
+
+
+    public function __toString() {
+        return 'Réf : '.$this->referenceAppel.' du '.$this->dateAppel->format('d-m-Y');
+    }
+
 }

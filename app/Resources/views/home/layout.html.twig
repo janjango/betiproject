@@ -183,6 +183,12 @@
 
                         {% endblock %}
                     </ul>
+                    {% for flash_message in app.session.flashBag.get('success') %}
+                    <div class=" flash-notice alert alert-success alert-dismissable">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            {{ flash_message }}
+                        </div>
+                    {% endfor %}
                     {% block content %}
 
                     {% endblock %} 

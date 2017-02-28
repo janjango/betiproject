@@ -4,7 +4,7 @@
 {% endblock %}
  {% block titletopmeu %}
     <li>Encaissement</li>
-    <li><a href="{{ path('read_encaissement',{'exercice': exercice})}}">Encaissement</a></li>
+    <li><a href="{% if (exercice is not null) %}{{ path('read_encaissement',{'exercice': exercice})}}  {% else %} {{ path('read_encaissement',{'exercice': 1})}} {% endif %}">Encaissement</a></li>
 {% endblock %}
  {% block content %}
      <!-- Datatables Content -->
@@ -15,6 +15,7 @@
                  <strong> Encaissements  </strong>
 
                  <select id="getExo" name="getExo" class="select-chosen ">
+                  <option value="">Exercice</option>
                      {% for elt in  exercices %}
                          <option value="{{ elt.id }}"  {% if elt.id==exercice %} selected="true" {% endif %}>{{ elt.libExercice }}</option>
                      {% endfor %}
@@ -22,7 +23,7 @@
 
              </h2>
 
-                <a  href="{{ path('create_encaissement',{'exercice': exercice })}}"  title="Ajouter" class="btn btn-xs btn-success" >
+                <a  href="{% if (exercice is not null) %}{{ path('create_encaissement',{'exercice': exercice })}}  {% else %} {{ path('create_encaissement',{'exercice': 1 })}}  {% endif %}"  title="Ajouter" class="btn btn-xs btn-success" >
                  <i  class="fa fa-plus"></i></a>
 
          <div class="table-responsive">
