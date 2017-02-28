@@ -41,7 +41,12 @@
     <!-- The themes stylesheet of this template (for using specific theme color in individual elements - must included last) -->
     <link rel="stylesheet" href="{{ asset('/bundles/app/css/themes.css') }}">
     <!-- END Stylesheets -->
-
+    <style>
+        form label.required::after {
+            content: ' (*)';
+            color: #c7254e;
+        }
+    </style>
     <!-- Modernizr (browser feature detection library) & Respond.js') }} (enables responsive CSS code on browsers that don't support it, eg IE8) -->
     <script src="{{ asset('/bundles/app/js/vendor/modernizr-respond.min.js') }}"></script>
     

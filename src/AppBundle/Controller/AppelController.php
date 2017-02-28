@@ -120,7 +120,7 @@ class AppelController extends Controller {
             $appel->setEstParentannuler(true);
             $em->flush();
             $this->addFlash(
-                'success', "Modification effectué avec succès !"
+                'warning', "Modification effectué avec succès !"
             );
 
             return $this->redirectToRoute('read_appel', array('exercice' => $appel->getExercice()->getId()));
@@ -151,7 +151,7 @@ class AppelController extends Controller {
             $appel->setDateModif(new \ Datetime());
             $em->flush();
             $this->addFlash(
-                'success', "Modification effectué avec succès !"
+                'warning', "Modification effectué avec succès !"
             );
 
             return $this->redirectToRoute('read_appel', array('exercice' => $appel->getExercice()->getId()));
@@ -178,7 +178,7 @@ class AppelController extends Controller {
             $em->remove($appel);
             $em->flush();
             $this->addFlash(
-                'success', "Modification effectué avec succès !"
+                'danger', "Suppression effectué avec succès !"
             );
 
             return $this->redirectToRoute('read_appel', array('exercice' => $appel->getExercice()->getId()));

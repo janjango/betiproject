@@ -37,7 +37,7 @@ class Menu {
      * @Assert\Type(type="string")
      */
     private $routeName;
-    
+
     /**
      * @var string The iconClass of the Menu.
      * @ORM\Column(name="fontIconClass", nullable=true)
@@ -177,4 +177,5 @@ class Menu {
     {
         return $this->fontIconClass;
     }
+
 }
