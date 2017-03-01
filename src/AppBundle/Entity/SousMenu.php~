@@ -37,13 +37,7 @@ class SousMenu {
      * @Assert\Type(type="string")
      */
     private $routeName;
-    /**
-     * @var string The param of the SousMenu.
-     * @ORM\Column(name="param", nullable=true)
-     * @Assert\Type(type="string")
-     */
-    private $param;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="Menu", inversedBy="sousMenus")
      */
@@ -180,4 +174,5 @@ class SousMenu {
     {
         return $this->routeName;
     }
+
 }

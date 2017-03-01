@@ -35,7 +35,7 @@
                      <th class="text-center "> Date</th>
                      <th class="text-center "> Référence</th>
                      <th class="text-center "> Objet </th>
-                     <th class="text-center "> Montant Ttc </th>
+                     <th class="text-center "> Montant </th>
                      <th class="text-center "> Etat </th>
                      <th class="text-center "> Solde </th>
                      <th class="text-center">  Actions</th>
@@ -48,7 +48,7 @@
                      <tr>
                          <td class="text-center"> {{ element.dateAppel|date('d/m/Y') }} </td>
                          <td class="text-left">{{ element.referenceAppel }} </td>
-                         <td class="text-left"> {% if element.objetappel is not null %} {{ element.objetappel.libObjet }}  {% endif %}</td>
+                         <td class="text-left"> {% if element.objetappel is not null %} {{ element.objetappel }}  {% endif %}</td>
                          <td class="text-right ">
                             {% if element.estAnnuler==1 %} - {% endif %} {{ element.montantTtc|number_format(2, ',', '.') }}
                          </td>

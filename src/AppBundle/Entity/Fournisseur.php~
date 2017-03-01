@@ -218,4 +218,3 @@ class Fournisseur
         return $this->adresse;
     }
 }
-

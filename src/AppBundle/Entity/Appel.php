@@ -21,11 +21,6 @@ class Appel
      */
     private $encaissements;
     /**
-     * @ORM\ManyToOne(targetEntity="ObjetAppel", inversedBy="appels")
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $objetappel;
-    /**
      * @ORM\ManyToOne(targetEntity="Exercice", inversedBy="appels")
      * @ORM\JoinColumn(nullable=true)
      */
@@ -66,6 +61,13 @@ class Appel
     private $observation;
 
     /**
+     * @var text
+     *
+     * @ORM\Column(name="objetappel", type="text")
+     */
+    private $objetappel;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="refEngagement", type="string", length=255, nullable=true)
@@ -96,7 +98,7 @@ class Appel
     /**
      * @var string
      *
-     * @ORM\Column(name="montantHt", type="decimal", precision=10, scale=2)
+     * @ORM\Column(name="montantHt", type="decimal", precision=10, scale=2, nullable=true)
      */
     private $montantHt;
 
@@ -166,6 +168,20 @@ class Appel
      * @ORM\Column(name="estParentannuler", type="boolean", nullable=true)
      */
     private $estParentannuler;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="numcomptetresor", type="string", length=155, nullable=true)
+     */
+    private $numcomptetresor;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="intitulecomptetresor", type="string", length=255, nullable=true)
+     */
+    private $intitulecomptetresor;
 
     /**
      * Get id
@@ -538,30 +554,6 @@ class Appel
     }
 
     /**
-     * Set objetappel
-     *
-     * @param \AppBundle\Entity\ObjetAppel $objetappel
-     *
-     * @return Appel
-     */
-    public function setObjetappel(\AppBundle\Entity\ObjetAppel $objetappel = null)
-    {
-        $this->objetappel = $objetappel;
-
-        return $this;
-    }
-
-    /**
-     * Get objetappel
-     *
-     * @return \AppBundle\Entity\ObjetAppel
-     */
-    public function getObjetappel()
-    {
-        return $this->objetappel;
-    }
-
-    /**
      * Set exercice
      *
      * @param \AppBundle\Entity\Exercice $exercice
@@ -584,8 +576,6 @@ class Appel
     {
         return $this->exercice;
     }
-
-
 
     /**
      * Set beneficiaire
@@ -735,5 +725,77 @@ class Appel
             $i += $unencaissement->getMontantEncaisse();
         }
         return $i;
+    }
+
+    /**
+     * Set objetappel
+     *
+     * @param string $objetappel
+     *
+     * @return Appel
+     */
+    public function setObjetappel($objetappel)
+    {
+        $this->objetappel = $objetappel;
+
+        return $this;
+    }
+
+    /**
+     * Get objetappel
+     *
+     * @return string
+     */
+    public function getObjetappel()
+    {
+        return $this->objetappel;
+    }
+
+    /**
+     * Set numcomptetresor
+     *
+     * @param string $numcomptetresor
+     *
+     * @return Appel
+     */
+    public function setNumcomptetresor($numcomptetresor)
+    {
+        $this->numcomptetresor = $numcomptetresor;
+
+        return $this;
+    }
+
+    /**
+     * Get numcomptetresor
+     *
+     * @return string
+     */
+    public function getNumcomptetresor()
+    {
+        return $this->numcomptetresor;
+    }
+
+    /**
+     * Set intitulecomptetresor
+     *
+     * @param string $intitulecomptetresor
+     *
+     * @return Appel
+     */
+    public function setIntitulecomptetresor($intitulecomptetresor)
+    {
+        $this->intitulecomptetresor = $intitulecomptetresor;
+
+        return $this;
+    }
+
+    /**
+     * Get intitulecomptetresor
+     *
+     * @return string
+     */
+    public function getIntitulecomptetresor()
+    {
+        return $this->intitulecomptetresor;
     }
 }

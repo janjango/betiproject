@@ -109,13 +109,15 @@ class AppelController extends Controller {
             $newappel->setDateBordereau($appel->getDateBordereau());
             $newappel->setDateEngagement($appel->getDateEngagement());
            // $newappel->setMonant($appel->getMonant());
-            $newappel->setMontantHt($appel->getMontantHt());
             $newappel->setMontantTtc($appel->getMontantTtc());
             $newappel->setObjetappel($appel->getObjetappel());
             $newappel->setObservation($appel->getObservation());
             $newappel->setRefBordereau($appel->getRefBordereau());
             $newappel->setRefEngagement($appel->getRefEngagement());
             $newappel->setReferenceAppel($appel->getReferenceAppel());
+
+            $newappel->setNumcomptetresor($appel->getNumcomptetresor());
+            $newappel->setIntitulecomptetresor($appel->getIntitulecomptetresor());
             $em->persist($newappel);
             $appel->setEstParentannuler(true);
             $em->flush();
@@ -160,6 +162,7 @@ class AppelController extends Controller {
             'form'   => $form->createView(), 'id'   => $request->get('id'), 'appel'   => $appel,
             'sousMenus' => $sousMenus,
             'menus' => $menus,
+            'exercice' => $appel->getExercice()->getId()
         ]);
     }
 

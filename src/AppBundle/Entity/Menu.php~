@@ -37,13 +37,7 @@ class Menu {
      * @Assert\Type(type="string")
      */
     private $routeName;
-    /**
-     * @var string The param of the SousMenu.
-     * @ORM\Column(name="param", nullable=true)
-     * @Assert\Type(type="string")
-     */
-    private $param;
-    
+
     /**
      * @var string The iconClass of the Menu.
      * @ORM\Column(name="fontIconClass", nullable=true)
@@ -183,4 +177,5 @@ class Menu {
     {
         return $this->fontIconClass;
     }
+
 }

@@ -22,32 +22,18 @@ class AppelType extends AbstractType
         $builder
 
             ->add('referenceAppel', TextType::class, array(
-                'label' => 'Référence Appel',
+                'label' => 'Référence Appel émis',
                 'attr' =>array(
                     'class' =>'form-control'
                 )))
             ->add('dateAppel',DateType::class, array(
-                    'label' => 'Date Appel',
+                    'label' => 'Date Emission',
                     'widget' => 'single_text',
                     'input' => 'datetime',
                     'required' => true,
                      'format' => 'dd/mm/yyyy',
                     'attr' => array('class' => 'input-datepicker form-control ', 'data-date-format' => 'dd/mm/yyyy',),
                 ))
-
-            ->add('beneficiaire', EntityType::class, array(
-                'class' => 'AppBundle:Beneficiaire',
-                'label' => 'Bénéficiaire',
-                'required' => true,
-                'attr' => array('class' => 'form-control  select-chosen')
-            ))
-            ->add('objetappel', EntityType::class, array(
-                'class' => 'AppBundle:ObjetAppel',
-                'label' => 'Objet',
-                'required' => true,
-                'attr' => array('class' => 'form-control  select-chosen')
-            ))
-
             ->add('refEngagement', TextType::class, array(
                 'label' => 'Référence Engagement',
                 'required' => false,
@@ -77,13 +63,42 @@ class AppelType extends AbstractType
                 'attr' => array('class' => 'input-datepicker form-control ', 'data-date-format' => 'dd/mm/yyyy',),
             ))
 
-            ->add('montantHt', NumberType::class, array(
-                'label' => 'Montant Hors taxe',
+            ->add('objetappel', TextareaType::class, array(
+                'label' => 'Objet Appel émis',
+                'required' => false,
                 'attr' =>array(
                     'class' =>'form-control'
                 )))
+
+            ->add('beneficiaire', EntityType::class, array(
+                'class' => 'AppBundle:Beneficiaire',
+                'label' => 'Structure Bénéficiaire',
+                'required' => true,
+                'attr' => array('class' => 'form-control  select-chosen')
+            ))
+//            ->add('objetappel', EntityType::class, array(
+//                'class' => 'AppBundle:ObjetAppel',
+//                'label' => 'Objet',
+//                'required' => true,
+//                'attr' => array('class' => 'form-control  select-chosen')
+//            ))
+
             ->add('montantTtc', NumberType::class, array(
-                'label' => 'Montant TTC',
+                'label' => 'Montant',
+                'attr' =>array(
+                    'class' =>'form-control'
+                )))
+
+            ->add('numcomptetresor', TextType::class, array(
+                'label' => 'Numéro du compte trésor',
+                'required' => false,
+                'attr' =>array(
+                    'class' =>'form-control'
+                )))
+
+            ->add('intitulecomptetresor', TextType::class, array(
+                'label' => 'Intitulé du compte trésor',
+                'required' => false,
                 'attr' =>array(
                     'class' =>'form-control'
                 )))
