@@ -37,9 +37,9 @@ class ProfileFormType extends BaseType {
 
         // Ajoute le champ personnalisé aux formulaires de mise à jour du profile
         $builder
-//                ->add('plainPassword', ResettingFormType::class, array(
-//                    'required' => false,
-//                ))
+                ->add('plainPassword', ResettingFormType::class, array(
+                    'required' => false,
+                ))
                 ->add('firstname', TextType::class, array(
                     'attr' => array(
                         'placeholder' => 'registration.firstname',

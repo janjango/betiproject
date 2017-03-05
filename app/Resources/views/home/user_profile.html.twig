@@ -24,14 +24,14 @@
                     {{ form_label(form.username, label|default("Nom d'utilisateur"|trans), { 'label_attr': { 'class': '' } }) }}
                 </div>
                 <div class="form-group col-sm-9">
-                    {{ form_widget(form.username, {'attr' : {'class' : 'form-control', 'placeholder' : 'registration.name'| trans({}, 'FOSUserBundle'), 'readonly' : 'readonly'}}) }}
+                    {{ form_widget(form.username, {'attr' : {'class' : 'form-control', 'placeholder' : 'registration.name'| trans({}, 'FOSUserBundle'), 'disabled': ''}}) }}
                     {{ form_errors(form.username) }}
                 </div>
                 <div class="form-group col-sm-3">
                     {{ form_label(form.email, label|default('Email'|trans), { 'label_attr': { 'class': '' } }) }}
                 </div>
                 <div class="form-group col-sm-9">
-                    {{ form_widget(form.email, {'attr' : {'class' : 'form-control', 'placeholder' : 'registration.form_email'|trans({}, 'FOSUserBundle'), 'readonly' : 'readonly'}}) }}
+                    {{ form_widget(form.email, {'attr' : {'class' : 'form-control', 'placeholder' : 'registration.form_email'|trans({}, 'FOSUserBundle'), 'disabled': ''}}) }}
                     {{ form_errors(form.email) }}
                 </div>
                 <div class="form-group col-sm-3">
@@ -41,7 +41,7 @@
                     {{ form_widget(form.current_password, {'attr' : {'class' : 'form-control', 'placeholder' : 'Mot de passe actuel'|trans}}) }}
                     {{ form_errors(form.current_password) }}
                 </div>
-                {#
+                
                 <div class="form-group col-sm-3">
                     {{ form_label(form.plainPassword.plainPassword.first, label|default('Nouveau mot de passe'|trans), { 'label_attr': { 'class': '' } }) }}
                 </div>          
@@ -56,20 +56,20 @@
                     {{ form_widget(form.plainPassword.plainPassword.second, {'attr' : {'class' : 'form-control', 'placeholder' : 'Confirmation nouveau mot de passe'|trans}}) }}
                     {{ form_errors(form.plainPassword.plainPassword.second) }}
                 </div>
-                #}
+                
             <legend>{{ "registration.legend.2" | trans({}, 'FOSUserBundle') }}</legend>
                  <div class="form-group col-sm-3">
                     {{ form_label(form.firstname, label|default('registration.firstname'|trans({}, 'FOSUserBundle')), { 'label_attr': { 'class': '' } }) }}
                 </div>  
                 <div class="form-group col-sm-9">
-                    {{ form_widget(form.firstname, {'attr' : {'class' : 'form-control' , 'placeholder' : 'registration.firstname'|trans({}, 'FOSUserBundle')}}) }}
+                    {{ form_widget(form.firstname, {'attr' : {'class' : 'form-control' , 'placeholder' : 'registration.firstname'|trans({}, 'FOSUserBundle'), 'disabled': ''}}) }}
                     {{ form_errors(form.firstname) }}
                 </div>
                 <div class="form-group col-sm-3">
                     {{ form_label(form.firstname, label|default('registration.lastname'|trans({}, 'FOSUserBundle')), { 'label_attr': { 'class': '' } }) }}
                 </div>  
                 <div class="form-group col-sm-9">
-                    {{ form_widget(form.lastname, {'attr' : {'class' : 'form-control', 'placeholder' : 'registration.lastname'|trans({}, 'FOSUserBundle')}}) }}
+                    {{ form_widget(form.lastname, {'attr' : {'class' : 'form-control', 'placeholder' : 'registration.lastname'|trans({}, 'FOSUserBundle'), 'disabled': ''}}) }}
                     {{ form_errors(form.lastname) }}
                 </div> 
             
@@ -78,7 +78,7 @@
                 </div>
                 <div class="form-group col-sm-9 ">
                     <div class="input-group">
-                        {{ form_widget(form.phone, {'attr' : {'class' : 'form-control', 'placeholder' : 'registration.phone'|trans}}) }}
+                        {{ form_widget(form.phone, {'attr' : {'class' : 'form-control', 'placeholder' : 'registration.phone'|trans}}, 'disabled': '') }}
                     </div>
                     {{ form_errors(form.phone) }}
                 </div>
@@ -88,7 +88,7 @@
                     {{ form_label(form.adresse, label|default('Adresse Entreprise'|trans), { 'label_attr': { 'class': '' } }) }}
                 </div>
                 <div class="form-group col-sm-9">
-                    {{ form_widget(form.adresse, {'attr' : {'class' : 'form-control', 'placeholder' : 'registration.adresse'|trans}}) }}
+                    {{ form_widget(form.adresse, {'attr' : {'class' : 'form-control', 'placeholder' : 'registration.adresse'|trans}}, 'disabled': '') }}
                     {{ form_errors(form.adresse) }}
                 </div>
             {% endif %}
