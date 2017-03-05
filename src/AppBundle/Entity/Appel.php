@@ -14,27 +14,25 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @UniqueEntity("referenceAppel",
  *  message="Cette référence existe déjà.")
  */
-class Appel
-{
+class Appel {
+
     /**
      * @ORM\OneToMany(targetEntity="Encaissement", mappedBy="appel")
      */
     private $encaissements;
-    /**
-     * @ORM\ManyToOne(targetEntity="ObjetAppel", inversedBy="appels")
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $objetappel;
+
     /**
      * @ORM\ManyToOne(targetEntity="Exercice", inversedBy="appels")
      * @ORM\JoinColumn(nullable=true)
      */
     private $exercice;
+
     /**
      * @ORM\ManyToOne(targetEntity="Beneficiaire", inversedBy="appels")
      * @ORM\JoinColumn(nullable=true)
      */
     private $beneficiaire;
+
     /**
      * @var int
      *
@@ -64,6 +62,13 @@ class Appel
      * @ORM\Column(name="observation", type="text")
      */
     private $observation;
+
+    /**
+     * @var text
+     *
+     * @ORM\Column(name="objetappel", type="text")
+     */
+    private $objetappel;
 
     /**
      * @var string
@@ -96,7 +101,7 @@ class Appel
     /**
      * @var string
      *
-     * @ORM\Column(name="montantHt", type="decimal", precision=10, scale=2)
+     * @ORM\Column(name="montantHt", type="decimal", precision=10, scale=2, nullable=true)
      */
     private $montantHt;
 
@@ -168,12 +173,25 @@ class Appel
     private $estParentannuler;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="numcomptetresor", type="string", length=155, nullable=true)
+     */
+    private $numcomptetresor;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="intitulecomptetresor", type="string", length=255, nullable=true)
+     */
+    private $intitulecomptetresor;
+
+    /**
      * Get id
      *
      * @return int
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -184,10 +202,8 @@ class Appel
      *
      * @return Appel
      */
-    public function setReferenceAppel($referenceAppel)
-    {
+    public function setReferenceAppel($referenceAppel) {
         $this->referenceAppel = $referenceAppel;
-
         return $this;
     }
 
@@ -196,8 +212,7 @@ class Appel
      *
      * @return string
      */
-    public function getReferenceAppel()
-    {
+    public function getReferenceAppel() {
         return $this->referenceAppel;
     }
 
@@ -208,10 +223,8 @@ class Appel
      *
      * @return Appel
      */
-    public function setDateAppel($dateAppel)
-    {
+    public function setDateAppel($dateAppel) {
         $this->dateAppel = $dateAppel;
-
         return $this;
     }
 
@@ -220,8 +233,7 @@ class Appel
      *
      * @return \DateTime
      */
-    public function getDateAppel()
-    {
+    public function getDateAppel() {
         return $this->dateAppel;
     }
 
@@ -232,10 +244,8 @@ class Appel
      *
      * @return Appel
      */
-    public function setRefEngagement($refEngagement)
-    {
+    public function setRefEngagement($refEngagement) {
         $this->refEngagement = $refEngagement;
-
         return $this;
     }
 
@@ -244,8 +254,7 @@ class Appel
      *
      * @return string
      */
-    public function getRefEngagement()
-    {
+    public function getRefEngagement() {
         return $this->refEngagement;
     }
 
@@ -256,10 +265,8 @@ class Appel
      *
      * @return Appel
      */
-    public function setDateEngagement($dateEngagement)
-    {
+    public function setDateEngagement($dateEngagement) {
         $this->dateEngagement = $dateEngagement;
-
         return $this;
     }
 
@@ -268,8 +275,7 @@ class Appel
      *
      * @return \DateTime
      */
-    public function getDateEngagement()
-    {
+    public function getDateEngagement() {
         return $this->dateEngagement;
     }
 
@@ -280,10 +286,8 @@ class Appel
      *
      * @return Appel
      */
-    public function setRefBordereau($refBordereau)
-    {
+    public function setRefBordereau($refBordereau) {
         $this->refBordereau = $refBordereau;
-
         return $this;
     }
 
@@ -292,8 +296,7 @@ class Appel
      *
      * @return string
      */
-    public function getRefBordereau()
-    {
+    public function getRefBordereau() {
         return $this->refBordereau;
     }
 
@@ -304,10 +307,8 @@ class Appel
      *
      * @return Appel
      */
-    public function setDateBordereau($dateBordereau)
-    {
+    public function setDateBordereau($dateBordereau) {
         $this->dateBordereau = $dateBordereau;
-
         return $this;
     }
 
@@ -316,8 +317,7 @@ class Appel
      *
      * @return \DateTime
      */
-    public function getDateBordereau()
-    {
+    public function getDateBordereau() {
         return $this->dateBordereau;
     }
 
@@ -328,10 +328,8 @@ class Appel
      *
      * @return Appel
      */
-    public function setMontantHt($montantHt)
-    {
+    public function setMontantHt($montantHt) {
         $this->montantHt = $montantHt;
-
         return $this;
     }
 
@@ -340,8 +338,7 @@ class Appel
      *
      * @return string
      */
-    public function getMontantHt()
-    {
+    public function getMontantHt() {
         return $this->montantHt;
     }
 
@@ -352,10 +349,8 @@ class Appel
      *
      * @return Appel
      */
-    public function setMontantTtc($montantTtc)
-    {
+    public function setMontantTtc($montantTtc) {
         $this->montantTtc = $montantTtc;
-
         return $this;
     }
 
@@ -364,8 +359,7 @@ class Appel
      *
      * @return string
      */
-    public function getMontantTtc()
-    {
+    public function getMontantTtc() {
         return $this->montantTtc;
     }
 
@@ -376,10 +370,8 @@ class Appel
      *
      * @return Appel
      */
-    public function setDateCreate($dateCreate)
-    {
+    public function setDateCreate($dateCreate) {
         $this->dateCreate = $dateCreate;
-
         return $this;
     }
 
@@ -388,8 +380,7 @@ class Appel
      *
      * @return \DateTime
      */
-    public function getDateCreate()
-    {
+    public function getDateCreate() {
         return $this->dateCreate;
     }
 
@@ -400,10 +391,8 @@ class Appel
      *
      * @return Appel
      */
-    public function setUserCreate($userCreate)
-    {
+    public function setUserCreate($userCreate) {
         $this->userCreate = $userCreate;
-
         return $this;
     }
 
@@ -412,8 +401,7 @@ class Appel
      *
      * @return string
      */
-    public function getUserCreate()
-    {
+    public function getUserCreate() {
         return $this->userCreate;
     }
 
@@ -424,10 +412,8 @@ class Appel
      *
      * @return Appel
      */
-    public function setDateModif($dateModif)
-    {
+    public function setDateModif($dateModif) {
         $this->dateModif = $dateModif;
-
         return $this;
     }
 
@@ -436,8 +422,7 @@ class Appel
      *
      * @return \DateTime
      */
-    public function getDateModif()
-    {
+    public function getDateModif() {
         return $this->dateModif;
     }
 
@@ -448,10 +433,8 @@ class Appel
      *
      * @return Appel
      */
-    public function setUserModif($userModif)
-    {
+    public function setUserModif($userModif) {
         $this->userModif = $userModif;
-
         return $this;
     }
 
@@ -460,8 +443,7 @@ class Appel
      *
      * @return string
      */
-    public function getUserModif()
-    {
+    public function getUserModif() {
         return $this->userModif;
     }
 
@@ -472,10 +454,8 @@ class Appel
      *
      * @return Appel
      */
-    public function setEstAnnuler($estAnnuler)
-    {
+    public function setEstAnnuler($estAnnuler) {
         $this->estAnnuler = $estAnnuler;
-
         return $this;
     }
 
@@ -484,8 +464,7 @@ class Appel
      *
      * @return bool
      */
-    public function getEstAnnuler()
-    {
+    public function getEstAnnuler() {
         return $this->estAnnuler;
     }
 
@@ -496,10 +475,8 @@ class Appel
      *
      * @return Appel
      */
-    public function setMontant($montant)
-    {
+    public function setMontant($montant) {
         $this->montant = $montant;
-
         return $this;
     }
 
@@ -508,8 +485,7 @@ class Appel
      *
      * @return string
      */
-    public function getMontant()
-    {
+    public function getMontant() {
         return $this->montant;
     }
 
@@ -520,10 +496,8 @@ class Appel
      *
      * @return Appel
      */
-    public function setSolde($solde)
-    {
+    public function setSolde($solde) {
         $this->solde = $solde;
-
         return $this;
     }
 
@@ -532,33 +506,8 @@ class Appel
      *
      * @return string
      */
-    public function getSolde()
-    {
+    public function getSolde() {
         return $this->solde;
-    }
-
-    /**
-     * Set objetappel
-     *
-     * @param \AppBundle\Entity\ObjetAppel $objetappel
-     *
-     * @return Appel
-     */
-    public function setObjetappel(\AppBundle\Entity\ObjetAppel $objetappel = null)
-    {
-        $this->objetappel = $objetappel;
-
-        return $this;
-    }
-
-    /**
-     * Get objetappel
-     *
-     * @return \AppBundle\Entity\ObjetAppel
-     */
-    public function getObjetappel()
-    {
-        return $this->objetappel;
     }
 
     /**
@@ -568,10 +517,8 @@ class Appel
      *
      * @return Appel
      */
-    public function setExercice(\AppBundle\Entity\Exercice $exercice = null)
-    {
+    public function setExercice(\AppBundle\Entity\Exercice $exercice = null) {
         $this->exercice = $exercice;
-
         return $this;
     }
 
@@ -580,12 +527,9 @@ class Appel
      *
      * @return \AppBundle\Entity\Exercice
      */
-    public function getExercice()
-    {
+    public function getExercice() {
         return $this->exercice;
     }
-
-
 
     /**
      * Set beneficiaire
@@ -594,10 +538,8 @@ class Appel
      *
      * @return Appel
      */
-    public function setBeneficiaire(\AppBundle\Entity\Beneficiaire $beneficiaire = null)
-    {
+    public function setBeneficiaire(\AppBundle\Entity\Beneficiaire $beneficiaire = null) {
         $this->beneficiaire = $beneficiaire;
-
         return $this;
     }
 
@@ -606,8 +548,7 @@ class Appel
      *
      * @return \AppBundle\Entity\Beneficiaire
      */
-    public function getBeneficiaire()
-    {
+    public function getBeneficiaire() {
         return $this->beneficiaire;
     }
 
@@ -618,10 +559,8 @@ class Appel
      *
      * @return Appel
      */
-    public function setObservation($observation)
-    {
+    public function setObservation($observation) {
         $this->observation = $observation;
-
         return $this;
     }
 
@@ -630,15 +569,14 @@ class Appel
      *
      * @return string
      */
-    public function getObservation()
-    {
+    public function getObservation() {
         return $this->observation;
     }
+
     /**
      * Constructor
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->encaissements = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -649,10 +587,8 @@ class Appel
      *
      * @return Appel
      */
-    public function addEncaissement(\AppBundle\Entity\Encaissement $encaissement)
-    {
+    public function addEncaissement(\AppBundle\Entity\Encaissement $encaissement) {
         $this->encaissements[] = $encaissement;
-
         return $this;
     }
 
@@ -661,8 +597,7 @@ class Appel
      *
      * @param \AppBundle\Entity\Encaissement $encaissement
      */
-    public function removeEncaissement(\AppBundle\Entity\Encaissement $encaissement)
-    {
+    public function removeEncaissement(\AppBundle\Entity\Encaissement $encaissement) {
         $this->encaissements->removeElement($encaissement);
     }
 
@@ -671,8 +606,7 @@ class Appel
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getEncaissements()
-    {
+    public function getEncaissements() {
         return $this->encaissements;
     }
 
@@ -683,10 +617,8 @@ class Appel
      *
      * @return Appel
      */
-    public function setEstEncaisser($estEncaisser)
-    {
+    public function setEstEncaisser($estEncaisser) {
         $this->estEncaisser = $estEncaisser;
-
         return $this;
     }
 
@@ -695,8 +627,7 @@ class Appel
      *
      * @return boolean
      */
-    public function getEstEncaisser()
-    {
+    public function getEstEncaisser() {
         return $this->estEncaisser;
     }
 
@@ -707,10 +638,8 @@ class Appel
      *
      * @return Appel
      */
-    public function setEstParentannuler($estParentannuler)
-    {
+    public function setEstParentannuler($estParentannuler) {
         $this->estParentannuler = $estParentannuler;
-
         return $this;
     }
 
@@ -719,21 +648,83 @@ class Appel
      *
      * @return boolean
      */
-    public function getEstParentannuler()
-    {
+    public function getEstParentannuler() {
         return $this->estParentannuler;
     }
 
-
     public function __toString() {
-        return 'Réf : '.$this->referenceAppel.' du '.$this->dateAppel->format('d-m-Y');
+        return 'Réf : ' . $this->referenceAppel . ' du ' . $this->dateAppel->format('d-m-Y');
     }
 
-    public function getMontantEncaissement(){
-        $i=0;
-        foreach ($this->getEncaissements() as $unencaissement){
+    public function getMontantEncaissement() {
+        $i = 0;
+        foreach ($this->getEncaissements() as $unencaissement) {
             $i += $unencaissement->getMontantEncaisse();
         }
         return $i;
     }
+
+    /**
+     * Set objetappel
+     *
+     * @param string $objetappel
+     *
+     * @return Appel
+     */
+    public function setObjetappel($objetappel) {
+        $this->objetappel = $objetappel;
+        return $this;
+    }
+
+    /**
+     * Get objetappel
+     *
+     * @return string
+     */
+    public function getObjetappel() {
+        return $this->objetappel;
+    }
+
+    /**
+     * Set numcomptetresor
+     *
+     * @param string $numcomptetresor
+     *
+     * @return Appel
+     */
+    public function setNumcomptetresor($numcomptetresor) {
+        $this->numcomptetresor = $numcomptetresor;
+        return $this;
+    }
+
+    /**
+     * Get numcomptetresor
+     *
+     * @return string
+     */
+    public function getNumcomptetresor() {
+        return $this->numcomptetresor;
+    }
+
+    /**
+     * Set intitulecomptetresor
+     *
+     * @param string $intitulecomptetresor
+     *
+     * @return Appel
+     */
+    public function setIntitulecomptetresor($intitulecomptetresor) {
+        $this->intitulecomptetresor = $intitulecomptetresor;
+        return $this;
+    }
+
+    /**
+     * Get intitulecomptetresor
+     *
+     * @return string
+     */
+    public function getIntitulecomptetresor() {
+        return $this->intitulecomptetresor;
+    }
+
 }

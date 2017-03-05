@@ -2,41 +2,45 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <form action="#" method="post" >
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3 class="modal-title text-left">Détails</h3>
-            </div>
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h3 class="modal-title text-left">Détails</h3>
+                </div>
                 <div class="modal-body">
                     <div class="text-left">
-                        Référence Appel: <strong>{{ element.referenceAppel }}</strong>  |
-                        Date Appel : <strong>{{ element.dateAppel|date('d/m/Y') }}</strong><br> <br>
+                        Référence appel émis : <strong>{{ element.referenceAppel }}</strong>  |
+                        Date Emission : <strong>{{ element.dateAppel|date('d/m/Y') }}</strong><br> <br>
 
                         {% if element.refEngagement is not null %}  Référence Engagement: <strong>{{ element.refEngagement }}</strong>  |
-                        Date Engagement : <strong>{{ element.dateEngagement|date('d/m/Y') }}</strong><br> <br>  {% endif %}
+                            Date Engagement : <strong>{{ element.dateEngagement|date('d/m/Y') }}</strong><br> <br>  {% endif %}
 
-                        {% if element.refBordereau is not null %}  Référence Bordereau: <strong>{{ element.refBordereau }}</strong>  |
-                        Date Bordereau : <strong>{{ element.dateBordereau|date('d/m/Y') }}</strong><br> <br>  {% endif %}
+                            {% if element.refBordereau is not null %}  Référence Bordereau: <strong>{{ element.refBordereau }}</strong>  |
+                                Date Bordereau : <strong>{{ element.dateBordereau|date('d/m/Y') }}</strong><br> <br>  {% endif %}
 
-                        Objet : <strong>{% if element.objetappel is not null %} {{ element.objetappel.libObjet }}  {% endif %}</strong>  <br> <br>
-                        Bénéficiaire : <br> <br>
-                        Nom : <strong>{% if element.beneficiaire is not null %} {{ element.beneficiaire.libBeneficiaire }}  {% endif %}</strong>  |
-                        Code : <strong>{% if element.beneficiaire is not null %} {{ element.beneficiaire.code }}  {% endif %}</strong> <br> <br>
-                        Numéro de compte : <strong>{% if element.beneficiaire is not null %} {{ element.beneficiaire.numeroCompte }}  {% endif %}</strong>  |
-                        Intitulé du compte : <strong>{% if element.beneficiaire is not null %} {{ element.beneficiaire.intituleCompte }}  {% endif %}</strong> <br> <br>
+                                Objet : <strong>{% if element.objetappel is not null %} {{ element.objetappel }}  {% endif %}</strong> |
+                                Montant : <strong>{{ element.montantTtc|number_format(2, ',', '.') }}</strong>  francs CFA <br>  <br>
 
-                        Montant Hors taxe : <strong>{{ element.montantHt|number_format(2, ',', '.') }}</strong> francs CFA  |
-                        Montant Ttc : <strong>{{ element.montantTtc|number_format(2, ',', '.') }}</strong>  francs CFA<br> <br>
-                        Solde : <strong> {{ valsolde|number_format(2, ',', '.') }}</strong> francs CFA <br>  <br>
-                        {% set mt=0 %}
-                        Montant total encaissé : <strong>{% for elt in element.encaissements %}{% set mt=mt+elt.montantEncaisse %} {% endfor %}{{ mt|number_format(2, ',', '.') }}</strong> francs CFA <br>  <br>
+                                {% if element.numcomptetresor is not null %} Numéro du compte trésor : <strong> {{ element.numcomptetresor  }}  </strong>  |
+                                    Intitulé du compte trésor : <strong> {{ element.intitulecomptetresor }}  </strong> <br> <br>  {% endif %}
 
-                        {% if element.estAnnuler==1 or element.estParentannuler==1 %} <strong style="color: #c7254e"> Opération d'annulation d'appel ...</strong> {% endif %}
+                                    Structure Bénéficiaire : <br> <br>
+                                    Nom : <strong>{% if element.beneficiaire is not null %} {{ element.beneficiaire.libBeneficiaire }}  {% endif %}</strong>  |
+                                    Code : <strong>{% if element.beneficiaire is not null %} {{ element.beneficiaire.code }}  {% endif %}</strong> <br> <br>
+                                    Numéro de compte : <strong>{% if element.beneficiaire is not null %} {{ element.beneficiaire.numeroCompte }}  {% endif %}</strong>  |
+                                    Intitulé du compte : <strong>{% if element.beneficiaire is not null %} {{ element.beneficiaire.intituleCompte }}  {% endif %}</strong> <br> <br>
+
+
+                                    Solde : <strong> {{ valsolde|number_format(2, ',', '.') }}</strong> francs CFA <br>  <br>
+                                    {% set mt=0 %}
+                                    Montant total encaissé : <strong>{% for elt in element.encaissements %}{% set mt=mt+elt.montantEncaisse %} {% endfor %}{{ mt|number_format(2, ',', '.') }}</strong> francs CFA <br>  <br>
+
+                                    {% if element.estAnnuler==1 or element.estParentannuler==1 %} <strong style="color: #c7254e"> Opération d'annulation d'appel ...</strong> {% endif %}
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Fermer</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Fermer</button>
             </div>
-        </form>
-        </div>
-    </div>
-</div>
