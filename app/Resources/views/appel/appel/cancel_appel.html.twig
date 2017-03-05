@@ -9,14 +9,28 @@
             <div class="modal-body">
              Confirmez - vous l'annulation de l'appel : <br>
                 <div class="text-left">
-                Référence : <strong>{{ element.referenceAppel }}</strong>  <br> <br>
-                Date Appel : <strong>{{ element.dateAppel|date('d/m/Y') }}</strong><br> <br>
-                Objet : <strong>{% if element.objetappel is not null %} {{ element.objetappel.libObjet }}  {% endif %}</strong>  <br> <br>
-                Bénéficiaire : <strong>{% if element.beneficiaire is not null %} {{ element.beneficiaire.libBeneficiaire }}  {% endif %}</strong>  <br> <br>
-                Montant Hors taxe : <strong>{{ element.montantHt|number_format(2, ',', '.') }}</strong> francs CFA  |
-                Montant Ttc : <strong>{{ element.montantTtc|number_format(2, ',', '.') }}</strong>  francs CFA<br> <br>
-                Solde : <strong> {{ valsolde|number_format(2, ',', '.') }}</strong> francs CFA <br>
-            </div>
+                    Référence appel émis : <strong>{{ element.referenceAppel }}</strong>  |
+                    Date Emission : <strong>{{ element.dateAppel|date('d/m/Y') }}</strong><br> <br>
+
+                    {% if element.refEngagement is not null %}  Référence Engagement: <strong>{{ element.refEngagement }}</strong>  |
+                                                                                                                                    Date Engagement : <strong>{{ element.dateEngagement|date('d/m/Y') }}</strong><br> <br>  {% endif %}
+
+                    {% if element.refBordereau is not null %}  Référence Bordereau: <strong>{{ element.refBordereau }}</strong>  |
+                                                                                                                                 Date Bordereau : <strong>{{ element.dateBordereau|date('d/m/Y') }}</strong><br> <br>  {% endif %}
+
+                    Objet : <strong>{% if element.objetappel is not null %} {{ element.objetappel }}  {% endif %}</strong> |
+                    Montant : <strong>{{ element.montantTtc|number_format(2, ',', '.') }}</strong>  francs CFA <br>  <br>
+
+                    {% if element.numcomptetresor is not null %} Numéro du compte trésor : <strong> {{ element.numcomptetresor  }} </strong>  |
+                    Intitulé du compte trésor : <strong> {{ element.intitulecomptetresor }}  </strong> <br> <br> {% endif %}
+
+                    Structure Bénéficiaire : <br> <br>
+                    Nom : <strong>{% if element.beneficiaire is not null %} {{ element.beneficiaire.libBeneficiaire }}  {% endif %}</strong>  |
+                    Code : <strong>{% if element.beneficiaire is not null %} {{ element.beneficiaire.code }}  {% endif %}</strong> <br> <br>
+                    Numéro de compte : <strong>{% if element.beneficiaire is not null %} {{ element.beneficiaire.numeroCompte }}  {% endif %}</strong>  |
+                    Intitulé du compte : <strong>{% if element.beneficiaire is not null %} {{ element.beneficiaire.intituleCompte }}  {% endif %}</strong> <br> <br>
+
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Fermer</button>

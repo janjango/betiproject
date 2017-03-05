@@ -17,12 +17,12 @@ class BeneficiaireType extends AbstractType
     {
         $builder
             ->add('code', TextType::class, array(
-                'label' => 'Code Bénéficiaire',
+                'label' => 'Code Structure ',
                 'attr' =>array(
                     'class' =>'form-control'
                 )))
             ->add('libBeneficiaire', TextType::class, array(
-            'label' => 'Nom Bénéficiaire',
+            'label' => 'Nom Structure',
             'attr' =>array(
                 'class' =>'form-control'
             )))

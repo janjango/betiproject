@@ -102,9 +102,21 @@ class EncaissementController extends Controller {
         
         $encaissement = $this->getDoctrine()->getManager()->getRepository('AppBundle:Encaissement')
             ->find($request->get('id'));
+        $montant =$encaissement->getMontantEncaisse();
         $form = $this->createForm('AppBundle\Form\EncaissementType', $encaissement);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            if($encaissement->getAppel()->getMontantEncaissement()+$encaissement->getMontantEncaisse()-$montant > $encaissement->getAppel()->getMontantTtc()){
+                $this->addFlash(
+                    'danger', "Le montant encaissé est supérieur à celui de l'appel !"
+                );
+                return $this->render('encaissement/encaissement/update_encaissement.html.twig', [
+                    'form'   => $form->createView(), 'id'   => $request->get('id'),'exercice'=>$request->get('exercice'),
+                    'sousMenus' => $sousMenus,
+                    'menus' => $menus,
+                    'exercice' => $encaissement->getExercice()->getId()
+                ]);
+            }
             $em = $this->getDoctrine()->getManager();
 
             $em->flush();
@@ -117,7 +129,8 @@ class EncaissementController extends Controller {
         return $this->render('encaissement/encaissement/update_encaissement.html.twig', [
             'form'   => $form->createView(), 'id'   => $request->get('id'),'exercice'=>$request->get('exercice'),
             'sousMenus' => $sousMenus,
-            'menus' => $menus
+            'menus' => $menus,
+            'exercice' => $encaissement->getExercice()->getId()
         ]);
     }
 

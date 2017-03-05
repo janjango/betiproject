@@ -22,12 +22,12 @@
 
     <!-- Normal Form Content -->
     <form action="{{ path('create_encaissement',{'exercice': exercice})}}" method="post" class="form-bordered">
-     {% if (erreur is not empty) %}
-         <div class="alert alert-danger alert-dismissable">
-             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            <strong>{{ erreur.titre }}!</strong> <br>{{ erreur.message }}.
-        </div>
-     {% endif %}
+        {% for flash_message in app.session.flashBag.get('danger') %}
+            <div class=" flash-notice alert alert-danger alert-dismissable">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                {{ flash_message }}
+            </div>
+        {% endfor %}
 
         <div class="form-group">
             {{ form_widget(form) }}
