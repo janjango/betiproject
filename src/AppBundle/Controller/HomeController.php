@@ -49,6 +49,12 @@ class HomeController extends Controller {
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
         /** @var $userManager \FOS\UserBundle\Model\UserManagerInterface */
         $userManager = $this->get('fos_user.user_manager');
+
+        $users = $this->getDoctrine()->getManager()
+            ->getRepository('Jac\UserBundle\Entity\User');
+        $menus = $users->getMenus($user->getId());
+        $sousMenus = $users->getSousMenus($user->getId());
+
         if (!is_object($user)) {
             throw new AccessDeniedException('This user does not have access to this section.');
         }
@@ -63,6 +69,8 @@ class HomeController extends Controller {
         }
         return $this->render('home/user_profile.html.twig', array(
                     'form' => $form->createView(),
+                    'sousMenus' => $sousMenus,
+                    'menus' => $menus,
         ));
     }
 }
