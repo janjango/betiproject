@@ -10,7 +10,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Jac\UserBundle\Form\Type\ProfileFormType;
 use Jac\UserBundle\Form\Type\ResettingFormType;
-
 /**
  * Home controller.
  *
@@ -18,6 +17,7 @@ use Jac\UserBundle\Form\Type\ResettingFormType;
  */
 class HomeController extends Controller {
 
+    
     /**
      * @Route("/", name="homepage")
      */
@@ -28,12 +28,13 @@ class HomeController extends Controller {
                 ->getRepository('Jac\UserBundle\Entity\User');
         $menus = $users->getMenus($user->getId());
         $sousMenus = $users->getSousMenus($user->getId());
-
+               
         return $this->render('home/index.html.twig', [
-                    'base_dir' => realpath($this->getParameter('kernel.root_dir') . '/..') . DIRECTORY_SEPARATOR,
-                    'sousMenus' => $sousMenus,
-                    'menus' => $menus,
+            'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..').DIRECTORY_SEPARATOR,
+            'sousMenus' => $sousMenus,
+            'menus' => $menus,
         ]);
+
     }
 
     /**
@@ -51,12 +52,7 @@ class HomeController extends Controller {
         if (!is_object($user)) {
             throw new AccessDeniedException('This user does not have access to this section.');
         }
-        //menu dynamique
-        $users = $this->getDoctrine()->getManager()
-                ->getRepository('Jac\UserBundle\Entity\User');
-        $menus = $users->getMenus($user->getId());
-        $sousMenus = $users->getSousMenus($user->getId());
-        //
+
         $form = $this->get('form.factory')->create(ProfileFormType::class, $user, [
             "method" => "post",
         ]);
@@ -67,9 +63,6 @@ class HomeController extends Controller {
         }
         return $this->render('home/user_profile.html.twig', array(
                     'form' => $form->createView(),
-                    'sousMenus' => $sousMenus,
-                    'menus' => $menus,
         ));
     }
-
 }

@@ -25,18 +25,18 @@ class SousMenu {
     private $id;
 
     /**
-     * @var string The libelle of the SousMenu.
-     * @ORM\Column(name="libelle", nullable=true)
-     * @Assert\Type(type="string")
-     */
+ * @var string The libelle of the SousMenu.
+ * @ORM\Column(name="libelle", nullable=true)
+ * @Assert\Type(type="string")
+ */
     private $libelle;
 
     /**
-     * @var string The routeName of the Menu.
-     * @ORM\Column(name="routeName", nullable=true)
+     * @var string The iconsousmenu of the SousMenu.
+     * @ORM\Column(name="iconsousmenu", nullable=true)
      * @Assert\Type(type="string")
      */
-    private $routeName;
+    private $iconsousmenu;
 
     /**
      * @ORM\ManyToOne(targetEntity="Menu", inversedBy="sousMenus")
@@ -146,33 +146,28 @@ class SousMenu {
     {
         return $this->privileges;
     }
-    
-    public function __toString(){
-        return $this->getLibelle();
-    }
 
     /**
-     * Set routeName
+     * Set iconsousmenu
      *
-     * @param string $routeName
+     * @param string $iconsousmenu
      *
      * @return SousMenu
      */
-    public function setRouteName($routeName)
+    public function setIconsousmenu($iconsousmenu)
     {
-        $this->routeName = $routeName;
+        $this->iconsousmenu = $iconsousmenu;
 
         return $this;
     }
 
     /**
-     * Get routeName
+     * Get iconsousmenu
      *
      * @return string
      */
-    public function getRouteName()
+    public function getIconsousmenu()
     {
-        return $this->routeName;
+        return $this->iconsousmenu;
     }
-
 }

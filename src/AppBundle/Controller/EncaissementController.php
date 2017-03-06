@@ -17,23 +17,27 @@ class EncaissementController extends Controller {
      */
     public function read_encaissementAction(Request $request) {
         // replace this example code with whatever you need
+
+        $exercice= $this->getDoctrine()
+            ->getManager()->getRepository('AppBundle:Exercice')
+            ->findOneBy(Array('estActif'=>true));
+
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
         $users = $this->getDoctrine()->getManager()
-                ->getRepository('Jac\UserBundle\Entity\User');
+            ->getRepository('Jac\UserBundle\Entity\User');
         $menus = $users->getMenus($user->getId());
         $sousMenus = $users->getSousMenus($user->getId());
 
-        $exercices = $this->getDoctrine()
-                ->getManager()->getRepository('AppBundle:Exercice')
-                ->findBy(Array(), Array('libExercice' => 'ASC'));
-        $encaissements = $this->getDoctrine()
-                ->getManager()->getRepository('AppBundle:Encaissement')
-                ->findBy(Array('exercice' => $request->get('exercice')), Array('id' => 'ASC'));
+        $encaissements= $this->getDoctrine()
+            ->getManager()->getRepository('AppBundle:Encaissement')
+            ->findBy(Array('exercice'=>$exercice->getId()),Array('id'=>'ASC'));
+
         return $this->render('encaissement/encaissement/read_encaissement.html.twig', [
-                    'encaissements' => $encaissements, 'exercice' => $request->get('exercice'), 'exercices' => $exercices,
-                    'sousMenus' => $sousMenus,
-                    'menus' => $menus
+            'encaissements' => $encaissements,'exercice'=>$exercice,
+            'sousMenus' => $sousMenus,
+            'menus' => $menus
         ]);
+
     }
 
     /**
@@ -42,39 +46,48 @@ class EncaissementController extends Controller {
      * @Route("/encaissement/create", name="create_encaissement")
      * @Method({"GET", "POST"})
      */
-    public function create_encaissementAction(Request $request) {
+    public function create_encaissementAction(Request $request)
+    {
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
         $users = $this->getDoctrine()->getManager()
-                ->getRepository('Jac\UserBundle\Entity\User');
+            ->getRepository('Jac\UserBundle\Entity\User');
         $menus = $users->getMenus($user->getId());
         $sousMenus = $users->getSousMenus($user->getId());
         $encaissement = new Encaissement();
         $form = $this->createForm('AppBundle\Form\EncaissementType', $encaissement);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($encaissement->getAppel()->getMontantEncaissement() + $encaissement->getMontantEncaisse() > $encaissement->getAppel()->getMontantTtc()) {
+            if($encaissement->getAppel()->getMontantEncaissement()+$encaissement->getMontantEncaisse() > $encaissement->getAppel()->getMontantTtc()){
                 $this->addFlash(
-                        'danger', "Le montant encaissé est supérieur à celui de l'appel !"
+                    'danger', "Le montant encaissé est supérieur à celui de l'appel !"
                 );
                 return $this->render('encaissement/encaissement/create_encaissement.html.twig', [
-                            'form' => $form->createView(), 'exercice' => $request->get('exercice'),
-                            'sousMenus' => $sousMenus,
-                            'menus' => $menus
-                ]);
-            }
-            $em = $this->getDoctrine()->getManager();
-            $encaissement->setExercice($this->getDoctrine()->getManager()->getRepository('AppBundle:Exercice')->find($request->get('exercice')));
-            $em->persist($encaissement);
-            $em->flush();
-            $this->addFlash(
-                    'success', "Enregistrement effectué avec succès !"
-            );
-            return $this->redirectToRoute('create_encaissement', array('exercice' => $request->get('exercice')));
-        }
-        return $this->render('encaissement/encaissement/create_encaissement.html.twig', [
-                    'form' => $form->createView(), 'exercice' => $request->get('exercice'),
+                    'form'   => $form->createView(),
                     'sousMenus' => $sousMenus,
                     'menus' => $menus
+                ]);
+            }
+            $exercice= $this->getDoctrine()
+                ->getManager()->getRepository('AppBundle:Exercice')
+                ->findOneBy(Array('estActif'=>true));
+            $em = $this->getDoctrine()->getManager();
+            $encaissement->setExercice($exercice);
+            if($encaissement->getAppel()->getMontantEncaissement()+$encaissement->getMontantEncaisse() == $encaissement->getAppel()->getMontantTtc()){
+                $encaissement->getAppel()->setEstSolder(true);
+            }
+            $em->persist($encaissement);
+            $em->flush();
+
+            $this->addFlash(
+                'success', "Enregistrement effectué avec succès !"
+            );
+
+            return $this->redirectToRoute('create_encaissement');
+        }
+        return $this->render('encaissement/encaissement/create_encaissement.html.twig', [
+             'form'   => $form->createView(),
+            'sousMenus' => $sousMenus,
+            'menus' => $menus
         ]);
     }
 
@@ -84,42 +97,45 @@ class EncaissementController extends Controller {
      * @Route("/encaissement/update", name="update_encaissement")
      * @Method({"GET", "POST"})
      */
-    public function update_encaissementAction(Request $request) {
+    public function update_encaissementAction(Request $request)
+    {
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
         $users = $this->getDoctrine()->getManager()
-                ->getRepository('Jac\UserBundle\Entity\User');
+            ->getRepository('Jac\UserBundle\Entity\User');
         $menus = $users->getMenus($user->getId());
         $sousMenus = $users->getSousMenus($user->getId());
-
+        
         $encaissement = $this->getDoctrine()->getManager()->getRepository('AppBundle:Encaissement')
-                ->find($request->get('id'));
-        $montant = $encaissement->getMontantEncaisse();
+            ->find($request->get('id'));
+        $montant =$encaissement->getMontantEncaisse();
         $form = $this->createForm('AppBundle\Form\EncaissementType', $encaissement);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($encaissement->getAppel()->getMontantEncaissement() + $encaissement->getMontantEncaisse() - $montant > $encaissement->getAppel()->getMontantTtc()) {
+            if($encaissement->getAppel()->getMontantEncaissement()+$encaissement->getMontantEncaisse()-$montant > $encaissement->getAppel()->getMontantTtc()){
                 $this->addFlash(
-                        'danger', "Le montant encaissé est supérieur à celui de l'appel !"
+                    'danger', "Le montant encaissé est supérieur à celui de l'appel !"
                 );
                 return $this->render('encaissement/encaissement/update_encaissement.html.twig', [
-                            'form' => $form->createView(), 'id' => $request->get('id'), 'exercice' => $request->get('exercice'),
-                            'sousMenus' => $sousMenus,
-                            'menus' => $menus,
-                            'exercice' => $encaissement->getExercice()->getId()
+                    'form'   => $form->createView(), 'id'   => $request->get('id'),
+                    'sousMenus' => $sousMenus,
+                    'menus' => $menus
                 ]);
             }
             $em = $this->getDoctrine()->getManager();
+            if($encaissement->getAppel()->getMontantEncaissement()+$encaissement->getMontantEncaisse()-$montant == $encaissement->getAppel()->getMontantTtc()){
+                $encaissement->getAppel()->setEstSolder(true);
+            }
             $em->flush();
             $this->addFlash(
-                    'warning', "Modification effectué avec succès !"
+                'warning', "Modification effectué avec succès !"
             );
-            return $this->redirectToRoute('read_encaissement', array('exercice' => $encaissement->getExercice()->getId()));
+
+            return $this->redirectToRoute('read_encaissement');
         }
         return $this->render('encaissement/encaissement/update_encaissement.html.twig', [
-                    'form' => $form->createView(), 'id' => $request->get('id'), 'exercice' => $request->get('exercice'),
-                    'sousMenus' => $sousMenus,
-                    'menus' => $menus,
-                    'exercice' => $encaissement->getExercice()->getId()
+            'form'   => $form->createView(), 'id'   => $request->get('id'),
+            'sousMenus' => $sousMenus,
+            'menus' => $menus
         ]);
     }
 
@@ -129,20 +145,23 @@ class EncaissementController extends Controller {
      * @Route("/encaissement/delete", name="delete_encaissement")
      * @Method({"GET", "POST"})
      */
-    public function delete_encaissementAction(Request $request) {
+    public function delete_encaissementAction(Request $request)
+    {
         $encaissement = $this->getDoctrine()->getManager()->getRepository('AppBundle:Encaissement')
-                ->find($request->get('id'));
-        if ($request->getMethod() == 'POST') {
+            ->find($request->get('id'));
+        if ($request->getMethod() == 'POST'){
             $em = $this->getDoctrine()->getManager();
+            $encaissement->getAppel()->setEstSolder(false);
             $em->remove($encaissement);
             $em->flush();
             $this->addFlash(
-                    'danger', "Suppression effectué avec succès !"
+                'danger', "Suppression effectué avec succès !"
             );
-            return $this->redirectToRoute('read_encaissement', array('exercice' => $encaissement->getExercice()->getId()));
+
+            return $this->redirectToRoute('read_encaissement');
         }
         return $this->render('encaissement/encaissement/delete_encaissement.html.twig', [
-                    'id' => $request->get('id'), 'exercice' => $request->get('exercice')
+           'id'   => $request->get('id')
         ]);
     }
 

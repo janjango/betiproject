@@ -30,20 +30,13 @@ class Menu {
      * @Assert\Type(type="string")
      */
     private $libelle;
-    
-    /**
-     * @var string The routeName of the Menu.
-     * @ORM\Column(name="routeName", nullable=true)
-     * @Assert\Type(type="string")
-     */
-    private $routeName;
 
     /**
-     * @var string The iconClass of the Menu.
-     * @ORM\Column(name="fontIconClass", nullable=true)
+     * @var string The iconmenu of the SousMenu.
+     * @ORM\Column(name="iconmenu", nullable=true)
      * @Assert\Type(type="string")
      */
-    private $fontIconClass;
+    private $iconmenu;
 
     /**
      * @ORM\OneToMany(targetEntity="SousMenu", mappedBy="menu")
@@ -125,57 +118,28 @@ class Menu {
     {
         return $this->sousMenus;
     }
-    
-    public function __toString(){
-        return $this->getLibelle();
-    }
 
     /**
-     * Set routeName
+     * Set iconmenu
      *
-     * @param string $routeName
+     * @param string $iconmenu
      *
      * @return Menu
      */
-    public function setRouteName($routeName)
+    public function setIconmenu($iconmenu)
     {
-        $this->routeName = $routeName;
+        $this->iconmenu = $iconmenu;
 
         return $this;
     }
 
     /**
-     * Get routeName
+     * Get iconmenu
      *
      * @return string
      */
-    public function getRouteName()
+    public function getIconmenu()
     {
-        return $this->routeName;
+        return $this->iconmenu;
     }
-
-    /**
-     * Set fontIconClass
-     *
-     * @param string $fontIconClass
-     *
-     * @return Menu
-     */
-    public function setFontIconClass($fontIconClass)
-    {
-        $this->fontIconClass = $fontIconClass;
-
-        return $this;
-    }
-
-    /**
-     * Get fontIconClass
-     *
-     * @return string
-     */
-    public function getFontIconClass()
-    {
-        return $this->fontIconClass;
-    }
-
 }

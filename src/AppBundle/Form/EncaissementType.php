@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use AppBundle\Repository\AppelRepository;
 
 class EncaissementType extends AbstractType
 {
@@ -21,8 +22,21 @@ class EncaissementType extends AbstractType
             ->add('appel', EntityType::class, array(
                 'class' => 'AppBundle:Appel',
                 'label' => 'Appel',
+                'placeholder' => 'Choose an option',
                 'required' => true,
-                'attr' => array('class' => 'form-control  select-chosen')
+                'attr' => array('class' => 'form-control  select-chosen'),
+                'query_builder' => function (AppelRepository $repository)
+                {
+                    return $repository->createQueryBuilder('a')
+                        ->where('a.estAnnuler = 0')
+                        ->andWhere('a.estParentannuler = 0')
+                        ->andWhere('a.estSolder = 0')
+                        ->orWhere('a.estSolder is null')
+
+//                        ->setParameter(1, 'basic')
+//                        ->add('orderBy', 's.sort_order ASC')
+                        ;
+                }
             ))
             
             ->add('dateCreate',DateType::class, array(
@@ -44,6 +58,7 @@ class EncaissementType extends AbstractType
                 'attr' =>array(
                     'class' =>'form-control'
                 )))
+
 
              ;
     }

@@ -22,21 +22,27 @@ class BeneficiaireType extends AbstractType
                     'class' =>'form-control'
                 )))
             ->add('libBeneficiaire', TextType::class, array(
-            'label' => 'Nom Structure',
-            'attr' =>array(
-                'class' =>'form-control'
-            )))
-            ->add('numeroCompte', IntegerType::class, array(
-                'label' => 'Numéro Compte',
+                'label' => 'Nom Structure',
                 'attr' =>array(
                     'class' =>'form-control'
                 )))
-            ->add('intituleCompte', TextType::class, array(
-                'label' => 'Intitulé Compte',
-                'required' => false,
+            ->add('sigle', TextType::class, array(
+                'label' => 'Sigle',
                 'attr' =>array(
                     'class' =>'form-control'
-                )))  ;
+                )))
+//            ->add('numeroCompte', IntegerType::class, array(
+//                'label' => 'Numéro Compte',
+//                'attr' =>array(
+//                    'class' =>'form-control'
+//                )))
+//            ->add('intituleCompte', TextType::class, array(
+//                'label' => 'Intitulé Compte',
+//                'required' => false,
+//                'attr' =>array(
+//                    'class' =>'form-control'
+//                )))
+        ;
     }
     
     /**

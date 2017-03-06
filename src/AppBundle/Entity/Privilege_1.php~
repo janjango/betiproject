@@ -9,11 +9,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  *
- * @ORM\Entity(repositoryClass="AppBundle\Repository\DirectionRepository")
- * @ORM\Table("Direction")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\PrivilegeRepository")
+ * @ORM\Table("Privilege")
  * @ORM\HasLifecycleCallbacks()
  */
-class Direction {
+class Privilege {
 
     /**
      * @var int
@@ -25,24 +25,25 @@ class Direction {
     private $id;
 
     /**
-     * @var string The libelle of the Direction.
+     * @var string The libelle of the Privilege.
      * @ORM\Column(name="libelle", nullable=true)
      * @Assert\Type(type="string")
      */
     private $libelle;
 
-    /**
-     * @ORM\OneToMany(targetEntity="Service", mappedBy="direction")
-     */
-    private $services;
 
     /**
-     * Constructor
+     * @ORM\ManyToOne(targetEntity="SousMenu")
+     * @ORM\JoinColumn(nullable=false)
      */
-    public function __construct()
-    {
-        $this->services = new \Doctrine\Common\Collections\ArrayCollection();
-    }
+    private $sousMenu;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Jac\UserBundle\Entity\User")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
 
     /**
      * Get id
@@ -59,7 +60,7 @@ class Direction {
      *
      * @param string $libelle
      *
-     * @return Direction
+     * @return Privilege
      */
     public function setLibelle($libelle)
     {
@@ -79,40 +80,50 @@ class Direction {
     }
 
     /**
-     * Add service
+     * Set sousMenu
      *
-     * @param \AppBundle\Entity\Service $service
+     * @param \AppBundle\Entity\SousMenu $sousMenu
      *
-     * @return Direction
+     * @return Privilege
      */
-    public function addService(\AppBundle\Entity\Service $service)
+    public function setSousMenu(\AppBundle\Entity\SousMenu $sousMenu)
     {
-        $this->services[] = $service;
+        $this->sousMenu = $sousMenu;
 
         return $this;
     }
 
     /**
-     * Remove service
+     * Get sousMenu
      *
-     * @param \AppBundle\Entity\Service $service
+     * @return \AppBundle\Entity\SousMenu
      */
-    public function removeService(\AppBundle\Entity\Service $service)
+    public function getSousMenu()
     {
-        $this->services->removeElement($service);
+        return $this->sousMenu;
     }
 
     /**
-     * Get services
+     * Set user
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @param \Jac\UserBundle\Entity\User $user
+     *
+     * @return Privilege
      */
-    public function getServices()
+    public function setUser(\Jac\UserBundle\Entity\User $user)
     {
-        return $this->services;
+        $this->user = $user;
+
+        return $this;
     }
-    
-    public function __toString(){
-        return $this->getLibelle();
+
+    /**
+     * Get user
+     *
+     * @return \Jac\UserBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

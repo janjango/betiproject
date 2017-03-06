@@ -834,28 +834,4 @@ class Appel
     {
         return $this->compte;
     }
-
-    /**
-     * Set estSolder
-     *
-     * @param boolean $estSolder
-     *
-     * @return Appel
-     */
-    public function setEstSolder($estSolder)
-    {
-        $this->estSolder = $estSolder;
-
-        return $this;
-    }
-
-    /**
-     * Get estSolder
-     *
-     * @return boolean
-     */
-    public function getEstSolder()
-    {
-        return $this->estSolder;
-    }
 }

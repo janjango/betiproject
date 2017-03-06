@@ -1,0 +1,59 @@
+{% extends "home/layout.html.twig" %}
+{% block stylesheet %}
+
+{% endblock %}
+ {% block titletopmeu %}
+     <li>Appels</li>
+     <li><a href="{{ path('read_beneficiaire')}}">Structures Bénéficiaires</a></li>
+     <li><a href="">Comptes </a></li>
+ {% endblock %}
+ {% block content %}
+     <!-- Datatables Content -->
+     <div class="block full">
+         <div class="block-title">
+
+             <h2>Les comptes de : <strong> {{ beneficiaire.libBeneficiaire }}</strong></h2>
+
+             <a  href="{{ path('create_compte', {'id': beneficiaire.id}) }}"  title="Ajouter" class="btn btn-xs btn-success" >
+                 <i  class="fa fa-plus"></i></a>
+         </div>
+
+         <div class="table-responsive">
+             <table id="example-datatable" class="table table-vcenter table-condensed table-bordered">
+                 <thead>
+                 <tr>
+                     <th class="text-center hide"></th>
+                     <th class="text-center "> Numéro</th>
+                     <th class="text-center "> Intitulé </th>
+                     <th class="text-center hide">Contact(s)</th>
+                     <th class="text-center hide"> email </th>
+                     <th class="text-center">Actions</th>
+                 </tr>
+
+                 </thead>
+                 <tbody>
+                 {% for element in  comptes %}
+                     <tr>
+                         <td class="text-left hide"></td>
+                         <td class="text-left ">{{ element.numero }}</td>
+                         <td class="text-left "> {{ element.intitule }}</td>
+                         <td class="text-left hide "> </td>
+                         <td class="text-center hide">
+
+                         </td>
+                         <td class="text-center">
+                             <a href="{{ path('update_compte', {'id': element.id } )}}" data-toggle="tooltip" title="Edit" class="btn btn-xs btn-default"><i class="fa fa-pencil"></i></a>
+
+                             <a href="#modal-regular{{ element.id }}" data-toggle="modal" title="Delete" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></a>
+                             {% include 'appel/compte/delete_compte.html.twig'  %}
+                         </td>
+                     </tr>
+                 {% endfor %}
+                 </tbody>
+             </table>
+         </div>
+     </div>
+     <!-- END Datatables Content -->
+
+ {% endblock %}
+

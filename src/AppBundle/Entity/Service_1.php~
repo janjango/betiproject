@@ -9,11 +9,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  *
- * @ORM\Entity(repositoryClass="AppBundle\Repository\DirectionRepository")
- * @ORM\Table("Direction")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ServiceRepository")
+ * @ORM\Table("Service")
  * @ORM\HasLifecycleCallbacks()
  */
-class Direction {
+class Service {
 
     /**
      * @var int
@@ -25,24 +25,17 @@ class Direction {
     private $id;
 
     /**
-     * @var string The libelle of the Direction.
+     * @var string The libelle of the Service.
      * @ORM\Column(name="libelle", nullable=true)
      * @Assert\Type(type="string")
      */
     private $libelle;
 
     /**
-     * @ORM\OneToMany(targetEntity="Service", mappedBy="direction")
+     * @ORM\ManyToOne(targetEntity="Direction", inversedBy="services")
      */
-    private $services;
+    private $direction;
 
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->services = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
      * Get id
@@ -59,7 +52,7 @@ class Direction {
      *
      * @param string $libelle
      *
-     * @return Direction
+     * @return Service
      */
     public function setLibelle($libelle)
     {
@@ -79,40 +72,26 @@ class Direction {
     }
 
     /**
-     * Add service
+     * Set direction
      *
-     * @param \AppBundle\Entity\Service $service
+     * @param \AppBundle\Entity\Direction $direction
      *
-     * @return Direction
+     * @return Service
      */
-    public function addService(\AppBundle\Entity\Service $service)
+    public function setDirection(\AppBundle\Entity\Direction $direction = null)
     {
-        $this->services[] = $service;
+        $this->direction = $direction;
 
         return $this;
     }
 
     /**
-     * Remove service
+     * Get direction
      *
-     * @param \AppBundle\Entity\Service $service
+     * @return \AppBundle\Entity\Direction
      */
-    public function removeService(\AppBundle\Entity\Service $service)
+    public function getDirection()
     {
-        $this->services->removeElement($service);
-    }
-
-    /**
-     * Get services
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getServices()
-    {
-        return $this->services;
-    }
-    
-    public function __toString(){
-        return $this->getLibelle();
+        return $this->direction;
     }
 }

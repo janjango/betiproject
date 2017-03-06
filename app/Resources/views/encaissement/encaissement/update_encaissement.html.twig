@@ -4,8 +4,8 @@
 {% endblock %}
  {% block titletopmeu %}
      <li>Encaissement</li>
-     <li><a href="{{ path('read_encaissement',{'exercice': exercice})}}">Encaissement</a></li>
-     <li><a href="{{ path('update_encaissement',{'id': id,'exercice': exercice } )}}">Modification</a></li>
+     <li><a href="{{ path('read_encaissement')}}">Encaissement</a></li>
+     <li><a href="{{ path('update_encaissement',{'id': id } )}}">Modification</a></li>
  {% endblock %}
  {% block content %}
 
@@ -14,7 +14,7 @@
          <!-- Normal Form Title -->
          <div class="block-title">
              <div class="block-options pull-right">
-                 <a href="{{ path('read_encaissement',{'exercice': exercice})}}" class="btn btn-alt btn-sm btn-default toggle-bordered enable-tooltip" >Retour</a>
+                 <a href="{{ path('read_encaissement')}}" class="btn btn-alt btn-sm btn-default toggle-bordered enable-tooltip" >Retour</a>
              </div>
              <h2><strong>Modifier Encaissement</strong> </h2>
 
