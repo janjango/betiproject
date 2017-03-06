@@ -198,4 +198,21 @@ class AppelController extends Controller {
         ]);
     }
 
+    /**
+     * Creates a new demand entity.
+     *
+     * @Route("/appel/selectinfo", name="selectinfo_appel")
+     * @Method({"GET"})
+     */
+    public function selectinfo_beneficiaireAction(Request $request)
+    {
+        $appel = $this->getDoctrine()->getManager()->getRepository('AppBundle:Appel')
+            ->find($request->get('id'));
+
+
+        return $this->render('appel/appel/info_appel.html.twig', [
+            'element'   => $appel,
+        ]);
+    }
+
 }

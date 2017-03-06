@@ -42,3 +42,25 @@
 </div>
 </div>
  {% endblock %}
+{% block customjavascript %}
+    <script>
+        $("#appbundle_encaissement_appel").change(function () {
+            var k = $(this);
+            $("#afficherbeneficiaire").remove();
+            $.ajax({
+                type: 'GET',
+                url: "{{ path('selectinfo_appel')}}",
+                cache: false,
+                data : 'id=' + k.val(),
+                success: function (data) {
+                    // alert(data);
+                    k.parent().after(data);
+                    // location.reload();
+                },
+                error: function () {
+                }
+            });
+        });
+
+    </script>
+{% endblock %}
