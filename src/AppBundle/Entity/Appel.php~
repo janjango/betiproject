@@ -750,4 +750,52 @@ class Appel
     {
         return $this->objetappel;
     }
+
+    /**
+     * Set numcomptetresor
+     *
+     * @param string $numcomptetresor
+     *
+     * @return Appel
+     */
+    public function setNumcomptetresor($numcomptetresor)
+    {
+        $this->numcomptetresor = $numcomptetresor;
+
+        return $this;
+    }
+
+    /**
+     * Get numcomptetresor
+     *
+     * @return string
+     */
+    public function getNumcomptetresor()
+    {
+        return $this->numcomptetresor;
+    }
+
+    /**
+     * Set intitulecomptetresor
+     *
+     * @param string $intitulecomptetresor
+     *
+     * @return Appel
+     */
+    public function setIntitulecomptetresor($intitulecomptetresor)
+    {
+        $this->intitulecomptetresor = $intitulecomptetresor;
+
+        return $this;
+    }
+
+    /**
+     * Get intitulecomptetresor
+     *
+     * @return string
+     */
+    public function getIntitulecomptetresor()
+    {
+        return $this->intitulecomptetresor;
+    }
 }

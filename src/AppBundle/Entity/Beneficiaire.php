@@ -37,18 +37,24 @@ class Beneficiaire
      * @ORM\Column(name="code", type="string", length=25)
      */
     private $code;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="sigle", type="string", length=255, nullable=true)
+     */
+    private $sigle;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="numeroCompte", type="integer")
+     * @ORM\Column(name="numeroCompte", type="integer", nullable=true)
      */
     private $numeroCompte;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="intituleCompte", type="string", length=255)
+     * @ORM\Column(name="intituleCompte", type="string", length=255, nullable=true)
      */
     private $intituleCompte;
 
@@ -203,4 +209,28 @@ class Beneficiaire
         return $this->libBeneficiaire;
     }
 
+
+    /**
+     * Set sigle
+     *
+     * @param string $sigle
+     *
+     * @return Beneficiaire
+     */
+    public function setSigle($sigle)
+    {
+        $this->sigle = $sigle;
+
+        return $this;
+    }
+
+    /**
+     * Get sigle
+     *
+     * @return string
+     */
+    public function getSigle()
+    {
+        return $this->sigle;
+    }
 }

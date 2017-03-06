@@ -18,15 +18,15 @@
          </div>
 
          <div class="table-responsive">
+             
              <table id="example-datatable" class="table table-vcenter table-condensed table-bordered">
                  <thead>
                  <tr>
                      <th class="text-center"> Code</th>
                      <th class="text-center hide"> Etat </th>
                      <th class="text-center "> Nom</th>
-                     <th class="text-center "> Numéro compte</th>
-                     <th class="text-center ">Intitulé compte</th>
-
+                     <th class="text-center "> Sigle</th>
+                     <th class="text-center hide"> Sigle</th>
                      <th class="text-center">Actions</th>
                  </tr>
 
@@ -38,9 +38,8 @@
                          <td class="text-center hide">
                          </td>
                          <td class="text-left">  {{ element.libBeneficiaire }}</td>
-                         <td class="text-left"> {{ element.numeroCompte }} </td>
-                         <td class="text-left ">  {{ element.intituleCompte }} </td>
-
+                         <td class="text-left"> {{ element.sigle }} </td>>
+                         <td class="text-left hide"> {{ element.sigle }} </td>>
                          <td class="text-center">
                              <a href="{{ path('update_beneficiaire', {'id': element.id } )}}" data-toggle="tooltip" title="Edit" class="btn btn-xs btn-default"><i class="fa fa-pencil"></i></a>
 
