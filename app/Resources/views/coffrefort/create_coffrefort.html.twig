@@ -3,9 +3,9 @@
 
 {% endblock %}
  {% block titletopmeu %}
-     <li>Encaissement</li>
-     <li><a href="{{ path('read_encaissement',{'exercice': exercice})}}">Encaissement</a></li>
-     <li><a href="{{ path('create_encaissement',{'exercice': exercice})}}">Enregistrement</a></li>
+     <li>Coffrefort</li>
+     <li><a href="{{ path('read_coffrefort',{'exercice': exercice})}}">Coffrefort</a></li>
+     <li><a href="{{ path('create_coffrefort',{'exercice': exercice})}}">Enregistrement</a></li>
  {% endblock %}
  {% block content %}
 <div class="row">
@@ -13,15 +13,15 @@
     <!-- Normal Form Title -->
     <div class="block-title">
         <div class="block-options pull-right">
-            <a href="{{ path('read_encaissement',{'exercice': exercice})}}" class="btn btn-alt btn-sm btn-default toggle-bordered enable-tooltip" >Retour</a>
+            <a href="{{ path('read_coffrefort',{'exercice': exercice})}}" class="btn btn-alt btn-sm btn-default toggle-bordered enable-tooltip" >Retour</a>
         </div>
-        <h2><strong>Nouveau Encaissement</strong> </h2>
+        <h2><strong>Nouveau Coffrefort</strong> </h2>
 
     </div>
     <!-- END Normal Form Title -->
 
     <!-- Normal Form Content -->
-    <form action="{{ path('create_encaissement',{'exercice': exercice})}}" method="post" class="form-bordered">
+    <form action="{{ path('create_coffrefort',{'exercice': exercice})}}" method="post" class="form-bordered">
         {% for flash_message in app.session.flashBag.get('danger') %}
             <div class=" flash-notice alert alert-danger alert-dismissable">
                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
