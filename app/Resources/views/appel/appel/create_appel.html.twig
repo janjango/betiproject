@@ -4,8 +4,8 @@
 {% endblock %}
  {% block titletopmeu %}
      <li>Appel</li>
-     <li><a href="{{ path('read_appel',{'exercice': exercice})}}">Appels</a></li>
-     <li><a href="{{ path('create_appel',{'exercice': exercice})}}">Enregistrement</a></li>
+     <li><a href="{{ path('read_appel')}}">Appels</a></li>
+     <li><a href="{{ path('create_appel')}}">Enregistrement</a></li>
  {% endblock %}
  {% block content %}
 <div class="row">
@@ -34,7 +34,7 @@
     <!-- END Normal Form Title -->
 
     <!-- Normal Form Content -->
-    <form action="{{ path('create_appel',{'exercice': exercice})}}" method="post" class="form-bordered">
+    <form action="{{ path('create_appel')}}" method="post" class="form-bordered">
 
         <div class="form-group">
             {{ form_widget(form) }}

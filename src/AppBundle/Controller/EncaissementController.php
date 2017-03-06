@@ -18,22 +18,22 @@ class EncaissementController extends Controller {
     public function read_encaissementAction(Request $request) {
         // replace this example code with whatever you need
 
+        $exercice= $this->getDoctrine()
+            ->getManager()->getRepository('AppBundle:Exercice')
+            ->findOneBy(Array('estActif'=>true));
+
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
         $users = $this->getDoctrine()->getManager()
             ->getRepository('Jac\UserBundle\Entity\User');
         $menus = $users->getMenus($user->getId());
         $sousMenus = $users->getSousMenus($user->getId());
-        
-        $exercices= $this->getDoctrine()
-            ->getManager()->getRepository('AppBundle:Exercice')
-            ->findBy(Array(),Array('libExercice'=>'ASC'));
 
         $encaissements= $this->getDoctrine()
             ->getManager()->getRepository('AppBundle:Encaissement')
-            ->findBy(Array('exercice'=>$request->get('exercice')),Array('id'=>'ASC'));
+            ->findBy(Array('exercice'=>$exercice->getId()),Array('id'=>'ASC'));
 
         return $this->render('encaissement/encaissement/read_encaissement.html.twig', [
-            'encaissements' => $encaissements,'exercice'=>$request->get('exercice'),'exercices'=> $exercices,
+            'encaissements' => $encaissements,'exercice'=>$exercice,
             'sousMenus' => $sousMenus,
             'menus' => $menus
         ]);
@@ -62,14 +62,16 @@ class EncaissementController extends Controller {
                     'danger', "Le montant encaissé est supérieur à celui de l'appel !"
                 );
                 return $this->render('encaissement/encaissement/create_encaissement.html.twig', [
-                    'form'   => $form->createView(),'exercice'=>$request->get('exercice'),
+                    'form'   => $form->createView(),
                     'sousMenus' => $sousMenus,
                     'menus' => $menus
                 ]);
             }
-
+            $exercice= $this->getDoctrine()
+                ->getManager()->getRepository('AppBundle:Exercice')
+                ->findOneBy(Array('estActif'=>true));
             $em = $this->getDoctrine()->getManager();
-            $encaissement->setExercice($this->getDoctrine()->getManager()->getRepository('AppBundle:Exercice')->find($request->get('exercice')));
+            $encaissement->setExercice($exercice);
             $em->persist($encaissement);
             $em->flush();
 
@@ -77,10 +79,10 @@ class EncaissementController extends Controller {
                 'success', "Enregistrement effectué avec succès !"
             );
 
-            return $this->redirectToRoute('create_encaissement', array('exercice' => $request->get('exercice')));
+            return $this->redirectToRoute('create_encaissement');
         }
         return $this->render('encaissement/encaissement/create_encaissement.html.twig', [
-             'form'   => $form->createView(),'exercice'=>$request->get('exercice'),
+             'form'   => $form->createView(),
             'sousMenus' => $sousMenus,
             'menus' => $menus
         ]);
@@ -111,10 +113,9 @@ class EncaissementController extends Controller {
                     'danger', "Le montant encaissé est supérieur à celui de l'appel !"
                 );
                 return $this->render('encaissement/encaissement/update_encaissement.html.twig', [
-                    'form'   => $form->createView(), 'id'   => $request->get('id'),'exercice'=>$request->get('exercice'),
+                    'form'   => $form->createView(), 'id'   => $request->get('id'),
                     'sousMenus' => $sousMenus,
-                    'menus' => $menus,
-                    'exercice' => $encaissement->getExercice()->getId()
+                    'menus' => $menus
                 ]);
             }
             $em = $this->getDoctrine()->getManager();
@@ -124,13 +125,12 @@ class EncaissementController extends Controller {
                 'warning', "Modification effectué avec succès !"
             );
 
-            return $this->redirectToRoute('read_encaissement', array('exercice' =>$encaissement->getExercice()->getId()));
+            return $this->redirectToRoute('read_encaissement');
         }
         return $this->render('encaissement/encaissement/update_encaissement.html.twig', [
-            'form'   => $form->createView(), 'id'   => $request->get('id'),'exercice'=>$request->get('exercice'),
+            'form'   => $form->createView(), 'id'   => $request->get('id'),
             'sousMenus' => $sousMenus,
-            'menus' => $menus,
-            'exercice' => $encaissement->getExercice()->getId()
+            'menus' => $menus
         ]);
     }
 
@@ -152,10 +152,10 @@ class EncaissementController extends Controller {
                 'danger', "Suppression effectué avec succès !"
             );
 
-            return $this->redirectToRoute('read_encaissement', array('exercice' =>$encaissement->getExercice()->getId()));
+            return $this->redirectToRoute('read_encaissement');
         }
         return $this->render('encaissement/encaissement/delete_encaissement.html.twig', [
-           'id'   => $request->get('id'),'exercice'=>$request->get('exercice')
+           'id'   => $request->get('id')
         ]);
     }
 

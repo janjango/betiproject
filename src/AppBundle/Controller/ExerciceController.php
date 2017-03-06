@@ -23,9 +23,6 @@ class ExerciceController extends Controller {
         $menus = $users->getMenus($user->getId());
         $sousMenus = $users->getSousMenus($user->getId());
         
-        $exercices= $this->getDoctrine()
-            ->getManager()->getRepository('AppBundle:Exercice')
-            ->findBy(Array(),Array('libExercice'=>'ASC'));
         return $this->render('appel/exercice/read_exercice.html.twig', [
             'exercices' => $exercices,
             'sousMenus' => $sousMenus,
@@ -49,6 +46,7 @@ class ExerciceController extends Controller {
         $sousMenus = $users->getSousMenus($user->getId());
 
         $exercice = new Exercice();
+        $exercice->setEstActif(false);
         $form = $this->createForm('AppBundle\Form\ExerciceType', $exercice);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -105,11 +103,11 @@ class ExerciceController extends Controller {
     }
 
     /**
-     * Creates a new demand entity.
-     *
-     * @Route("/exercice/delete", name="delete_exercice")
-     * @Method({"GET", "POST"})
-     */
+ * Creates a new demand entity.
+ *
+ * @Route("/exercice/delete", name="delete_exercice")
+ * @Method({"GET", "POST"})
+ */
     public function delete_exerciceAction(Request $request)
     {
         $exercice = $this->getDoctrine()->getManager()->getRepository('AppBundle:Exercice')
@@ -125,7 +123,41 @@ class ExerciceController extends Controller {
             return $this->redirectToRoute('read_exercice');
         }
         return $this->render('appel/exercice/delete_exercice.html.twig', [
-           'id'   => $request->get('id')
+            'id'   => $request->get('id')
+        ]);
+    }
+
+    /**
+     * Creates a new demand entity.
+     *
+     * @Route("/exercice/etat", name="etat_exercice")
+     * @Method({"GET", "POST"})
+     */
+    public function etat_exerciceAction(Request $request)
+    {
+        $exercice = $this->getDoctrine()->getManager()->getRepository('AppBundle:Exercice')
+            ->find($request->get('id'));
+        $exercice->setEstActif(true);
+
+        $exercices= $this->getDoctrine()
+            ->getManager()->getRepository('AppBundle:Exercice')
+            ->findAll();
+
+        if ($request->getMethod() == 'POST'){
+            $em = $this->getDoctrine()->getManager();
+            foreach ($exercices  as $i){
+                if($i->getId()!= $exercice->getId())
+                $i->setEstActif(false);
+                $em->flush();
+            }
+            $this->addFlash(
+                'success', "Exercice activé avec succès !"
+            );
+
+            return $this->redirectToRoute('read_exercice');
+        }
+        return $this->render('appel/exercice/etat_exercice.html.twig', [
+            'id'   => $request->get('id')
         ]);
     }
 

@@ -20,12 +20,13 @@ class ExerciceType extends AbstractType
             'attr' =>array(
                 'class' =>'form-control'
             )))
-            ->add('estActif', CheckboxType::class, array(
-        'label' => 'Etat : cohez si cloturer',
-        'required' => false,
-        'attr' =>array(
-            'class' =>'form-control'
-        ))) ;
+//            ->add('estActif', CheckboxType::class, array(
+//        'label' => 'Etat : cohez si cloturer',
+//        'required' => false,
+//        'attr' =>array(
+//            'class' =>'form-control'
+//        )))
+        ;
     }
     
     /**

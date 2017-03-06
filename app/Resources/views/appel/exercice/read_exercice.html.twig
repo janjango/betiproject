@@ -39,9 +39,9 @@
                          <td class="text-left "> {{ element.libExercice }}</td>
                          <td class="text-center">
                              {% if element.estActif==0 %}
-                             <label class="switch switch-success"><input type="checkbox" checked="" disabled=""><span></span></label>
-                             {% else %}
                                  <label class="switch switch-danger"><input type="checkbox" unchecked="" disabled=""><span></span></label>
+                             {% else %}
+                                 <label class="switch switch-success"><input type="checkbox" checked="" disabled=""><span></span></label>
                              {% endif %}
                          </td>
                          <td class="text-center">
@@ -49,6 +49,10 @@
 
                              <a href="#modal-regular{{ element.id }}" data-toggle="modal" title="Delete" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></a>
                              {% include 'appel/exercice/delete_exercice.html.twig'  %}
+                             {% if element.estActif==0 %}
+                             <a href="#modal-regular1{{ element.id }}" data-toggle="modal" title="Changer l'état" class="btn btn-xs btn-primary"><i class="fa fa-wrench"></i></a>
+                             {% include 'appel/exercice/etat_exercice.html.twig'  %}
+                             {% endif %}
                          </td>
                      </tr>
                  {% endfor %}

@@ -4,7 +4,7 @@
 {% endblock %}
  {% block titletopmeu %}
      <li>Appel</li>
-     <li><a href="{{ path('read_appel',{'exercice': appel.exercice.id })}}"> Appels</a></li>
+     <li><a href="{{ path('read_appel')}}"> Appels</a></li>
      <li><a href="{{ path('update_appel',{'id': id } )}}">Modification</a></li>
  {% endblock %}
  {% block content %}
@@ -14,7 +14,7 @@
          <!-- Normal Form Title -->
          <div class="block-title">
              <div class="block-options pull-right">
-                 <a href="{{ path('read_appel',{'exercice': exercice})}}" class="btn btn-alt btn-sm btn-default toggle-bordered enable-tooltip" >Retour</a>
+                 <a href="{{ path('read_appel')}}" class="btn btn-alt btn-sm btn-default toggle-bordered enable-tooltip" >Retour</a>
              </div>
              <h2><strong>Modifier appel</strong> </h2>
              <div class="btn-group">

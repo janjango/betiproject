@@ -4,7 +4,7 @@
 {% endblock %}
  {% block titletopmeu %}
     <li>Appel</li>
-    <li><a href="{% if (exercice is not null) %}{{ path('read_appel',{'exercice': exercice})}} {% else %} {{ path('read_appel',{'exercice': 1})}} {% endif %}">Appels</a></li>
+    <li><a href="{{ path('read_appel')}}">Appels</a></li>
 {% endblock %}
  {% block content %}
      <!-- Datatables Content -->
@@ -14,19 +14,11 @@
              <h2>
                  <strong> Appels  </strong>
 
-                 <select id="getExo" name="getExo" class="select-chosen ">
-                 <option value="">Exercice</option>
-                     {% for elt in  exercices %}
-                         <option value="{{ elt.id }}"  {% if elt.id==exercice %} selected="true" {% endif %}>{{ elt.libExercice }}</option>
-                     {% endfor %}
-                 </select>
-
-
              </h2>
 
-                <a  href="{% if (exercice is not null) %}{{ path('create_appel',{'exercice': exercice})}} {% else %} {{ path('create_appel',{'exercice': 1})}} {% endif %}"  title="Ajouter" class="btn btn-xs btn-success" >
+                <a  href="{{ path('create_appel')}}"  title="Ajouter" class="btn btn-xs btn-success" >
                  <i  class="fa fa-plus"></i></a>
-                 <span style="margin-left: 10%;font-size: 14px;"> Report à nouveau de l'exercice :   <strong> {{ solde|number_format(2, ',', '.') }} francs CFA   </strong> </span>
+                 <span style="margin-left: 10%;font-size: 14px;"> Report à nouveau de l'exercice {{ exercice.libExercice }} :   <strong> {{ solde|number_format(2, ',', '.') }} francs CFA   </strong> </span>
 
          <div class="table-responsive">
              <table id="example-datatable" class="table table-vcenter table-condensed table-bordered">

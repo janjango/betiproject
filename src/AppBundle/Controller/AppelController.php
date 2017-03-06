@@ -18,15 +18,15 @@ class AppelController extends Controller {
     public function read_appelAction(Request $request) {
         // replace this example code with whatever you need
 
-        $exercices= $this->getDoctrine()
+        $exercice= $this->getDoctrine()
             ->getManager()->getRepository('AppBundle:Exercice')
-            ->findBy(Array(),Array('libExercice'=>'ASC'));
+            ->findOneBy(Array('estActif'=>true));
 
         $appels= $this->getDoctrine()
             ->getManager()->getRepository('AppBundle:Appel')
-            ->findBy(Array('exercice'=>$request->get('exercice')),Array('id'=>'ASC'));
+            ->findBy(Array('exercice'=>$exercice->getId()),Array('id'=>'ASC'));
 
-        $solde=($this->getDoctrine()->getManager()->getRepository('AppBundle:Appel')->getSommeajouter($request->get('exercice')))-($this->getDoctrine()->getManager()->getRepository('AppBundle:Appel')->getSommeannuler($request->get('exercice')));
+        $solde=($this->getDoctrine()->getManager()->getRepository('AppBundle:Appel')->getSommeajouter($exercice->getId()))-($this->getDoctrine()->getManager()->getRepository('AppBundle:Appel')->getSommeannuler($exercice->getId()));
 
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
         $users = $this->getDoctrine()->getManager()
@@ -35,7 +35,7 @@ class AppelController extends Controller {
         $sousMenus = $users->getSousMenus($user->getId());
 
         return $this->render('appel/appel/read_appel.html.twig', [
-            'appels' => $appels, 'exercices'=> $exercices, 'exercice'=>$request->get('exercice'), 'solde'=> $solde,
+            'appels' => $appels, 'exercice'=>$exercice, 'solde'=> $solde,
             'sousMenus' => $sousMenus,
             'menus' => $menus,
         ]);
@@ -59,24 +59,27 @@ class AppelController extends Controller {
         $form = $this->createForm('AppBundle\Form\AppelType', $appel);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $exercice= $this->getDoctrine()
+                ->getManager()->getRepository('AppBundle:Exercice')
+                ->findOneBy(Array('estActif'=>true));
             $em = $this->getDoctrine()->getManager();
             $appel->setUserCreate($this->getUser()->getUsername());
             $appel->setDateCreate(new \ Datetime());
             $appel->setEstAnnuler(false);
             $appel->setEstParentannuler(false);
             $appel->setEstEncaisser(false);
-            $appel->setExercice($this->getDoctrine()->getManager()->getRepository('AppBundle:Exercice')->find($request->get('exercice')));
+            $appel->setExercice($exercice);
             $em->persist($appel);
             $em->flush();
             $this->addFlash(
                 'success', "Enregistrement effectué avec succès !"
             );
 
-            return $this->redirectToRoute('create_appel', array('exercice' => $request->get('exercice')));
+            return $this->redirectToRoute('create_appel');
         }
 
         return $this->render('appel/appel/create_appel.html.twig', [
-             'form'   => $form->createView(),'exercice'=>$request->get('exercice'),
+             'form'   => $form->createView(),
             'sousMenus' => $sousMenus,
             'menus' => $menus,
         ]);
@@ -156,13 +159,12 @@ class AppelController extends Controller {
                 'warning', "Modification effectué avec succès !"
             );
 
-            return $this->redirectToRoute('read_appel', array('exercice' => $appel->getExercice()->getId()));
+            return $this->redirectToRoute('read_appel');
         }
         return $this->render('appel/appel/update_appel.html.twig', [
             'form'   => $form->createView(), 'id'   => $request->get('id'), 'appel'   => $appel,
             'sousMenus' => $sousMenus,
-            'menus' => $menus,
-            'exercice' => $appel->getExercice()->getId()
+            'menus' => $menus
         ]);
     }
 
@@ -184,7 +186,7 @@ class AppelController extends Controller {
                 'danger', "Suppression effectué avec succès !"
             );
 
-            return $this->redirectToRoute('read_appel', array('exercice' => $appel->getExercice()->getId()));
+            return $this->redirectToRoute('read_appel');
         }
         return $this->render('appel/appel/delete_appel.html.twig', [
            'id'   => $request->get('id'), 'appel'   => $appel
