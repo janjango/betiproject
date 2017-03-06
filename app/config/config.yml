@@ -41,6 +41,11 @@ twig:
     strict_variables: "%kernel.debug%"
     form_themes:
         - 'JacUserBundle:Form:fields.html.twig'
+
+    globals:
+        domain: %domain%
+        user_avatars: %app.path.user_avatars%
+
 # Doctrine Configuration
 doctrine:
     dbal:
@@ -100,14 +105,14 @@ fos_user:
 vich_uploader:
     db_driver: orm
     mappings:
-        product_image:
+        user_image:
             uri_prefix:         %app.path.user_avatars%
             upload_destination: %kernel.root_dir%/../web/uploads/images/avatars
 
             inject_on_load:     false
             delete_on_update:   true
             delete_on_remove:   true
-            
+
 easy_admin:
     site_name: 'REGIS PRO ADMIN'
 #    design:
@@ -117,16 +122,18 @@ easy_admin:
 
         Menu:
             class: AppBundle\Entity\Menu
-            
+
         SousMenu:
             class: AppBundle\Entity\SousMenu
-            
+
         Direction:
             class: AppBundle\Entity\Direction
-            
+
         Service:
             class: AppBundle\Entity\Service
-            
+
+        Statut:
+            class: Jac\UserBundle\Entity\Statut
         User:
             class: Jac\UserBundle\Entity\User
             list:
@@ -138,9 +145,10 @@ easy_admin:
                     - { property: 'phone' }
                     - { property: 'enabled' }
                     - { property: 'lastLogin' }
-
                     - { property: 'service' }
- 
+                    - { property: 'statut' }
+                    - { property: 'imageName', type: 'image', base_path: %app.path.user_avatars% }
+
             new:
                 fields:
                     - { property: 'username' }
@@ -150,18 +158,23 @@ easy_admin:
                     - { property: 'lastName' }
                     - { property: 'phone' }
                     - { property: 'service' }
+                    - { property: 'statut' }
+                    - { property: 'imageFile', type: 'vich_image' }
 
             edit:
                 fields:
                     - { property: 'username' }
                     - { property: 'email' }
-                    - { property: 'plainPassword', type: 'password' }
+                    - { property: 'password'}
                     - { property: 'firstName' }
                     - { property: 'lastName' }
                     - { property: 'phone' }
                     - { property: 'service' }
-                    
+                    - { property: 'statut' }
+                    - { property: 'imageFile', type: 'vich_image' }
+
         Privilege:
             class: AppBundle\Entity\Privilege
-            
 
+        AssignationBeneficiaire:
+            class: AppBundle\Entity\AssignationBeneficiaire

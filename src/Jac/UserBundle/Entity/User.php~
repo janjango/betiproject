@@ -17,7 +17,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @see http://schema.org/Person Documentation on Schema.org
  *
  *
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="Jac\UserBundle\Entity\UserRepository")
  * @ORM\Table("User")
  * @UniqueEntity("email")
  * @UniqueEntity("username")
@@ -109,7 +109,6 @@ class User extends BaseUser {
      */
     private $gender;
 
-
     /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Privilege", mappedBy="user")
      */
@@ -119,7 +118,17 @@ class User extends BaseUser {
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Service", inversedBy="users")
      */
     private $service;
-    
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Statut", inversedBy="users")
+     */
+    private $statut;
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\AssignationBeneficiaire", mappedBy="user")
+     */
+    private $assignations;
+
     public function __construct() {
         parent::__construct();
     }
@@ -131,8 +140,7 @@ class User extends BaseUser {
      *
      * @return User
      */
-    public function setFirstName($firstName)
-    {
+    public function setFirstName($firstName) {
         $this->firstName = $firstName;
 
         return $this;
@@ -143,8 +151,7 @@ class User extends BaseUser {
      *
      * @return string
      */
-    public function getFirstName()
-    {
+    public function getFirstName() {
         return $this->firstName;
     }
 
@@ -155,8 +162,7 @@ class User extends BaseUser {
      *
      * @return User
      */
-    public function setLastName($lastName)
-    {
+    public function setLastName($lastName) {
         $this->lastName = $lastName;
 
         return $this;
@@ -167,8 +173,7 @@ class User extends BaseUser {
      *
      * @return string
      */
-    public function getLastName()
-    {
+    public function getLastName() {
         return $this->lastName;
     }
 
@@ -179,8 +184,7 @@ class User extends BaseUser {
      *
      * @return User
      */
-    public function setPhone($phone)
-    {
+    public function setPhone($phone) {
         $this->phone = $phone;
 
         return $this;
@@ -191,8 +195,7 @@ class User extends BaseUser {
      *
      * @return string
      */
-    public function getPhone()
-    {
+    public function getPhone() {
         return $this->phone;
     }
 
@@ -203,8 +206,7 @@ class User extends BaseUser {
      *
      * @return User
      */
-    public function setBirthDate($birthDate)
-    {
+    public function setBirthDate($birthDate) {
         $this->birthDate = $birthDate;
 
         return $this;
@@ -215,8 +217,7 @@ class User extends BaseUser {
      *
      * @return \DateTime
      */
-    public function getBirthDate()
-    {
+    public function getBirthDate() {
         return $this->birthDate;
     }
 
@@ -227,8 +228,7 @@ class User extends BaseUser {
      *
      * @return User
      */
-    public function setGender($gender)
-    {
+    public function setGender($gender) {
         $this->gender = $gender;
 
         return $this;
@@ -239,8 +239,7 @@ class User extends BaseUser {
      *
      * @return string
      */
-    public function getGender()
-    {
+    public function getGender() {
         return $this->gender;
     }
 
@@ -251,8 +250,7 @@ class User extends BaseUser {
      *
      * @return User
      */
-    public function addPrivilege(\AppBundle\Entity\Privilege $privilege)
-    {
+    public function addPrivilege(\AppBundle\Entity\Privilege $privilege) {
         $this->privileges[] = $privilege;
 
         return $this;
@@ -263,8 +261,7 @@ class User extends BaseUser {
      *
      * @param \AppBundle\Entity\Privilege $privilege
      */
-    public function removePrivilege(\AppBundle\Entity\Privilege $privilege)
-    {
+    public function removePrivilege(\AppBundle\Entity\Privilege $privilege) {
         $this->privileges->removeElement($privilege);
     }
 
@@ -273,8 +270,52 @@ class User extends BaseUser {
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getPrivileges()
-    {
+    public function getPrivileges() {
         return $this->privileges;
     }
+
+    /**
+     * Set service
+     *
+     * @param \AppBundle\Entity\Service $service
+     *
+     * @return User
+     */
+    public function setService(\AppBundle\Entity\Service $service = null) {
+        $this->service = $service;
+
+        return $this;
+    }
+
+    /**
+     * Get service
+     *
+     * @return \AppBundle\Entity\Service
+     */
+    public function getService() {
+        return $this->service;
+    }
+
+    /**
+     * Set statut
+     *
+     * @param \Jac\UserBundle\Entity\Statut $statut
+     *
+     * @return User
+     */
+    public function setStatut(\Jac\UserBundle\Entity\Statut $statut = null) {
+        $this->statut = $statut;
+
+        return $this;
+    }
+
+    /**
+     * Get statut
+     *
+     * @return \Jac\UserBundle\Entity\Statut
+     */
+    public function getStatut() {
+        return $this->statut;
+    }
+
 }

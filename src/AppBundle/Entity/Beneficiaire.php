@@ -10,12 +10,13 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="beneficiaire")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\BeneficiaireRepository")
  */
-class Beneficiaire
-{
+class Beneficiaire {
+
     /**
      * @ORM\OneToMany(targetEntity="Appel", mappedBy="beneficiaire")
      */
     private $appels;
+
     /**
      * @var int
      *
@@ -31,6 +32,7 @@ class Beneficiaire
      * @ORM\Column(name="libBeneficiaire", type="string", length=255)
      */
     private $libBeneficiaire;
+
     /**
      * @var string
      *
@@ -52,14 +54,17 @@ class Beneficiaire
      */
     private $intituleCompte;
 
+    /**
+     * @ORM\OneToMany(targetEntity="AssignationBeneficiaire", mappedBy="beneficiaire")
+     */
+    private $assignations;
 
     /**
      * Get id
      *
      * @return int
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -70,8 +75,7 @@ class Beneficiaire
      *
      * @return Beneficiaire
      */
-    public function setLibBeneficiaire($libBeneficiaire)
-    {
+    public function setLibBeneficiaire($libBeneficiaire) {
         $this->libBeneficiaire = $libBeneficiaire;
 
         return $this;
@@ -82,8 +86,7 @@ class Beneficiaire
      *
      * @return string
      */
-    public function getLibBeneficiaire()
-    {
+    public function getLibBeneficiaire() {
         return $this->libBeneficiaire;
     }
 
@@ -94,8 +97,7 @@ class Beneficiaire
      *
      * @return Beneficiaire
      */
-    public function setNumeroCompte($numeroCompte)
-    {
+    public function setNumeroCompte($numeroCompte) {
         $this->numeroCompte = $numeroCompte;
 
         return $this;
@@ -106,8 +108,7 @@ class Beneficiaire
      *
      * @return int
      */
-    public function getNumeroCompte()
-    {
+    public function getNumeroCompte() {
         return $this->numeroCompte;
     }
 
@@ -118,8 +119,7 @@ class Beneficiaire
      *
      * @return Beneficiaire
      */
-    public function setIntituleCompte($intituleCompte)
-    {
+    public function setIntituleCompte($intituleCompte) {
         $this->intituleCompte = $intituleCompte;
 
         return $this;
@@ -130,8 +130,7 @@ class Beneficiaire
      *
      * @return string
      */
-    public function getIntituleCompte()
-    {
+    public function getIntituleCompte() {
         return $this->intituleCompte;
     }
 
@@ -142,8 +141,7 @@ class Beneficiaire
      *
      * @return Beneficiaire
      */
-    public function setCode($code)
-    {
+    public function setCode($code) {
         $this->code = $code;
 
         return $this;
@@ -154,15 +152,14 @@ class Beneficiaire
      *
      * @return string
      */
-    public function getCode()
-    {
+    public function getCode() {
         return $this->code;
     }
+
     /**
      * Constructor
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->appels = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -173,8 +170,7 @@ class Beneficiaire
      *
      * @return Beneficiaire
      */
-    public function addAppel(\AppBundle\Entity\Appel $appel)
-    {
+    public function addAppel(\AppBundle\Entity\Appel $appel) {
         $this->appels[] = $appel;
 
         return $this;
@@ -185,8 +181,7 @@ class Beneficiaire
      *
      * @param \AppBundle\Entity\Appel $appel
      */
-    public function removeAppel(\AppBundle\Entity\Appel $appel)
-    {
+    public function removeAppel(\AppBundle\Entity\Appel $appel) {
         $this->appels->removeElement($appel);
     }
 
@@ -195,12 +190,46 @@ class Beneficiaire
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getAppels()
-    {
+    public function getAppels() {
         return $this->appels;
     }
+
     public function __toString() {
         return $this->libBeneficiaire;
     }
 
+
+    /**
+     * Add assignation
+     *
+     * @param \AppBundle\Entity\AssignationBeneficiaire $assignation
+     *
+     * @return Beneficiaire
+     */
+    public function addAssignation(\AppBundle\Entity\AssignationBeneficiaire $assignation)
+    {
+        $this->assignations[] = $assignation;
+
+        return $this;
+    }
+
+    /**
+     * Remove assignation
+     *
+     * @param \AppBundle\Entity\AssignationBeneficiaire $assignation
+     */
+    public function removeAssignation(\AppBundle\Entity\AssignationBeneficiaire $assignation)
+    {
+        $this->assignations->removeElement($assignation);
+    }
+
+    /**
+     * Get assignations
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAssignations()
+    {
+        return $this->assignations;
+    }
 }

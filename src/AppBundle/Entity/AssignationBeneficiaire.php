@@ -9,11 +9,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  *
- * @ORM\Entity(repositoryClass="AppBundle\Repository\PrivilegeRepository")
- * @ORM\Table("Privilege")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\AssignationBeneficiaireRepository")
+ * @ORM\Table("AssignationBeneficiaire")
  * @ORM\HasLifecycleCallbacks()
  */
-class Privilege {
+class AssignationBeneficiaire {
 
     /**
      * @var int
@@ -25,13 +25,13 @@ class Privilege {
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="SousMenu", inversedBy="privileges")
+     * @ORM\ManyToOne(targetEntity="Beneficiaire", inversedBy="assignations")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $sousMenu;
+    private $beneficiaire;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Jac\UserBundle\Entity\User", inversedBy="privileges")
+     * @ORM\ManyToOne(targetEntity="Jac\UserBundle\Entity\User", inversedBy="assignations")
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
@@ -41,33 +41,30 @@ class Privilege {
      *
      * @return integer
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
     /**
-     * Set sousMenu
+     * Set beneficiaire
      *
-     * @param \AppBundle\Entity\SousMenu $sousMenu
+     * @param \AppBundle\Entity\Beneficiaire $beneficiaire
      *
-     * @return Privilege
+     * @return AssignationBeneficiaire
      */
-    public function setSousMenu(\AppBundle\Entity\SousMenu $sousMenu)
-    {
-        $this->sousMenu = $sousMenu;
+    public function setBeneficiaire(\AppBundle\Entity\Beneficiaire $beneficiaire) {
+        $this->beneficiaire = $beneficiaire;
 
         return $this;
     }
 
     /**
-     * Get sousMenu
+     * Get beneficiaire
      *
-     * @return \AppBundle\Entity\SousMenu
+     * @return \AppBundle\Entity\Beneficiaire
      */
-    public function getSousMenu()
-    {
-        return $this->sousMenu;
+    public function getBeneficiaire() {
+        return $this->beneficiaire;
     }
 
     /**
@@ -75,10 +72,9 @@ class Privilege {
      *
      * @param \Jac\UserBundle\Entity\User $user
      *
-     * @return Privilege
+     * @return AssignationBeneficiaire
      */
-    public function setUser(\Jac\UserBundle\Entity\User $user)
-    {
+    public function setUser(\Jac\UserBundle\Entity\User $user) {
         $this->user = $user;
 
         return $this;
@@ -89,12 +85,12 @@ class Privilege {
      *
      * @return \Jac\UserBundle\Entity\User
      */
-    public function getUser()
-    {
+    public function getUser() {
         return $this->user;
     }
-    
-    public function __toString(){
-        return $this->getSousMenu() ." ". $this->getUser();
+
+    public function __toString() {
+        return $this->getBeneficiaire() . " " . $this->getUser();
     }
+
 }
