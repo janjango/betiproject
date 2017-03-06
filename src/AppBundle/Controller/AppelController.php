@@ -55,20 +55,23 @@ class AppelController extends Controller {
             ->getRepository('Jac\UserBundle\Entity\User');
         $menus = $users->getMenus($user->getId());
         $sousMenus = $users->getSousMenus($user->getId());
+        $exercice= $this->getDoctrine()
+            ->getManager()->getRepository('AppBundle:Exercice')
+            ->findOneBy(Array('estActif'=>true));
         $appel = new Appel();
         $form = $this->createForm('AppBundle\Form\AppelType', $appel);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $exercice= $this->getDoctrine()
-                ->getManager()->getRepository('AppBundle:Exercice')
-                ->findOneBy(Array('estActif'=>true));
+
             $em = $this->getDoctrine()->getManager();
             $appel->setUserCreate($this->getUser()->getUsername());
             $appel->setDateCreate(new \ Datetime());
             $appel->setEstAnnuler(false);
+            $appel->setEstSolder(false);
             $appel->setEstParentannuler(false);
             $appel->setEstEncaisser(false);
             $appel->setExercice($exercice);
+            $appel->setCompte($this->getDoctrine()->getManager()->getRepository('AppBundle:Compte')->find($request->get('compte')));
             $em->persist($appel);
             $em->flush();
             $this->addFlash(
@@ -82,6 +85,7 @@ class AppelController extends Controller {
              'form'   => $form->createView(),
             'sousMenus' => $sousMenus,
             'menus' => $menus,
+            'exercice' => $exercice
         ]);
     }
 
@@ -154,6 +158,7 @@ class AppelController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $appel->setUserModif($this->getUser()->getUsername());
             $appel->setDateModif(new \ Datetime());
+            $appel->setCompte($this->getDoctrine()->getManager()->getRepository('AppBundle:Compte')->find($request->get('compte')));
             $em->flush();
             $this->addFlash(
                 'warning', "Modification effectué avec succès !"

@@ -72,6 +72,9 @@ class EncaissementController extends Controller {
                 ->findOneBy(Array('estActif'=>true));
             $em = $this->getDoctrine()->getManager();
             $encaissement->setExercice($exercice);
+            if($encaissement->getAppel()->getMontantEncaissement()+$encaissement->getMontantEncaisse() == $encaissement->getAppel()->getMontantTtc()){
+                $encaissement->getAppel()->setEstSolder(true);
+            }
             $em->persist($encaissement);
             $em->flush();
 
@@ -119,7 +122,9 @@ class EncaissementController extends Controller {
                 ]);
             }
             $em = $this->getDoctrine()->getManager();
-
+            if($encaissement->getAppel()->getMontantEncaissement()+$encaissement->getMontantEncaisse()-$montant == $encaissement->getAppel()->getMontantTtc()){
+                $encaissement->getAppel()->setEstSolder(true);
+            }
             $em->flush();
             $this->addFlash(
                 'warning', "Modification effectué avec succès !"
@@ -146,6 +151,7 @@ class EncaissementController extends Controller {
             ->find($request->get('id'));
         if ($request->getMethod() == 'POST'){
             $em = $this->getDoctrine()->getManager();
+            $encaissement->getAppel()->setEstSolder(false);
             $em->remove($encaissement);
             $em->flush();
             $this->addFlash(

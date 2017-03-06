@@ -17,6 +17,10 @@ class Beneficiaire
      */
     private $appels;
     /**
+     * @ORM\OneToMany(targetEntity="Compte", mappedBy="beneficiaire")
+     */
+    private $comptes;
+    /**
      * @var int
      *
      * @ORM\Column(name="id", type="integer")
@@ -206,7 +210,7 @@ class Beneficiaire
         return $this->appels;
     }
     public function __toString() {
-        return $this->libBeneficiaire;
+        return $this->code;
     }
 
 
@@ -232,5 +236,49 @@ class Beneficiaire
     public function getSigle()
     {
         return $this->sigle;
+    }
+
+    /**
+     * Add compte
+     *
+     * @param \AppBundle\Entity\Compte $compte
+     *
+     * @return Beneficiaire
+     */
+    public function addCompte(\AppBundle\Entity\Compte $compte)
+    {
+        $this->comptes[] = $compte;
+
+        return $this;
+    }
+
+    /**
+     * Remove compte
+     *
+     * @param \AppBundle\Entity\Compte $compte
+     */
+    public function removeCompte(\AppBundle\Entity\Compte $compte)
+    {
+        $this->comptes->removeElement($compte);
+    }
+
+    /**
+     * Get comptes
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCompte()
+    {
+        return $this->comptes;
+    }
+
+    /**
+     * Get comptes
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getComptes()
+    {
+        return $this->comptes;
     }
 }

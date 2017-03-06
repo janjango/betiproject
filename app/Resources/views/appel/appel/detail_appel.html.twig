@@ -17,18 +17,15 @@
                         {% if element.refBordereau is not null %}  Référence Bordereau: <strong>{{ element.refBordereau }}</strong>  |
                         Date Bordereau : <strong>{{ element.dateBordereau|date('d/m/Y') }}</strong><br> <br>  {% endif %}
 
-                        Objet : <strong>{% if element.objetappel is not null %} {{ element.objetappel }}  {% endif %}</strong> |
+                        {% if element.objetappel is not null %}  Objet : <strong>{{ element.objetappel }} </strong> |  {% endif %}
                         Montant : <strong>{{ element.montantTtc|number_format(2, ',', '.') }}</strong>  francs CFA <br>  <br>
 
-                        {% if element.numcomptetresor is not null %} Numéro du compte trésor : <strong> {{ element.numcomptetresor  }}  </strong>  |
-                        Intitulé du compte trésor : <strong> {{ element.intitulecomptetresor }}  </strong> <br> <br>  {% endif %}
+                        {% if element.compte is not null %} Numéro du compte trésor : <strong> {{ element.compte.numero  }}  </strong>  |
+                        Intitulé du compte : <strong> {{ element.compte.intitule }}  </strong> <br> <br>  {% endif %}
 
                         Structure Bénéficiaire : <br> <br>
                         Nom : <strong>{% if element.beneficiaire is not null %} {{ element.beneficiaire.libBeneficiaire }}  {% endif %}</strong>  |
-                        Code : <strong>{% if element.beneficiaire is not null %} {{ element.beneficiaire.code }}  {% endif %}</strong> <br> <br>
-                        Numéro de compte : <strong>{% if element.beneficiaire is not null %} {{ element.beneficiaire.numeroCompte }}  {% endif %}</strong>  |
-                        Intitulé du compte : <strong>{% if element.beneficiaire is not null %} {{ element.beneficiaire.intituleCompte }}  {% endif %}</strong> <br> <br>
-
+                        Code : <strong>{% if element.beneficiaire is not null %} {{ element.beneficiaire.code }}  {% endif %}</strong> | Sigle : <strong> {{ element.beneficiaire.sigle }}  </strong> <br> <br>
 
                         Solde : <strong> {{ valsolde|number_format(2, ',', '.') }}</strong> francs CFA <br>  <br>
                         {% set mt=0 %}

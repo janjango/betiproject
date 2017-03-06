@@ -26,6 +26,11 @@ class Appel
      */
     private $exercice;
     /**
+     * @ORM\ManyToOne(targetEntity="Compte", inversedBy="appels")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $compte;
+    /**
      * @ORM\ManyToOne(targetEntity="Beneficiaire", inversedBy="appels")
      * @ORM\JoinColumn(nullable=true)
      */
@@ -161,6 +166,13 @@ class Appel
      * @ORM\Column(name="estEncaisser", type="boolean", nullable=true)
      */
     private $estEncaisser;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="estSolder", type="boolean", nullable=true)
+     */
+    private $estSolder;
 
     /**
      * @var bool
@@ -716,7 +728,7 @@ class Appel
 
 
     public function __toString() {
-        return 'Réf : '.$this->referenceAppel.' du '.$this->dateAppel->format('d-m-Y');
+        return $this->referenceAppel;
     }
 
     public function getMontantEncaissement(){
@@ -797,5 +809,53 @@ class Appel
     public function getIntitulecomptetresor()
     {
         return $this->intitulecomptetresor;
+    }
+
+    /**
+     * Set compte
+     *
+     * @param \AppBundle\Entity\Compte $compte
+     *
+     * @return Appel
+     */
+    public function setCompte(\AppBundle\Entity\Compte $compte = null)
+    {
+        $this->compte = $compte;
+
+        return $this;
+    }
+
+    /**
+     * Get compte
+     *
+     * @return \AppBundle\Entity\Compte
+     */
+    public function getCompte()
+    {
+        return $this->compte;
+    }
+
+    /**
+     * Set estSolder
+     *
+     * @param boolean $estSolder
+     *
+     * @return Appel
+     */
+    public function setEstSolder($estSolder)
+    {
+        $this->estSolder = $estSolder;
+
+        return $this;
+    }
+
+    /**
+     * Get estSolder
+     *
+     * @return boolean
+     */
+    public function getEstSolder()
+    {
+        return $this->estSolder;
     }
 }

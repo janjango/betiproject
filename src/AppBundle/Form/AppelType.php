@@ -73,6 +73,7 @@ class AppelType extends AbstractType
             ->add('beneficiaire', EntityType::class, array(
                 'class' => 'AppBundle:Beneficiaire',
                 'label' => 'Structure Bénéficiaire',
+                'placeholder' => 'Choose an option',
                 'required' => true,
                 'attr' => array('class' => 'form-control  select-chosen')
             ))
@@ -89,19 +90,19 @@ class AppelType extends AbstractType
                     'class' =>'form-control'
                 )))
 
-            ->add('numcomptetresor', TextType::class, array(
-                'label' => 'Numéro du compte trésor',
-                'required' => false,
-                'attr' =>array(
-                    'class' =>'form-control'
-                )))
-
-            ->add('intitulecomptetresor', TextType::class, array(
-                'label' => 'Intitulé du compte trésor',
-                'required' => false,
-                'attr' =>array(
-                    'class' =>'form-control'
-                )))
+//            ->add('numcomptetresor', TextType::class, array(
+//                'label' => 'Numéro du compte trésor',
+//                'required' => false,
+//                'attr' =>array(
+//                    'class' =>'form-control'
+//                )))
+//
+//            ->add('intitulecomptetresor', TextType::class, array(
+//                'label' => 'Intitulé du compte trésor',
+//                'required' => false,
+//                'attr' =>array(
+//                    'class' =>'form-control'
+//                )))
 
             ->add('observation', TextareaType::class, array(
                 'label' => 'Observations',

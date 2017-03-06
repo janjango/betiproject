@@ -51,6 +51,23 @@
  {% endblock %}
 {% block customjavascript %}
     <script>
+        $("#appbundle_appel_beneficiaire").change(function () {
+            var k = $(this);
+            $("#afficherbeneficiaire").remove();
+            $.ajax({
+                type: 'GET',
+                url: "{{ path('selectinfo_beneficiaire')}}",
+                cache: false,
+                data : 'id=' + k.val(),
+                success: function (data) {
+                   // alert(data);
+                    k.parent().after(data);
+                    // location.reload();
+                },
+                error: function () {
+                }
+            });
+        });
         $('#appbundle_appel_montantHt').keypress(function () {
             $('#appbundle_appel_montantTtc').val($(this).val()*1.18);
         })

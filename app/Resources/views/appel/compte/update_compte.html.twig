@@ -4,24 +4,23 @@
 {% endblock %}
  {% block titletopmeu %}
      <li>Appel</li>
-     <li><a href="{{ path('read_objetappel')}}"> Objets Appels</a></li>
-     <li><a href="{{ path('update_objetappel',{'id': id } )}}">Modification</a></li>
+     <li><a href="{{ path('read_compte',{'id': element.beneficiaire.id })}}">Fournisseur</a></li>
+     <li><a href="{{ path('update_compte',{'id': id } )}}">Modification</a></li>
  {% endblock %}
  {% block content %}
-     <div class="row">
-     <div class="block">
-
+<div class="row">
+    <div class="block">
          <!-- Normal Form Title -->
          <div class="block-title">
              <div class="block-options pull-right">
-                 <a href="{{ path('read_objetappel')}}" class="btn btn-alt btn-sm btn-default toggle-bordered enable-tooltip" >Retour</a>
+                 <a href="{{ path('read_compte',{'id': element.beneficiaire.id })}}" class="btn btn-alt btn-sm btn-default toggle-bordered enable-tooltip" >Retour</a>
              </div>
-             <h2><strong>Modifier objetappel</strong> </h2>
+             <h2><strong>Modifier Exercice</strong> </h2>
          </div>
          <!-- END Normal Form Title -->
 
          <!-- Normal Form Content -->
-         <form action="{{ path('update_objetappel',{'id': id } )}}" method="post" class="form-bordered">
+         <form action="{{ path('update_compte',{'id': id } )}}" method="post" class="form-bordered">
 
              <div class="form-group">
                  {{ form_widget(form) }}
@@ -34,5 +33,5 @@
          </form>
          <!-- END Normal Form Content -->
      </div>
-     </div>
+</div>
  {% endblock %}

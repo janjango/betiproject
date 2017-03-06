@@ -22,6 +22,9 @@ class ExerciceController extends Controller {
                 ->getRepository('Jac\UserBundle\Entity\User');
         $menus = $users->getMenus($user->getId());
         $sousMenus = $users->getSousMenus($user->getId());
+
+        $exercices = $this->getDoctrine()->getManager()
+            ->getRepository('AppBundle\Entity\Exercice')->findAll();
         
         return $this->render('appel/exercice/read_exercice.html.twig', [
             'exercices' => $exercices,
