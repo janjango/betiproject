@@ -1,0 +1,78 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Coffrefort
+ *
+ * @ORM\Table(name="encaissement")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\CoffrefortRepository")
+ */
+class Coffrefort {
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Encaissement", inversedBy="coffreforts")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $encaissement;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="montantEncaisse", type="decimal", precision=10, scale=2)
+     */
+    private $montantEncaisse;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateEmission", type="datetime", nullable=true, nullable=true)
+     */
+    private $dateEmission;
+
+    /**
+     * @var string
+     * @ORM\Column(name="refCheque", type="string", length=255, nullable=true)
+     */
+    private $refCheque;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="libOperation", type="string", length=255, nullable=true)
+     */
+    private $libOperation;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="montantRetire", type="decimal", precision=10, scale=2)
+     */
+    private $montantRetire;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="beneficiaire", type="string", length=255, nullable=true)
+     */
+    private $beneficiaire;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="observation", type="string", length=255, nullable=true)
+     */
+    private $observation;
+
+}
