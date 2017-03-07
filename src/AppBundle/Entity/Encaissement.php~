@@ -13,13 +13,18 @@ use Doctrine\ORM\Mapping as ORM;
 class Encaissement
 {
     /**
+     * @ORM\OneToMany(targetEntity="Paiement", mappedBy="encaissement", cascade={"remove"})
+     */
+    private $paiements;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Exercice", inversedBy="encaissements")
      * @ORM\JoinColumn(nullable=true)
      */
     private $exercice;
     /**
      * @ORM\ManyToOne(targetEntity="Appel", inversedBy="encaissements")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
      */
     private $appel;
     /**
@@ -303,4 +308,51 @@ class Encaissement
     {
         return $this->exercice;
     }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->paiements = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add paiement
+     *
+     * @param \AppBundle\Entity\Paiement $paiement
+     *
+     * @return Encaissement
+     */
+    public function addPaiement(\AppBundle\Entity\Paiement $paiement)
+    {
+        $this->paiements[] = $paiement;
+
+        return $this;
+    }
+
+    /**
+     * Remove paiement
+     *
+     * @param \AppBundle\Entity\Paiement $paiement
+     */
+    public function removePaiement(\AppBundle\Entity\Paiement $paiement)
+    {
+        $this->paiements->removeElement($paiement);
+    }
+
+    /**
+     * Get paiements
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPaiements()
+    {
+        return $this->paiements;
+    }
+
+    public function __toString() {
+        return $this->id;
+    }
+
+
 }

@@ -1,0 +1,23 @@
+<div id="modal-regular{{ element.id }}" class="modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="{{ path('delete_paiement',{'id': element.id,'exercice': exercice } )}}" method="post" >
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 class="modal-title text-left">Suppression</h3>
+            </div>
+            <div class="modal-body">
+                Confirmez - vous la suppression du paiement : <br> <br>
+                Date du paiement : <strong> {{ element.dateEPaiement|date('d/m/Y') }} </strong>  |
+                Référence chèque : <strong> {{ element.refCheque }}</strong> |
+                Référence virement : <strong> {{ element.refVirement }} </strong> |
+                Montant TTC : <strong>  {{ element.montantTtc|number_format(2, ',', '.') }} </strong> <br> <br>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Fermer</button>
+                <button type="submit" class="btn btn-sm btn-primary">Supprimer</button>
+            </div>
+        </form>
+        </div>
+    </div>
+</div>

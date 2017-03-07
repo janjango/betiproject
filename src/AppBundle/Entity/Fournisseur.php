@@ -13,6 +13,11 @@ use Doctrine\ORM\Mapping as ORM;
 class Fournisseur
 {
     /**
+     * @ORM\OneToMany(targetEntity="Paiement", mappedBy="fournisseur")
+     */
+    private $paiements;
+
+    /**
      * @var int
      *
      * @ORM\Column(name="id", type="integer")
@@ -45,21 +50,21 @@ class Fournisseur
     /**
      * @var string
      *
-     * @ORM\Column(name="tel", type="string", length=255)
+     * @ORM\Column(name="tel", type="string", length=255, nullable=true)
      */
     private $tel;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="email", type="string", length=255)
+     * @ORM\Column(name="email", type="string", length=255, nullable=true)
      */
     private $email;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="adresse", type="string", length=255)
+     * @ORM\Column(name="adresse", type="string", length=255, nullable=true)
      */
     private $adresse;
 
@@ -216,5 +221,50 @@ class Fournisseur
     public function getAdresse()
     {
         return $this->adresse;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->paiements = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add paiement
+     *
+     * @param \AppBundle\Entity\Paiement $paiement
+     *
+     * @return Fournisseur
+     */
+    public function addPaiement(\AppBundle\Entity\Paiement $paiement)
+    {
+        $this->paiements[] = $paiement;
+
+        return $this;
+    }
+
+    /**
+     * Remove paiement
+     *
+     * @param \AppBundle\Entity\Paiement $paiement
+     */
+    public function removePaiement(\AppBundle\Entity\Paiement $paiement)
+    {
+        $this->paiements->removeElement($paiement);
+    }
+
+    /**
+     * Get paiements
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPaiements()
+    {
+        return $this->paiements;
+    }
+
+    public function __toString() {
+        return $this->code;
     }
 }

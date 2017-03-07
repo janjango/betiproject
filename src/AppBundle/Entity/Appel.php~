@@ -17,7 +17,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 class Appel
 {
     /**
-     * @ORM\OneToMany(targetEntity="Encaissement", mappedBy="appel")
+     * @ORM\OneToMany(targetEntity="Encaissement", mappedBy="appel", cascade={"remove"})
      */
     private $encaissements;
     /**
@@ -833,5 +833,29 @@ class Appel
     public function getCompte()
     {
         return $this->compte;
+    }
+
+    /**
+     * Set estSolder
+     *
+     * @param boolean $estSolder
+     *
+     * @return Appel
+     */
+    public function setEstSolder($estSolder)
+    {
+        $this->estSolder = $estSolder;
+
+        return $this;
+    }
+
+    /**
+     * Get estSolder
+     *
+     * @return boolean
+     */
+    public function getEstSolder()
+    {
+        return $this->estSolder;
     }
 }

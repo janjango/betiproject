@@ -209,6 +209,7 @@ class Beneficiaire
     {
         return $this->appels;
     }
+    
     public function __toString() {
         return $this->code;
     }

@@ -185,6 +185,7 @@ class AppelController extends Controller {
             ->find($request->get('id'));
         if ($request->getMethod() == 'POST'){
             $em = $this->getDoctrine()->getManager();
+            
             $em->remove($appel);
             $em->flush();
             $this->addFlash(

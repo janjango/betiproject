@@ -1,0 +1,35 @@
+
+<div id="afficherencaissement">
+    <br>
+    <div class="info_beneficiaire  ">
+        <span>  INFORMATIONS SUR LE DOCUMENT D'APPEL DE FONDS  : </span> <br>
+        Référence appel émis : <strong>{{ element.appel.referenceAppel }}</strong>  |
+        Date Emission : <strong>{{ element.appel.dateAppel|date('d/m/Y') }}</strong><br> <br>
+
+        {% if element.appel.refEngagement is not null %}  Référence Engagement: <strong>{{ element.appel.refEngagement }}</strong>  |
+                                                                                                                        Date Engagement : <strong>{{ element.appel.dateEngagement|date('d/m/Y') }}</strong><br> <br>  {% endif %}
+
+        {% if element.appel.refBordereau is not null %}  Référence Bordereau: <strong>{{ element.appel.refBordereau }}</strong>  |
+                                                                                                                     Date Bordereau : <strong>{{ element.appel.dateBordereau|date('d/m/Y') }}</strong><br> <br>  {% endif %}
+
+        {% if element.appel.objetappel is not null %}  Objet de l'appel : <strong>{{ element.appel.objetappel }} </strong> |  {% endif %}
+        Montant de l'appel : <strong>{{ element.appel.montantTtc|number_format(2, ',', '.') }}</strong>  francs CFA <br>  <br>
+
+        {% if element.appel.compte is not null %} Numéro du compte trésor : <strong> {{ element.appel.compte.numero  }}  </strong>  |
+        Intitulé du compte Trésor: <strong> {{ element.appel.compte.intitule }}  </strong> <br> <br>  {% endif %}
+
+        Structure Bénéficiaire : <br>
+        Nom : <strong>{% if element.appel.beneficiaire is not null %} {{ element.appel.beneficiaire.libBeneficiaire }}  {% endif %}</strong>  |
+        Code : <strong>{% if element.appel.beneficiaire is not null %} {{ element.appel.beneficiaire.code }}  {% endif %}</strong> | Sigle : <strong> {{ element.appel.beneficiaire.sigle }}  </strong> <br> <br>
+
+        <span>  INFORMATIONS SUR L'ENCAISSEMENT  : </span> <br>
+        Numéro de compte : <strong>{{ element.numeroCompte }}</strong>  |
+        Date Encaissement : <strong>{{ element.dateEncaissement|date('d/m/Y') }}</strong> |
+        Montant encaissé : <strong>{{ element.montantEncaisse|number_format(2, ',', '.') }}</strong>
+        <br>
+
+    </div>
+    <br>
+
+</div>
+

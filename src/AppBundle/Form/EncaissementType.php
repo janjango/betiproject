@@ -22,7 +22,7 @@ class EncaissementType extends AbstractType
             ->add('appel', EntityType::class, array(
                 'class' => 'AppBundle:Appel',
                 'label' => 'Appel',
-                'placeholder' => 'Choose an option',
+                'placeholder' => 'Choisir un document d\'appel',
                 'required' => true,
                 'attr' => array('class' => 'form-control  select-chosen'),
                 'query_builder' => function (AppelRepository $repository)

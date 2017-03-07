@@ -18,6 +18,10 @@ class PaiementController extends Controller {
     public function read_paiementAction(Request $request) {
         // replace this example code with whatever you need
 
+        $exercice= $this->getDoctrine()
+            ->getManager()->getRepository('AppBundle:Exercice')
+            ->findOneBy(Array('estActif'=>true));
+
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
         $users = $this->getDoctrine()->getManager()
             ->getRepository('Jac\UserBundle\Entity\User');
@@ -26,9 +30,10 @@ class PaiementController extends Controller {
 
         $paiements= $this->getDoctrine()
             ->getManager()->getRepository('AppBundle:Paiement')
-            ->findBy(Array(),Array('nom'=>'ASC'));
+            ->findBy(Array('exercice'=>$exercice->getId()),Array('id'=>'ASC'));
+
         return $this->render('encaissement/paiement/read_paiement.html.twig', [
-            'paiements' => $paiements,
+            'paiements' => $paiements,'exercice'=>$exercice,
             'sousMenus' => $sousMenus,
             'menus' => $menus
         ]);
@@ -48,15 +53,31 @@ class PaiementController extends Controller {
             ->getRepository('Jac\UserBundle\Entity\User');
         $menus = $users->getMenus($user->getId());
         $sousMenus = $users->getSousMenus($user->getId());
-
         $paiement = new Paiement();
         $form = $this->createForm('AppBundle\Form\PaiementType', $paiement);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            if($paiement->getEncaissement()->getMontantpaye()+$paiement->getMontantTtc() > $paiement->getEncaissement()->getMontantEncaisse()){
+                $this->addFlash(
+                    'danger', "Le montant payé est supérieur à montant encaissé !"
+                );
+                return $this->render('encaissement/paiement/create_paiement.html.twig', [
+                    'form'   => $form->createView(),
+                    'sousMenus' => $sousMenus,
+                    'menus' => $menus
+                ]);
+            }
+            $exercice= $this->getDoctrine()
+                ->getManager()->getRepository('AppBundle:Exercice')
+                ->findOneBy(Array('estActif'=>true));
             $em = $this->getDoctrine()->getManager();
-
+            $paiement->setExercice($exercice);
+//            if($paiement->getAppel()->getMontantPaiement()+$paiement->getMontantEncaisse() == $paiement->getAppel()->getMontantTtc()){
+//                $paiement->getAppel()->setEstSolder(true);
+//            }
             $em->persist($paiement);
             $em->flush();
+
             $this->addFlash(
                 'success', "Enregistrement effectué avec succès !"
             );
@@ -83,14 +104,27 @@ class PaiementController extends Controller {
             ->getRepository('Jac\UserBundle\Entity\User');
         $menus = $users->getMenus($user->getId());
         $sousMenus = $users->getSousMenus($user->getId());
-
+        
         $paiement = $this->getDoctrine()->getManager()->getRepository('AppBundle:Paiement')
             ->find($request->get('id'));
+        $montant =$paiement->getMontantTtc();
         $form = $this->createForm('AppBundle\Form\PaiementType', $paiement);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            if($paiement->getEncaissement()->getMontantpaye()+$paiement->getMontantTtc()-$montant > $paiement->getEncaissement()->getMontantEncaisse()){
+                $this->addFlash(
+                    'danger', "Le montant payé est supérieur à montant encaissé!"
+                );
+                return $this->render('encaissement/paiement/update_paiement.html.twig', [
+                    'form'   => $form->createView(), 'id'   => $request->get('id'),
+                    'sousMenus' => $sousMenus,
+                    'menus' => $menus
+                ]);
+            }
             $em = $this->getDoctrine()->getManager();
-
+//            if($paiement->getAppel()->getMontantPaiement()+$paiement->getMontantEncaisse()-$montant == $paiement->getAppel()->getMontantTtc()){
+//                $paiement->getAppel()->setEstSolder(true);
+//            }
             $em->flush();
             $this->addFlash(
                 'warning', "Modification effectué avec succès !"
@@ -117,6 +151,7 @@ class PaiementController extends Controller {
             ->find($request->get('id'));
         if ($request->getMethod() == 'POST'){
             $em = $this->getDoctrine()->getManager();
+            //$paiement->getAppel()->setEstSolder(false);
             $em->remove($paiement);
             $em->flush();
             $this->addFlash(
