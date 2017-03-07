@@ -11,7 +11,9 @@
      <!-- Datatables Content -->
      <div class="block full">
          <div class="block-title">
-
+             <div class="block-options pull-right">
+                 <a href="{{ path('read_beneficiaire')}}" class="btn btn-alt btn-sm btn-default toggle-bordered enable-tooltip" >Retour</a>
+             </div>
              <h2>Les comptes de : <strong> {{ beneficiaire.libBeneficiaire }}</strong></h2>
 
              <a  href="{{ path('create_compte', {'id': beneficiaire.id}) }}"  title="Ajouter" class="btn btn-xs btn-success" >
@@ -56,4 +58,3 @@
      <!-- END Datatables Content -->
 
  {% endblock %}
-

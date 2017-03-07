@@ -4,7 +4,7 @@
 {% endblock %}
  {% block titletopmeu %}
     <li>Encaissement</li>
-    <li><a href="{{ path('read_encaissement')}}">Encaissements </a></li>
+    <li><a href="{{ path('read_paiement')}}">Paiements </a></li>
 {% endblock %}
  {% block content %}
      <!-- Datatables Content -->
@@ -12,10 +12,10 @@
          <div class="block-title">
 
              <h2>
-                 <strong> Encaissements de l'exercice : {{ exercice.libExercice }} </strong>
+                 <strong> Paiements de l'exercice : {{ exercice.libExercice }} </strong>
              </h2>
 
-                <a  href="{{ path('create_encaissement')}}"  title="Ajouter" class="btn btn-xs btn-success" >
+                <a  href="{{ path('create_paiement')}}"  title="Ajouter" class="btn btn-xs btn-success" >
                  <i  class="fa fa-plus"></i></a>
 
          <div class="table-responsive">
@@ -23,30 +23,30 @@
                  <thead>
                  <tr>
                  <th class="text-center "> N°</th>
-                     <th class="text-center "> Date Encaissement</th>
-                     <th class="text-center "> Référence Appel</th>
-                     <th class="text-center "> Montant Encaissé </th>
-                     <th class="text-center "> Numéro de compte</th>
+                     <th class="text-center "> Date Paiement</th>
+                     <th class="text-center "> Référence Chèque</th>
+                     <th class="text-center "> Référence Virement </th>
+                     <th class="text-center "> Montant Ttc</th>
                      <th class="text-center">  Actions</th>
                  </tr>
 
                  </thead>
                  <tbody>
-                 {% for element in  encaissements %}
+                 {% for element in  paiements %}
                      <tr>
                       <td class="text-center "> {{ element.id }} </td>
-                         <td class="text-center"> {{ element.dateEncaissement|date('d/m/Y') }} </td>
-                         <td class="text-left">{{ element.appel.referenceAppel }} </td>
-                         <td class="text-right ">
-                             {{ element.montantEncaisse|number_format(2, ',', '.') }}
-                         </td>
+                         <td class="text-center"> {{ element.dateEPaiement|date('d/m/Y') }} </td>
+                         <td class="text-left">{{ element.refCheque }} </td>
+                         <td class="text-left">{{ element.refVirement }} </td>
                         <td class="text-left ">
-                             {{ element.numeroCompte }}
+                             {{ element.montantTtc|number_format(2, ',', '.') }}
                          </td>
                          <td class="text-center">
-                            <a href="{{ path('update_encaissement', {'id': element.id } )}}" data-toggle="tooltip" title="Edit" class="btn btn-xs btn-default"><i class="fa fa-pencil"></i></a>
+                            <a href="{{ path('update_paiement', {'id': element.id } )}}" data-toggle="tooltip" title="Edit" class="btn btn-xs btn-default"><i class="fa fa-pencil"></i></a>
                            <a href="#modal-regular{{ element.id }}" data-toggle="modal" title="Delete" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></a>
-                             {% include 'encaissement/encaissement/delete_encaissement.html.twig'  %}
+                             {% include 'encaissement/paiement/delete_paiement.html.twig'  %}
+                             <a href="#modal-regular1{{ element.id }}" data-toggle="modal" title="Détails" class="btn btn-xs btn-primary"><i class="fa fa-copy"></i></a>
+                             {% include 'encaissement/paiement/detail_paiement.html.twig'  %}
                          </td>
                      </tr>
                  {% endfor %}

@@ -165,4 +165,22 @@ class EncaissementController extends Controller {
         ]);
     }
 
+    /**
+     * Creates a new demand entity.
+     *
+     * @Route("/encaissement/selectinfo", name="selectinfo_encaissement")
+     * @Method({"GET"})
+     */
+    public function selectinfo_encaissementAction(Request $request)
+    {
+        $encaissement = $this->getDoctrine()->getManager()->getRepository('AppBundle:Encaissement')
+            ->find($request->get('id'));
+
+
+        return $this->render('encaissement/encaissement/info_encaissement.html.twig', [
+            'element'   => $encaissement,
+        ]);
+    }
+
+
 }

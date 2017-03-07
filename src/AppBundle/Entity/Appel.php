@@ -17,7 +17,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 class Appel
 {
     /**
-     * @ORM\OneToMany(targetEntity="Encaissement", mappedBy="appel")
+     * @ORM\OneToMany(targetEntity="Encaissement", mappedBy="appel", cascade={"remove"})
      */
     private $encaissements;
     /**

@@ -1,0 +1,84 @@
+{% extends "home/layout.html.twig" %}
+{% block stylesheet %}
+
+{% endblock %}
+ {% block titletopmeu %}
+     <li>Paiement</li>
+     <li><a href="{{ path('read_paiement')}}">Paiement</a></li>
+     <li><a href="{{ path('create_paiement')}}">Enregistrement</a></li>
+ {% endblock %}
+ {% block content %}
+<div class="row">
+    <div class="block">
+    <!-- Normal Form Title -->
+    <div class="block-title">
+        <div class="block-options pull-right">
+            <a href="{{ path('read_paiement')}}" class="btn btn-alt btn-sm btn-default toggle-bordered enable-tooltip" >Retour</a>
+        </div>
+        <h2><strong>Nouveau Paiement</strong> </h2>
+
+    </div>
+    <!-- END Normal Form Title -->
+
+    <!-- Normal Form Content -->
+    <form action="{{ path('create_paiement')}}" method="post" class="form-bordered">
+        {% for flash_message in app.session.flashBag.get('danger') %}
+            <div class=" flash-notice alert alert-danger alert-dismissable">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                {{ flash_message }}
+            </div>
+        {% endfor %}
+
+        <div class="form-group">
+            {{ form_widget(form) }}
+            {{ form_rest(form) }}
+        </div>
+        <div class="form-group form-actions">
+            <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Enregistrer</button>
+            <button type="reset" class="btn btn-sm btn-warning"><i class="fa fa-repeat"></i> Annuler</button>
+        </div>
+    </form>
+    <!-- END Normal Form Content -->
+</div>
+</div>
+ {% endblock %}
+{% block customjavascript %}
+    <script>
+        $("#appbundle_paiement_fournisseur").change(function () {
+            var k = $(this);
+            $("#afficherfournisseur").remove();
+            $.ajax({
+                type: 'GET',
+                url: "{{ path('selectinfo_fournisseur')}}",
+                cache: false,
+                data : 'id=' + k.val(),
+                success: function (data) {
+                    // alert(data);
+                    k.parent().after(data);
+                    // location.reload();
+                },
+                error: function () {
+                }
+            });
+        });
+
+        $("#appbundle_paiement_encaissement").change(function () {
+            var k = $(this);
+            $("#afficherpaiement").remove();
+            $.ajax({
+                type: 'GET',
+                url: "{{ path('selectinfo_encaissement')}}",
+                cache: false,
+                data : 'id=' + k.val(),
+                success: function (data) {
+                    // alert(data);
+                    k.parent().after(data);
+                    // location.reload();
+                },
+                error: function () {
+                }
+            });
+        });
+
+    </script>
+{% endblock %}

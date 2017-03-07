@@ -33,16 +33,19 @@ class FournisseurType extends AbstractType
                 )))
             ->add('tel', TextType::class, array(
                 'label' => 'Contact(s)',
+                'required' => false,
                 'attr' =>array(
                     'class' =>'form-control'
                 )))
             ->add('email', TextType::class, array(
                 'label' => 'email',
+                'required' => false,
                 'attr' =>array(
                     'class' =>'form-control'
                 )))
             ->add('adresse', TextareaType::class, array(
                 'label' => 'Adresse',
+                'required' => false,
                 'attr' =>array(
                     'class' =>'form-control'
                 ))) ;

@@ -1,0 +1,219 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * RetenuePaie
+ *
+ * @ORM\Table(name="retenue_paie")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\RetenuePaieRepository")
+ */
+class RetenuePaie
+{
+    /**
+     * @ORM\ManyToOne(targetEntity="Paiement", inversedBy="retenuepaies")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $paiement;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tvaRetenue", type="decimal", precision=10, scale=2)
+     */
+    private $tvaRetenue;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="aibRetenue", type="decimal", precision=10, scale=2)
+     */
+    private $aibRetenue;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tvaAreverse", type="decimal", precision=10, scale=2)
+     */
+    private $tvaAreverse;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="aibAreverse", type="decimal", precision=10, scale=2)
+     */
+    private $aibAreverse;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="soldeRetenue", type="decimal", precision=10, scale=2)
+     */
+    private $soldeRetenue;
+
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set tvaRetenue
+     *
+     * @param string $tvaRetenue
+     *
+     * @return RetenuePaie
+     */
+    public function setTvaRetenue($tvaRetenue)
+    {
+        $this->tvaRetenue = $tvaRetenue;
+
+        return $this;
+    }
+
+    /**
+     * Get tvaRetenue
+     *
+     * @return string
+     */
+    public function getTvaRetenue()
+    {
+        return $this->tvaRetenue;
+    }
+
+    /**
+     * Set aibRetenue
+     *
+     * @param string $aibRetenue
+     *
+     * @return RetenuePaie
+     */
+    public function setAibRetenue($aibRetenue)
+    {
+        $this->aibRetenue = $aibRetenue;
+
+        return $this;
+    }
+
+    /**
+     * Get aibRetenue
+     *
+     * @return string
+     */
+    public function getAibRetenue()
+    {
+        return $this->aibRetenue;
+    }
+
+    /**
+     * Set tvaAreverse
+     *
+     * @param string $tvaAreverse
+     *
+     * @return RetenuePaie
+     */
+    public function setTvaAreverse($tvaAreverse)
+    {
+        $this->tvaAreverse = $tvaAreverse;
+
+        return $this;
+    }
+
+    /**
+     * Get tvaAreverse
+     *
+     * @return string
+     */
+    public function getTvaAreverse()
+    {
+        return $this->tvaAreverse;
+    }
+
+    /**
+     * Set aibAreverse
+     *
+     * @param string $aibAreverse
+     *
+     * @return RetenuePaie
+     */
+    public function setAibAreverse($aibAreverse)
+    {
+        $this->aibAreverse = $aibAreverse;
+
+        return $this;
+    }
+
+    /**
+     * Get aibAreverse
+     *
+     * @return string
+     */
+    public function getAibAreverse()
+    {
+        return $this->aibAreverse;
+    }
+
+    /**
+     * Set soldeRetenue
+     *
+     * @param string $soldeRetenue
+     *
+     * @return RetenuePaie
+     */
+    public function setSoldeRetenue($soldeRetenue)
+    {
+        $this->soldeRetenue = $soldeRetenue;
+
+        return $this;
+    }
+
+    /**
+     * Get soldeRetenue
+     *
+     * @return string
+     */
+    public function getSoldeRetenue()
+    {
+        return $this->soldeRetenue;
+    }
+
+    /**
+     * Set paiement
+     *
+     * @param \AppBundle\Entity\Paiement $paiement
+     *
+     * @return RetenuePaie
+     */
+    public function setPaiement(\AppBundle\Entity\Paiement $paiement = null)
+    {
+        $this->paiement = $paiement;
+
+        return $this;
+    }
+
+    /**
+     * Get paiement
+     *
+     * @return \AppBundle\Entity\Paiement
+     */
+    public function getPaiement()
+    {
+        return $this->paiement;
+    }
+}
