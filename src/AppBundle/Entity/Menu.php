@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  *
  * @ORM\Entity(repositoryClass="AppBundle\Repository\MenuRepository")
- * @ORM\Table("Menu")
+ * @ORM\Table("menu")
  * @ORM\HasLifecycleCallbacks()
  */
 class Menu {
@@ -30,7 +30,7 @@ class Menu {
      * @Assert\Type(type="string")
      */
     private $libelle;
-    
+
     /**
      * @var string The routeName of the Menu.
      * @ORM\Column(name="routeName", nullable=true)
@@ -53,8 +53,7 @@ class Menu {
     /**
      * Constructor
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->sousMenus = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -63,8 +62,7 @@ class Menu {
      *
      * @return integer
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -75,8 +73,7 @@ class Menu {
      *
      * @return Menu
      */
-    public function setLibelle($libelle)
-    {
+    public function setLibelle($libelle) {
         $this->libelle = $libelle;
 
         return $this;
@@ -87,8 +84,7 @@ class Menu {
      *
      * @return string
      */
-    public function getLibelle()
-    {
+    public function getLibelle() {
         return $this->libelle;
     }
 
@@ -99,8 +95,7 @@ class Menu {
      *
      * @return Menu
      */
-    public function addSousMenu(\AppBundle\Entity\SousMenu $sousMenu)
-    {
+    public function addSousMenu(\AppBundle\Entity\SousMenu $sousMenu) {
         $this->sousMenus[] = $sousMenu;
 
         return $this;
@@ -111,8 +106,7 @@ class Menu {
      *
      * @param \AppBundle\Entity\SousMenu $sousMenu
      */
-    public function removeSousMenu(\AppBundle\Entity\SousMenu $sousMenu)
-    {
+    public function removeSousMenu(\AppBundle\Entity\SousMenu $sousMenu) {
         $this->sousMenus->removeElement($sousMenu);
     }
 
@@ -121,12 +115,11 @@ class Menu {
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getSousMenus()
-    {
+    public function getSousMenus() {
         return $this->sousMenus;
     }
-    
-    public function __toString(){
+
+    public function __toString() {
         return $this->getLibelle();
     }
 
@@ -137,8 +130,7 @@ class Menu {
      *
      * @return Menu
      */
-    public function setRouteName($routeName)
-    {
+    public function setRouteName($routeName) {
         $this->routeName = $routeName;
 
         return $this;
@@ -149,8 +141,7 @@ class Menu {
      *
      * @return string
      */
-    public function getRouteName()
-    {
+    public function getRouteName() {
         return $this->routeName;
     }
 
@@ -161,8 +152,7 @@ class Menu {
      *
      * @return Menu
      */
-    public function setFontIconClass($fontIconClass)
-    {
+    public function setFontIconClass($fontIconClass) {
         $this->fontIconClass = $fontIconClass;
 
         return $this;
@@ -173,8 +163,7 @@ class Menu {
      *
      * @return string
      */
-    public function getFontIconClass()
-    {
+    public function getFontIconClass() {
         return $this->fontIconClass;
     }
 

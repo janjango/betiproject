@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  *
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PrivilegeRepository")
- * @ORM\Table("Privilege")
+ * @ORM\Table("privilege")
  * @ORM\HasLifecycleCallbacks()
  */
 class Privilege {
@@ -41,8 +41,7 @@ class Privilege {
      *
      * @return integer
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -53,8 +52,7 @@ class Privilege {
      *
      * @return Privilege
      */
-    public function setSousMenu(\AppBundle\Entity\SousMenu $sousMenu)
-    {
+    public function setSousMenu(\AppBundle\Entity\SousMenu $sousMenu) {
         $this->sousMenu = $sousMenu;
 
         return $this;
@@ -65,8 +63,7 @@ class Privilege {
      *
      * @return \AppBundle\Entity\SousMenu
      */
-    public function getSousMenu()
-    {
+    public function getSousMenu() {
         return $this->sousMenu;
     }
 
@@ -77,8 +74,7 @@ class Privilege {
      *
      * @return Privilege
      */
-    public function setUser(\Jac\UserBundle\Entity\User $user)
-    {
+    public function setUser(\Jac\UserBundle\Entity\User $user) {
         $this->user = $user;
 
         return $this;
@@ -89,12 +85,12 @@ class Privilege {
      *
      * @return \Jac\UserBundle\Entity\User
      */
-    public function getUser()
-    {
+    public function getUser() {
         return $this->user;
     }
-    
-    public function __toString(){
-        return $this->getSousMenu() ." ". $this->getUser();
+
+    public function __toString() {
+        return $this->getSousMenu() . " " . $this->getUser();
     }
+
 }

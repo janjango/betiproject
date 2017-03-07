@@ -10,18 +10,20 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="encaissement")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\EncaissementRepository")
  */
-class Encaissement
-{
+class Encaissement {
+
     /**
      * @ORM\ManyToOne(targetEntity="Exercice", inversedBy="encaissements")
      * @ORM\JoinColumn(nullable=true)
      */
     private $exercice;
+
     /**
      * @ORM\ManyToOne(targetEntity="Appel", inversedBy="encaissements")
      * @ORM\JoinColumn(nullable=true)
      */
     private $appel;
+
     /**
      * @var int
      *
@@ -44,12 +46,14 @@ class Encaissement
      * @ORM\Column(name="numeroCompte", type="string", length=255)
      */
     private $numeroCompte;
+
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="dateEncaissement", type="datetime", nullable=true, nullable=true)
      */
     private $dateEncaissement;
+
     /**
      * @var \DateTime
      *
@@ -77,14 +81,12 @@ class Encaissement
      */
     private $userModif;
 
-
     /**
      * Get id
      *
      * @return int
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -95,8 +97,7 @@ class Encaissement
      *
      * @return Encaissement
      */
-    public function setMontantEncaisse($montantEncaisse)
-    {
+    public function setMontantEncaisse($montantEncaisse) {
         $this->montantEncaisse = $montantEncaisse;
 
         return $this;
@@ -107,8 +108,7 @@ class Encaissement
      *
      * @return string
      */
-    public function getMontantEncaisse()
-    {
+    public function getMontantEncaisse() {
         return $this->montantEncaisse;
     }
 
@@ -119,8 +119,7 @@ class Encaissement
      *
      * @return Encaissement
      */
-    public function setNumeroCompte($numeroCompte)
-    {
+    public function setNumeroCompte($numeroCompte) {
         $this->numeroCompte = $numeroCompte;
 
         return $this;
@@ -131,8 +130,7 @@ class Encaissement
      *
      * @return string
      */
-    public function getNumeroCompte()
-    {
+    public function getNumeroCompte() {
         return $this->numeroCompte;
     }
 
@@ -143,8 +141,7 @@ class Encaissement
      *
      * @return Encaissement
      */
-    public function setDateCreate($dateCreate)
-    {
+    public function setDateCreate($dateCreate) {
         $this->dateCreate = $dateCreate;
 
         return $this;
@@ -155,8 +152,7 @@ class Encaissement
      *
      * @return \DateTime
      */
-    public function getDateCreate()
-    {
+    public function getDateCreate() {
         return $this->dateCreate;
     }
 
@@ -167,8 +163,7 @@ class Encaissement
      *
      * @return Encaissement
      */
-    public function setUserCreate($userCreate)
-    {
+    public function setUserCreate($userCreate) {
         $this->userCreate = $userCreate;
 
         return $this;
@@ -179,8 +174,7 @@ class Encaissement
      *
      * @return string
      */
-    public function getUserCreate()
-    {
+    public function getUserCreate() {
         return $this->userCreate;
     }
 
@@ -191,8 +185,7 @@ class Encaissement
      *
      * @return Encaissement
      */
-    public function setDateModif($dateModif)
-    {
+    public function setDateModif($dateModif) {
         $this->dateModif = $dateModif;
 
         return $this;
@@ -203,8 +196,7 @@ class Encaissement
      *
      * @return \DateTime
      */
-    public function getDateModif()
-    {
+    public function getDateModif() {
         return $this->dateModif;
     }
 
@@ -215,8 +207,7 @@ class Encaissement
      *
      * @return Encaissement
      */
-    public function setUserModif($userModif)
-    {
+    public function setUserModif($userModif) {
         $this->userModif = $userModif;
 
         return $this;
@@ -227,8 +218,7 @@ class Encaissement
      *
      * @return string
      */
-    public function getUserModif()
-    {
+    public function getUserModif() {
         return $this->userModif;
     }
 
@@ -239,8 +229,7 @@ class Encaissement
      *
      * @return Encaissement
      */
-    public function setAppel(\AppBundle\Entity\Appel $appel = null)
-    {
+    public function setAppel(\AppBundle\Entity\Appel $appel = null) {
         $this->appel = $appel;
 
         return $this;
@@ -251,8 +240,7 @@ class Encaissement
      *
      * @return \AppBundle\Entity\Appel
      */
-    public function getAppel()
-    {
+    public function getAppel() {
         return $this->appel;
     }
 
@@ -263,8 +251,7 @@ class Encaissement
      *
      * @return Encaissement
      */
-    public function setDateEncaissement($dateEncaissement)
-    {
+    public function setDateEncaissement($dateEncaissement) {
         $this->dateEncaissement = $dateEncaissement;
 
         return $this;
@@ -275,8 +262,7 @@ class Encaissement
      *
      * @return \DateTime
      */
-    public function getDateEncaissement()
-    {
+    public function getDateEncaissement() {
         return $this->dateEncaissement;
     }
 
@@ -287,8 +273,7 @@ class Encaissement
      *
      * @return Encaissement
      */
-    public function setExercice(\AppBundle\Entity\Exercice $exercice = null)
-    {
+    public function setExercice(\AppBundle\Entity\Exercice $exercice = null) {
         $this->exercice = $exercice;
 
         return $this;
@@ -299,8 +284,12 @@ class Encaissement
      *
      * @return \AppBundle\Entity\Exercice
      */
-    public function getExercice()
-    {
+    public function getExercice() {
         return $this->exercice;
     }
+
+    public function __toString() {
+        return 'Encaissement N° ' . $this->getId() . ', Montant: ' . $this->getMontantEncaisse();
+    }
+
 }

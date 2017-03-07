@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  *
  * @ORM\Entity(repositoryClass="AppBundle\Repository\AssignationBeneficiaireRepository")
- * @ORM\Table("AssignationBeneficiaire")
+ * @ORM\Table("assignationbeneficiaire")
  * @ORM\HasLifecycleCallbacks()
  */
 class AssignationBeneficiaire {

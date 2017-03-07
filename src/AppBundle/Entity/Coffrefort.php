@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Coffrefort
  *
- * @ORM\Table(name="Coffrefort")
+ * @ORM\Table(name="coffrefort")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\CoffrefortRepository")
  */
 class Coffrefort {
@@ -69,19 +69,52 @@ class Coffrefort {
     private $observation;
 
     /**
-     * @var string
+     * @var string; Encaissement ou Autre
      *
-     * @ORM\Column(name="sourceAlimaentation", type="string", length=255, nullable=true)
+     * @ORM\Column(name="source_alimaentation", type="string", length=255, nullable=true)
      */
     private $sourceAlimaentation;
+
+    /**
+     * @var string; Si autre on ajoute ce champ
+     *
+     * @ORM\Column(name="autre_alimaentation", type="string", length=255, nullable=true)
+     */
+    private $autreAlimaentation;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateCreate", type="datetime", nullable=true, nullable=true)
+     */
+    private $dateCreate;
+
+    /**
+     * @var string
+     * @ORM\Column(name="userCreate", type="string", length=255, nullable=true)
+     */
+    private $userCreate;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateModif", type="datetime", nullable=true)
+     */
+    private $dateModif;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="userModif", type="string", length=255, nullable=true)
+     */
+    private $userModif;
     
     /**
      * Get id
      *
      * @return integer
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -92,8 +125,7 @@ class Coffrefort {
      *
      * @return Coffrefort
      */
-    public function setDateEmission($dateEmission)
-    {
+    public function setDateEmission($dateEmission) {
         $this->dateEmission = $dateEmission;
 
         return $this;
@@ -104,8 +136,7 @@ class Coffrefort {
      *
      * @return \DateTime
      */
-    public function getDateEmission()
-    {
+    public function getDateEmission() {
         return $this->dateEmission;
     }
 
@@ -116,8 +147,7 @@ class Coffrefort {
      *
      * @return Coffrefort
      */
-    public function setRefCheque($refCheque)
-    {
+    public function setRefCheque($refCheque) {
         $this->refCheque = $refCheque;
 
         return $this;
@@ -128,8 +158,7 @@ class Coffrefort {
      *
      * @return string
      */
-    public function getRefCheque()
-    {
+    public function getRefCheque() {
         return $this->refCheque;
     }
 
@@ -140,8 +169,7 @@ class Coffrefort {
      *
      * @return Coffrefort
      */
-    public function setLibOperation($libOperation)
-    {
+    public function setLibOperation($libOperation) {
         $this->libOperation = $libOperation;
 
         return $this;
@@ -152,8 +180,7 @@ class Coffrefort {
      *
      * @return string
      */
-    public function getLibOperation()
-    {
+    public function getLibOperation() {
         return $this->libOperation;
     }
 
@@ -164,8 +191,7 @@ class Coffrefort {
      *
      * @return Coffrefort
      */
-    public function setMontantRetire($montantRetire)
-    {
+    public function setMontantRetire($montantRetire) {
         $this->montantRetire = $montantRetire;
 
         return $this;
@@ -176,8 +202,7 @@ class Coffrefort {
      *
      * @return string
      */
-    public function getMontantRetire()
-    {
+    public function getMontantRetire() {
         return $this->montantRetire;
     }
 
@@ -188,8 +213,7 @@ class Coffrefort {
      *
      * @return Coffrefort
      */
-    public function setBeneficiaire($beneficiaire)
-    {
+    public function setBeneficiaire($beneficiaire) {
         $this->beneficiaire = $beneficiaire;
 
         return $this;
@@ -200,8 +224,7 @@ class Coffrefort {
      *
      * @return string
      */
-    public function getBeneficiaire()
-    {
+    public function getBeneficiaire() {
         return $this->beneficiaire;
     }
 
@@ -212,8 +235,7 @@ class Coffrefort {
      *
      * @return Coffrefort
      */
-    public function setObservation($observation)
-    {
+    public function setObservation($observation) {
         $this->observation = $observation;
 
         return $this;
@@ -224,8 +246,7 @@ class Coffrefort {
      *
      * @return string
      */
-    public function getObservation()
-    {
+    public function getObservation() {
         return $this->observation;
     }
 
@@ -236,8 +257,7 @@ class Coffrefort {
      *
      * @return Coffrefort
      */
-    public function setEncaissement(\AppBundle\Entity\Encaissement $encaissement = null)
-    {
+    public function setEncaissement(\AppBundle\Entity\Encaissement $encaissement = null) {
         $this->encaissement = $encaissement;
 
         return $this;
@@ -248,8 +268,7 @@ class Coffrefort {
      *
      * @return \AppBundle\Entity\Encaissement
      */
-    public function getEncaissement()
-    {
+    public function getEncaissement() {
         return $this->encaissement;
     }
 
@@ -260,8 +279,7 @@ class Coffrefort {
      *
      * @return Coffrefort
      */
-    public function setSourceAlimaentation($sourceAlimaentation)
-    {
+    public function setSourceAlimaentation($sourceAlimaentation) {
         $this->sourceAlimaentation = $sourceAlimaentation;
 
         return $this;
@@ -272,8 +290,126 @@ class Coffrefort {
      *
      * @return string
      */
-    public function getSourceAlimaentation()
-    {
+    public function getSourceAlimaentation() {
         return $this->sourceAlimaentation;
+    }
+
+    /**
+     * Set autreAlimaentation
+     *
+     * @param string $autreAlimaentation
+     *
+     * @return Coffrefort
+     */
+    public function setAutreAlimaentation($autreAlimaentation) {
+        $this->autreAlimaentation = $autreAlimaentation;
+
+        return $this;
+    }
+
+    /**
+     * Get autreAlimaentation
+     *
+     * @return string
+     */
+    public function getAutreAlimaentation() {
+        return $this->autreAlimaentation;
+    }
+
+
+    /**
+     * Set dateCreate
+     *
+     * @param \DateTime $dateCreate
+     *
+     * @return Coffrefort
+     */
+    public function setDateCreate($dateCreate)
+    {
+        $this->dateCreate = $dateCreate;
+
+        return $this;
+    }
+
+    /**
+     * Get dateCreate
+     *
+     * @return \DateTime
+     */
+    public function getDateCreate()
+    {
+        return $this->dateCreate;
+    }
+
+    /**
+     * Set userCreate
+     *
+     * @param string $userCreate
+     *
+     * @return Coffrefort
+     */
+    public function setUserCreate($userCreate)
+    {
+        $this->userCreate = $userCreate;
+
+        return $this;
+    }
+
+    /**
+     * Get userCreate
+     *
+     * @return string
+     */
+    public function getUserCreate()
+    {
+        return $this->userCreate;
+    }
+
+    /**
+     * Set dateModif
+     *
+     * @param \DateTime $dateModif
+     *
+     * @return Coffrefort
+     */
+    public function setDateModif($dateModif)
+    {
+        $this->dateModif = $dateModif;
+
+        return $this;
+    }
+
+    /**
+     * Get dateModif
+     *
+     * @return \DateTime
+     */
+    public function getDateModif()
+    {
+        return $this->dateModif;
+    }
+
+    /**
+     * Set userModif
+     *
+     * @param string $userModif
+     *
+     * @return Coffrefort
+     */
+    public function setUserModif($userModif)
+    {
+        $this->userModif = $userModif;
+
+        return $this;
+    }
+
+    /**
+     * Get userModif
+     *
+     * @return string
+     */
+    public function getUserModif()
+    {
+        return $this->userModif;
     }
 }

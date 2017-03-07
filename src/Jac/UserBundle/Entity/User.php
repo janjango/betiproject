@@ -18,7 +18,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *
  *
  * @ORM\Entity(repositoryClass="Jac\UserBundle\Entity\UserRepository")
- * @ORM\Table("User")
+ * @ORM\Table("user")
  * @UniqueEntity("email")
  * @UniqueEntity("username")
  * @Vich\Uploadable

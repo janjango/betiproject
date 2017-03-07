@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use AppBundle\Entity\Coffrefort;
 use AppBundle\Form\CoffrefortType;
@@ -23,21 +24,50 @@ class CoffreFortController extends Controller {
     public function readCoffrefortAction(Request $request) {
         // replace this example code with whatever you need
         $exercices = $this->getDoctrine()
+            ->getManager()->getRepository('AppBundle:Exercice')
+            ->findAll( Array('libExercice' => 'ASC'));
+        
+        if($request->get('exercice') !== null){
+            $exercice = $this->getDoctrine()
                 ->getManager()->getRepository('AppBundle:Exercice')
-                ->findBy(Array(), Array('libExercice' => 'ASC'));
+                ->find($request->get('exercice'));
+        }else{
+            $exercice = $this->getDoctrine()
+                ->getManager()->getRepository('AppBundle:Exercice')
+                ->findOneBy(Array('estActif'=>true));           
+        }
+
+        
+        $appels = $this->getDoctrine()
+                ->getManager()->getRepository('AppBundle:Appel')
+                ->findBy(Array('exercice'=>$exercice->getId()), Array('dateAppel' => 'DESC'));
+     
+        $encaissements = $this->getDoctrine()
+                ->getManager()->getRepository('AppBundle:Encaissement')
+                ->findAll( Array('dateEncaissement' => 'DESC'));
+
+                
         $coffreforts = $this->getDoctrine()
                 ->getManager()->getRepository('AppBundle:Coffrefort')
-                ->findBy(Array('exercice' => $request->get('exercice')), Array('id' => 'ASC'));
-        $solde = ($this->getDoctrine()->getManager()->getRepository('AppBundle:Coffrefort')->getSommeajouter($request->get('exercice'))) - ($this->getDoctrine()->getManager()->getRepository('AppBundle:Coffrefort')->getSommeannuler($request->get('exercice')));
+                ->findAll( Array('dateEmission' => 'DESC'));
+
+        $solde = 0;
+        
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
         $users = $this->getDoctrine()->getManager()
                 ->getRepository('Jac\UserBundle\Entity\User');
         $menus = $users->getMenus($user->getId());
         $sousMenus = $users->getSousMenus($user->getId());
+        
         return $this->render('coffrefort/read_coffrefort.html.twig', [
-                    'coffreforts' => $coffreforts, 'exercices' => $exercices, 'exercice' => $request->get('exercice'), 'solde' => $solde,
-                    'sousMenus' => $sousMenus,
-                    'menus' => $menus,
+            'coffreforts' => $coffreforts, 
+            'encaissements' => $encaissements,
+            'appels' => $appels,
+            'exercice' => $request->get('exercice'),
+            'exercices' => $exercices,
+            'solde' => $solde,
+            'sousMenus' => $sousMenus,
+            'menus' => $menus,
         ]);
     }
 
@@ -58,29 +88,31 @@ class CoffreFortController extends Controller {
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $coffrefort->setUserCreate($this->getUser()->getUsername());
-            $coffrefort->setDateCreate(new \ Datetime());
-            $coffrefort->setEstAnnuler(false);
-            $coffrefort->setEstParentannuler(false);
-            $coffrefort->setEstEncaisser(false);
-            $coffrefort->setExercice($this->getDoctrine()->getManager()->getRepository('AppBundle:Exercice')->find($request->get('exercice')));
+            if ($coffrefort->getMontantRetire() > $coffrefort->getEncaissement()->getMontantEncaisse()) {
+                $this->addFlash(
+                        'danger', "Le montant retirer est supérieur à celui de l'encaissement !"
+                );
+                return $this->redirectToRoute('create_coffrefort');
+            }
+
             $em->persist($coffrefort);
             $em->flush();
+
             $this->addFlash(
                     'success', "Enregistrement effectué avec succès !"
             );
-            return $this->redirectToRoute('create_coffrefort', array('exercice' => $request->get('exercice')));
+
+            return $this->redirectToRoute('create_coffrefort');
         }
         return $this->render('coffrefort/create_coffrefort.html.twig', [
-                    'form' => $form->createView(), 'exercice' => $request->get('exercice'),
+                    'form' => $form->createView(),
                     'sousMenus' => $sousMenus,
-                    'menus' => $menus,
+                    'menus' => $menus
         ]);
     }
 
-
     /**
-     * Creates a new demand entity.
+     * Update a Coffrefort.
      *
      * @Route("/update", name="update_coffrefort")
      * @Method({"GET", "POST"})
@@ -109,7 +141,7 @@ class CoffreFortController extends Controller {
                     'form' => $form->createView(), 'id' => $request->get('id'), 'coffrefort' => $coffrefort,
                     'sousMenus' => $sousMenus,
                     'menus' => $menus,
-                    'exercice' => $coffrefort->getExercice()->getId()
+                    'exercice' => $coffrefort->getEncaissement()->getExercice()->getId()
         ]);
     }
 
@@ -120,7 +152,9 @@ class CoffreFortController extends Controller {
      * @Method({"GET", "POST"})
      */
     public function deleteCoffrefortAction(Request $request) {
-        $coffrefort = $this->getDoctrine()->getManager()->getRepository('AppBundle:Coffrefort')
+        $coffrefort = $this->getDoctrine()
+                ->getManager()
+                ->getRepository('AppBundle:Coffrefort')
                 ->find($request->get('id'));
         if ($request->getMethod() == 'POST') {
             $em = $this->getDoctrine()->getManager();
@@ -129,11 +163,24 @@ class CoffreFortController extends Controller {
             $this->addFlash(
                     'danger', "Suppression effectué avec succès !"
             );
-            return $this->redirectToRoute('read_coffrefort', array('exercice' => $coffrefort->getExercice()->getId()));
+            return $this->redirectToRoute('read_coffrefort', array(
+                $coffrefort->getEncaissement()->getExercice()->getId()
+               ));
         }
         return $this->render('coffrefort/delete_coffrefort.html.twig', [
-                    'id' => $request->get('id'), 'coffrefort' => $coffrefort
+            'id' => $request->get('id'),
+            'coffrefort' => $coffrefort
         ]);
+    }
+
+    /**
+     * @Route("/select/encaissemnts", name="coffre_select_encaissemnts")
+     */
+    public function SelectEncaissementAction(Request $request) {
+        $appel_id = (int) $request->request->get('appel_id');
+        $em = $this->getDoctrine()->getManager();
+        $encaissements = $em->getRepository('AppBundle:Encaissement')->findByAppelId($appel_id);
+        return new JsonResponse($encaissements);
     }
 
 }

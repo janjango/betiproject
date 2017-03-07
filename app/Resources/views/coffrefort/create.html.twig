@@ -1,0 +1,17 @@
+{% extends "home/layout.html.twig" %}
+{% block stylesheet %}
+
+{% endblock %}
+{% block titletopmeu %}
+    <li>Coffrefort</li>
+    <li><a href="{{ path('read_coffrefort',{'exercice': exercice})}}">Coffrefort</a></li>
+    <li><a href="{{ path('create_coffrefort',{'exercice': exercice})}}">Enregistrement</a></li>
+    {% endblock %}
+{% block content %}
+{% endblock %}
+{% block javascript %}
+    {{ parent() }}
+<script>
+    alert("pas posiible");
+</script>
+{% endblock %}
