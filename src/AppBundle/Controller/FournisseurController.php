@@ -130,4 +130,21 @@ class FournisseurController extends Controller {
         ]);
     }
 
+    /**
+     * Creates a new demand entity.
+     *
+     * @Route("/fournisseur/selectinfo", name="selectinfo_fournisseur")
+     * @Method({"GET"})
+     */
+    public function selectinfo_fournisseurAction(Request $request)
+    {
+        $fournisseur = $this->getDoctrine()->getManager()->getRepository('AppBundle:Fournisseur')
+            ->find($request->get('id'));
+
+
+        return $this->render('encaissement/fournisseur/info_fournisseur.html.twig', [
+            'element'   => $fournisseur,
+        ]);
+    }
+
 }
