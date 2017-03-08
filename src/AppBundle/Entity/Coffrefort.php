@@ -11,7 +11,12 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="AppBundle\Repository\CoffrefortRepository")
  */
 class Coffrefort {
-
+    /**
+     * @ORM\ManyToOne(targetEntity="Exercice", inversedBy="coffreforts")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $exercice;
+    
     /**
      * @ORM\ManyToOne(targetEntity="Encaissement", inversedBy="coffreforts")
      * @ORM\JoinColumn(nullable=true)
@@ -411,5 +416,29 @@ class Coffrefort {
     public function getUserModif()
     {
         return $this->userModif;
+    }
+
+    /**
+     * Set exercice
+     *
+     * @param \AppBundle\Entity\Exercice $exercice
+     *
+     * @return Coffrefort
+     */
+    public function setExercice(\AppBundle\Entity\Exercice $exercice = null)
+    {
+        $this->exercice = $exercice;
+
+        return $this;
+    }
+
+    /**
+     * Get exercice
+     *
+     * @return \AppBundle\Entity\Exercice
+     */
+    public function getExercice()
+    {
+        return $this->exercice;
     }
 }

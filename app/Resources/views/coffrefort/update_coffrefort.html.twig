@@ -4,8 +4,8 @@
 {% endblock %}
  {% block titletopmeu %}
      <li>Coffrefort</li>
-     <li><a href="{{ path('read_coffrefort',{'exercice': exercice})}}">Coffrefort</a></li>
-     <li><a href="{{ path('update_coffrefort',{'id': id,'exercice': exercice } )}}">Modification</a></li>
+     <li><a href="{{ path('read_coffrefort')}}">Coffrefort</a></li>
+     <li><a href="{{ path('update_coffrefort')}}">Modification</a></li>
  {% endblock %}
  {% block content %}
 
@@ -14,7 +14,7 @@
          <!-- Normal Form Title -->
          <div class="block-title">
              <div class="block-options pull-right">
-                 <a href="{{ path('read_coffrefort',{'exercice': exercice})}}" class="btn btn-alt btn-sm btn-default toggle-bordered enable-tooltip" >Retour</a>
+                 <a href="{{ path('read_coffrefort')}}" class="btn btn-alt btn-sm btn-default toggle-bordered enable-tooltip" >Retour</a>
              </div>
              <h2><strong>Modifier Coffrefort</strong> </h2>
 
@@ -62,51 +62,36 @@
             
         });
 
-
-        $("#appbundle_coffrefort_appel").change(function () {
-            var data = {
-                appel_id: $(this).val()
-            };
-            //$('form').spin();
-            //info appel
-            var k = $(this);
-            $("#afficherbeneficiaire").remove();
-            $.ajax({
-                type: 'GET',
-                url: "{{ path('selectinfo_appel')}}",
-                cache: false,
-                data: 'id=' + k.val(),
-                success: function (data) {
-                    // alert(data);
-                    k.parent().after(data);
-                    // location.reload();
-                },
-                error: function () {
-                }
+            $("#appbundle_coffrefort_encaissement").change(function () {
+                var k = $(this);
+                $("#afficherencaissement").remove();
+                $.ajax({
+                    type: 'GET',
+                    url: "{{ path('selectinfo_encaissement')}}",
+                    cache: false,
+                    data : 'id=' + k.val(),
+                    success: function (data) {
+                        // alert(data);
+                        k.parent().after(data);
+                        // location.reload();
+                    },
+                    error: function () {
+                    }
+                });
             });
-
-            // select encaissement
             $.ajax({
-                type: 'post',
-                url: "{{ path('coffre_select_encaissemnts') }}",
-                data: data
-            }).done(function (data) {
-                var $encaissements_selector = $('#appbundle_coffrefort_encaissement'),
-                        encaissements = data;
-                console.log(data);
-                $encaissements_selector.html('<option>Choississez un encaissement</option>');
-                $("#appbundle_coffrefort_encaissement_chosen").hide();
-                $("#appbundle_coffrefort_encaissement").show();
-                for (var i = 0, total = encaissements.length; i < total; i++) {
-                    console.log(encaissements[i].id);
-                    $encaissements_selector.append('<option value="' + encaissements[i].id + '">' + 'Encaissement N° ' + encaissements[i].id + ', Montant: ' + encaissements[i].montantEncaisse + '</option>');
-                }
+                    type: 'GET',
+                    url: "{{ path('selectinfo_encaissement')}}",
+                    cache: false,
+                    data : 'id=' + $("#appbundle_coffrefort_encaissement").val(),
+                    success: function (data) {
+                        // alert(data);
+                        $("#appbundle_coffrefort_encaissement").parent().after(data);
+                        // location.reload();
+                    },
+                    error: function () {
+                    }
+                });
 
-            }).fail(function () {
-                alert("error");
-            }).always(function () {
-                //$('form').find('.spinner').hide()
-            });
-        });
     </script>
 {% endblock %}

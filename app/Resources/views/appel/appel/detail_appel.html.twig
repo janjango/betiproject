@@ -18,7 +18,7 @@
                         {% if element.refBordereau is not null %}  Référence Bordereau: <strong>{{ element.refBordereau }}</strong>  |
                         Date Bordereau : <strong>{{ element.dateBordereau|date('d/m/Y') }}</strong><br>  {% endif %}
 
-                        {% if element.objetappel is not null %}  Objet : <strong>{{ element.objetappel }} </strong> |  {% endif %}
+                        {% if element.objetappel %}|  Objet : <strong>{{ element.objetappel }} </strong> |  {% endif %}
                         Montant : <strong>{{ element.montantTtc|number_format(2, ',', '.') }}</strong>  francs CFA <br>
 
                         {% if element.compte is not null %} Numéro du compte trésor : <strong> {{ element.compte.numero  }}  </strong>  |

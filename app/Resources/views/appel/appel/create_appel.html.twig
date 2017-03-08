@@ -17,19 +17,6 @@
         </div>
         <h2><strong>Nouveau document d'appel</strong> </h2>
 
-        <div class="btn-group">
-            <a href="javascript:void(0)" data-toggle="dropdown" class="btn btn-alt btn-primary dropdown-toggle" aria-expanded="false">
-                Catégorie <span class="caret"></span></a>
-            <ul class="dropdown-menu dropdown-custom text-left">
-                <li class="dropdown-header">Choisissez</li>
-                <li>
-                    <a href="#1" id="appelmandat"><i class="fa fa-plus pull-right"></i> Appel de fonds sur budget national</a>
-                    <a href="#2" id="appelfond"><i class="fa fa-plus-circle pull-right"></i>Appel de fonds sur autre budget</a>
-                </li>
-
-            </ul>
-        </div>
-
     </div>
     <!-- END Normal Form Title -->
 
@@ -68,25 +55,30 @@
                 }
             });
         });
+
         $('#appbundle_appel_montantHt').keypress(function () {
             $('#appbundle_appel_montantTtc').val($(this).val()*1.18);
         })
         $('#appbundle_appel_montantHt').keydown(function () {
             $('#appbundle_appel_montantTtc').val($(this).val()*1.18);
         })
-        $('#appelmandat').click(function () {
-           // alert('ok');
-            $("#appbundle_appel_refEngagement").parent().show();
-            $("#appbundle_appel_dateEngagement").parent().show();
-            $("#appbundle_appel_refBordereau").parent().show();
-            $("#appbundle_appel_dateBordereau").parent().show();
+
+        $("#appbundle_appel_sourceAlimaentation").change(function () {
+            if( $(this).val()=='one'){
+                // alert('ok');
+                $("#appbundle_appel_refEngagement").parent().show();
+                $("#appbundle_appel_dateEngagement").parent().show();
+                $("#appbundle_appel_refBordereau").parent().show();
+                $("#appbundle_appel_dateBordereau").parent().show();
+            }else{
+                // alert('ok');
+                $("#appbundle_appel_refEngagement").parent().hide();
+                $("#appbundle_appel_dateEngagement").parent().hide();
+                $("#appbundle_appel_refBordereau").parent().hide();
+                $("#appbundle_appel_dateBordereau").parent().hide();
+            }
+
         })
-        $('#appelfond').click(function () {
-            // alert('ok');
-            $("#appbundle_appel_refEngagement").parent().hide();
-            $("#appbundle_appel_dateEngagement").parent().hide();
-            $("#appbundle_appel_refBordereau").parent().hide();
-            $("#appbundle_appel_dateBordereau").parent().hide();
-        })
+
     </script>
 {% endblock %}
