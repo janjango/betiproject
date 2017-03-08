@@ -29,29 +29,14 @@ class CoffrefortType extends AbstractType {
                     ),
                     'required' => true
                 ))
-                ->add('appel', EntityType::class, array(
-                    'class' => 'AppBundle:Appel',
-                    'label' => 'Appel',
-                    'placeholder' => 'Choose an option',
-                    'required' => true,
-                    'attr' => array('class' => 'form-control  select-chosen'),
-                    
-                    'query_builder' => function (AppelRepository $repository) {
-                return $repository->createQueryBuilder('a')
-                        ->where('a.estAnnuler = 0')
-                        ->andWhere('a.estParentannuler = 0')
-                        ->andWhere('a.estSolder = 0')
-                        ->orWhere('a.estSolder is null')
-                ;
-            },'mapped' => false,
-                ))
-                ->add('encaissement', EntityType::class, array(
-                    'class' => 'AppBundle:Encaissement',
-                    'label' => 'Encaissement',
-                    'required' => true,
-                    'placeholder' => "Choississez un encaissement",
-                    'attr' => array('class' => 'form-control  select-chosen'),
-                ))
+
+            ->add('encaissement', EntityType::class, array(
+                'class' => 'AppBundle:Encaissement',
+                'label' => 'Encaissement',
+                'placeholder' => 'Choisissez l\'encaissement',
+                'required' => true,
+                'attr' => array('class' => 'form-control  select-chosen')
+            ))
                 ->add('autreAlimaentation', TextType::class, array(
                     'label' => 'Précisez la source',
                     'required' => false,

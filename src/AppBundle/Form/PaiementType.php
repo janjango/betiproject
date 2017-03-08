@@ -18,6 +18,17 @@ class PaiementType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('sourceAlimaentation', \Symfony\Component\Form\Extension\Core\Type\ChoiceType::class, array(
+                'label' => "Choisir la catégorie",
+                'attr' => array('class' => 'form-control  select-chosen'),
+                'choices' => array(
+                    'Virement' => 'one',
+                    'Chèque' => "two",
+                ),
+                'required' => true,
+                'mapped'=> false,
+            ))
+
             ->add('fournisseur', EntityType::class, array(
                 'class' => 'AppBundle:Fournisseur',
                 'label' => 'Fournisseur',

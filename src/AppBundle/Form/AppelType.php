@@ -21,6 +21,17 @@ class AppelType extends AbstractType
     {
         $builder
 
+            ->add('sourceAlimaentation', \Symfony\Component\Form\Extension\Core\Type\ChoiceType::class, array(
+                'label' => "Choisir la catégorie",
+                'attr' => array('class' => 'form-control  select-chosen'),
+                'choices' => array(
+                    'Appel de fonds sur budget national' => 'one',
+                    'Appel de fonds sur autre budget' => "two",
+                ),
+                'required' => true,
+                'mapped'=> false,
+            ))
+
             ->add('referenceAppel', TextType::class, array(
                 'label' => 'Référence Appel émis',
                 'attr' =>array(

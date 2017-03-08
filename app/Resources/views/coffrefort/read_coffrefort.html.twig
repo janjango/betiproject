@@ -4,7 +4,7 @@
 {% endblock %}
  {% block titletopmeu %}
     <li>Coffrefort</li>
-    <li><a href="{% if (exercice is not null) %}{{ path('read_coffrefort',{'exercice': exercice})}}  {% else %} {{ path('read_coffrefort',{'exercice': 1})}} {% endif %}">Coffrefort</a></li>
+    <li><a href="{{ path('read_coffrefort')}} ">Coffrefort</a></li>
 {% endblock %}
 {% block content %}
      <!-- Datatables Content -->
@@ -12,27 +12,13 @@
          <div class="block-title">
 
              <h2>
-                 <strong> Coffrefort  </strong>
+                 <strong> Coffrefort de l'Exercice : {{ exercice.libExercice }} </strong>
 
-                 <select id="getExo" name="getExo" class="select-chosen ">
-                  <option value="">Exercice</option>
-                     {% for elt in  exercices %}
-                         <option value="{{ elt.id }}"  {% if elt.id==exercice %} selected="true" {% endif %}>{{ elt.libExercice }}</option>
-                     {% endfor %}
-                 </select>
-{#                 
-                 <select id="getAppel" name="getAppel" class="select-chosen ">
-                  <option value="">Appel</option>
-                     {% for elt in  appels %}
-                         <option value="{{ elt.id }}" >{{ elt.referenceAppel }}</option>
-                     {% endfor %}
-                 </select>
-#}
              </h2>
 
                 <a  href="{{ path('create_coffrefort')}}"  title="Ajouter" class="btn btn-xs btn-success" >
                  <i  class="fa fa-plus"></i></a>
-
+</div>
          <div class="table-responsive">
              <table id="example-datatable" class="table table-vcenter table-condensed table-bordered">
                  <thead>
@@ -49,12 +35,7 @@
 
                  </thead>
                  <tbody>
-                     {% for appel in  appels %} 
-                         {% for encaissement in  encaissements %}
-                             {% if encaissement.appel.id == appel.id  %}
-                                 {% for element in  coffreforts %}
-
-                                     {% if element.encaissement.id == encaissement.id  %}
+                     {% for element in  coffreforts %}
                                          <tr>
                                              <td class="text-left hide">  </td>
                                              <td class="text-center"> {{ element.dateEmission|date('d/m/Y') }} </td>
@@ -75,12 +56,7 @@
 
                                              </td>
                                          </tr>
-                                     {%endif%}
 
-                                 {% endfor %}
-
-                             {% endif %}
-                         {% endfor%}
                      {% endfor %}
                  </tbody>
              </table>
@@ -92,18 +68,6 @@
 
  {% block customjavascript %}
      <script>
-         $('#getExo').change(function () {
-             if ($('#getExo').val() === "")
-             {
 
-             }
-             else
-             {
-                 // alert('route de la liste des estdirecteurtechniques de la structure '+$(this).val());
-                 var url = '{{ path("read_coffrefort",{ 'exercice':  'exo', }) }}';
-                 url = url.replace("exo", $(this).val() === "" ? 0 : $(this).val());
-                 location.href = "" + url + "";
-             }
-         });
      </script>
  {% endblock customjavascript %}

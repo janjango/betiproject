@@ -109,6 +109,12 @@ class AppelController extends Controller {
             ->find($request->get('id'));
 
         if ($request->getMethod() == 'POST') {
+            if ( !$appel->getEncaissements()->isEmpty()){
+                $this->addFlash(
+                    'warring', "Cet appel a déjà fait objet d'encaissement. On ne peut donc pas l'annuler !"
+                );
+                return $this->redirectToRoute('read_appel', array('exercice' => $appel->getExercice()->getId()));
+            }
             $em = $this->getDoctrine()->getManager();
 
             $newappel->setUserCreate($this->getUser()->getUsername());

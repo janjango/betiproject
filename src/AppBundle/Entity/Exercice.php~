@@ -218,38 +218,4 @@ class Exercice
     {
         return $this->paiements;
     }
-
-    /**
-     * Add coffrefort
-     *
-     * @param \AppBundle\Entity\Coffrefort $coffrefort
-     *
-     * @return Exercice
-     */
-    public function addCoffrefort(\AppBundle\Entity\Coffrefort $coffrefort)
-    {
-        $this->coffreforts[] = $coffrefort;
-
-        return $this;
-    }
-
-    /**
-     * Remove coffrefort
-     *
-     * @param \AppBundle\Entity\Coffrefort $coffrefort
-     */
-    public function removeCoffrefort(\AppBundle\Entity\Coffrefort $coffrefort)
-    {
-        $this->coffreforts->removeElement($coffrefort);
-    }
-
-    /**
-     * Get coffreforts
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getCoffreforts()
-    {
-        return $this->coffreforts;
-    }
 }

@@ -74,5 +74,28 @@
             });
         });
 
+ $("#appbundle_paiement_sourceAlimaentation").change(function () {
+            if( $(this).val()=='one'){
+                // alert('ok');
+                $("#appbundle_paiement_refVirement").parent().show();
+                $("#appbundle_paiement_refCheque").parent().hide();
+            }else{
+                // alert('ok');
+                $("#appbundle_paiement_refVirement").parent().hide();
+                $("#appbundle_paiement_refCheque").parent().show();
+            }
+
+        })
+         if( $('#appbundle_paiement_sourceAlimaentation').val()=='one'){
+                // alert('ok');
+                $("#appbundle_paiement_refVirement").parent().show();
+                $("#appbundle_paiement_refCheque").parent().hide();
+            }else{
+                // alert('ok');
+                $("#appbundle_paiement_refVirement").parent().hide();
+                $("#appbundle_paiement_refCheque").parent().show();
+            }
+
+
     </script>
 {% endblock %}
