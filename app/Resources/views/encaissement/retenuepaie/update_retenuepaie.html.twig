@@ -1,0 +1,37 @@
+{% extends "home/layout.html.twig" %}
+{% block stylesheet %}
+
+{% endblock %}
+ {% block titletopmeu %}
+     <li>Appel</li>
+     <li><a href="{{ path('read_retenuepaie',{'id': element.paiement.id })}}">Fournisseur</a></li>
+     <li><a href="{{ path('update_retenuepaie',{'id': id } )}}">Modification</a></li>
+ {% endblock %}
+ {% block content %}
+<div class="row">
+    <div class="block">
+         <!-- Normal Form Title -->
+         <div class="block-title">
+             <div class="block-options pull-right">
+                 <a href="{{ path('read_retenuepaie',{'id': element.paiement.id })}}" class="btn btn-alt btn-sm btn-default toggle-bordered enable-tooltip" >Retour</a>
+             </div>
+             <h2><strong>Modifier Retenue à verser</strong> </h2>
+         </div>
+         <!-- END Normal Form Title -->
+
+         <!-- Normal Form Content -->
+         <form action="{{ path('update_retenuepaie',{'id': id } )}}" method="post" class="form-bordered">
+
+             <div class="form-group">
+                 {{ form_widget(form) }}
+                 {{ form_rest(form) }}
+             </div>
+             <div class="form-group form-actions">
+                 <button type="submit" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i> Modifier</button>
+                 <button type="reset" class="btn btn-sm btn-default"><i class="fa fa-repeat"></i> Annuler</button>
+             </div>
+         </form>
+         <!-- END Normal Form Content -->
+     </div>
+</div>
+ {% endblock %}

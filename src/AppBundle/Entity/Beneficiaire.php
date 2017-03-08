@@ -13,11 +13,11 @@ use Doctrine\ORM\Mapping as ORM;
 class Beneficiaire
 {
     /**
-     * @ORM\OneToMany(targetEntity="Appel", mappedBy="beneficiaire")
+     * @ORM\OneToMany(targetEntity="Appel", mappedBy="beneficiaire", cascade={"remove"})
      */
     private $appels;
     /**
-     * @ORM\OneToMany(targetEntity="Compte", mappedBy="beneficiaire")
+     * @ORM\OneToMany(targetEntity="Compte", mappedBy="beneficiaire", cascade={"remove"})
      */
     private $comptes;
     /**
@@ -211,7 +211,7 @@ class Beneficiaire
     }
     
     public function __toString() {
-        return $this->code;
+        return $this->libBeneficiaire;
     }
 
 

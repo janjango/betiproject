@@ -8,26 +8,28 @@
             </div>
                 <div class="modal-body">
                     <div class="text-left">
+                        <span  style="text-decoration: underline;font-weight: bold;color: #0a7a60;">  INFORMATIONS SUR LE DOCUMENT D'APPEL DE FONDS  : </span> <br>
                         Référence appel émis : <strong>{{ element.referenceAppel }}</strong>  |
-                        Date Emission : <strong>{{ element.dateAppel|date('d/m/Y') }}</strong><br> <br>
+                        Date Emission : <strong>{{ element.dateAppel|date('d/m/Y') }}</strong>
 
-                        {% if element.refEngagement is not null %}  Référence Engagement: <strong>{{ element.refEngagement }}</strong>  |
-                        Date Engagement : <strong>{{ element.dateEngagement|date('d/m/Y') }}</strong><br> <br>  {% endif %}
+                        {% if element.refEngagement is not null %} <br>  Référence Engagement: <strong>{{ element.refEngagement }}</strong>  |
+                        Date Engagement : <strong>{{ element.dateEngagement|date('d/m/Y') }}</strong><br>  {% endif %}
 
                         {% if element.refBordereau is not null %}  Référence Bordereau: <strong>{{ element.refBordereau }}</strong>  |
-                        Date Bordereau : <strong>{{ element.dateBordereau|date('d/m/Y') }}</strong><br> <br>  {% endif %}
+                        Date Bordereau : <strong>{{ element.dateBordereau|date('d/m/Y') }}</strong><br>  {% endif %}
 
                         {% if element.objetappel is not null %}  Objet : <strong>{{ element.objetappel }} </strong> |  {% endif %}
-                        Montant : <strong>{{ element.montantTtc|number_format(2, ',', '.') }}</strong>  francs CFA <br>  <br>
+                        Montant : <strong>{{ element.montantTtc|number_format(2, ',', '.') }}</strong>  francs CFA <br>
 
                         {% if element.compte is not null %} Numéro du compte trésor : <strong> {{ element.compte.numero  }}  </strong>  |
-                        Intitulé du compte : <strong> {{ element.compte.intitule }}  </strong> <br> <br>  {% endif %}
+                        Intitulé du compte : <strong> {{ element.compte.intitule }}  </strong>  {% endif %} <br> <br>
 
-                        Structure Bénéficiaire : <br> <br>
+                        <span  style="text-decoration: underline;font-weight: bold;color: #0a7a60;">  INFORMATIONS SUR LA STRUCTURE BENEFICIAIRE  : </span> <br>
                         Nom : <strong>{% if element.beneficiaire is not null %} {{ element.beneficiaire.libBeneficiaire }}  {% endif %}</strong>  |
                         Code : <strong>{% if element.beneficiaire is not null %} {{ element.beneficiaire.code }}  {% endif %}</strong> | Sigle : <strong> {{ element.beneficiaire.sigle }}  </strong> <br> <br>
 
-                        Solde : <strong> {{ valsolde|number_format(2, ',', '.') }}</strong> francs CFA <br>  <br>
+                        <span  style="text-decoration: underline;font-weight: bold;color: #0a7a60;">  INFORMATIONS SUR LE SOLDE ET LES ENCAISSEMENTS : </span> <br>
+                        Solde : <strong> {{ valsolde|number_format(2, ',', '.') }}</strong> francs CFA <br>
                         {% set mt=0 %}
                         Montant total encaissé : <strong>{% for elt in element.encaissements %}{% set mt=mt+elt.montantEncaisse %} {% endfor %}{{ mt|number_format(2, ',', '.') }}</strong> francs CFA <br>  <br>
 

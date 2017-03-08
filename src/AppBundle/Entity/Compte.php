@@ -14,11 +14,11 @@ class Compte
 {
     /**
      * @ORM\ManyToOne(targetEntity="Beneficiaire", inversedBy="comptes")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
      */
     private $beneficiaire;
     /**
-     * @ORM\OneToMany(targetEntity="Appel", mappedBy="compte")
+     * @ORM\OneToMany(targetEntity="Appel", mappedBy="compte", cascade={"remove"})
      */
     private $appels;
 

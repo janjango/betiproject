@@ -14,7 +14,7 @@ class RetenuePaie
 {
     /**
      * @ORM\ManyToOne(targetEntity="Paiement", inversedBy="retenuepaies")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
      */
     private $paiement;
 
@@ -26,18 +26,24 @@ class RetenuePaie
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateVersement", type="datetime", nullable=true, nullable=true)
+     */
+    private $dateVersement;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="tvaRetenue", type="decimal", precision=10, scale=2)
+     * @ORM\Column(name="tvaRetenue", type="decimal", precision=10, scale=2, nullable=true)
      */
     private $tvaRetenue;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="aibRetenue", type="decimal", precision=10, scale=2)
+     * @ORM\Column(name="aibRetenue", type="decimal", precision=10, scale=2, nullable=true)
      */
     private $aibRetenue;
 
@@ -58,7 +64,7 @@ class RetenuePaie
     /**
      * @var string
      *
-     * @ORM\Column(name="soldeRetenue", type="decimal", precision=10, scale=2)
+     * @ORM\Column(name="soldeRetenue", type="decimal", precision=10, scale=2, nullable=true)
      */
     private $soldeRetenue;
 
@@ -215,5 +221,29 @@ class RetenuePaie
     public function getPaiement()
     {
         return $this->paiement;
+    }
+
+    /**
+     * Set dateVersement
+     *
+     * @param \DateTime $dateVersement
+     *
+     * @return RetenuePaie
+     */
+    public function setDateVersement($dateVersement)
+    {
+        $this->dateVersement = $dateVersement;
+
+        return $this;
+    }
+
+    /**
+     * Get dateVersement
+     *
+     * @return \DateTime
+     */
+    public function getDateVersement()
+    {
+        return $this->dateVersement;
     }
 }

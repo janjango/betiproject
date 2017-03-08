@@ -2,7 +2,7 @@
 <div id="afficherencaissement">
     <br>
     <div class="info_beneficiaire  ">
-        <span>  INFORMATIONS SUR LE DOCUMENT D'APPEL DE FONDS  : </span> <br>
+        <span style="text-decoration: underline;font-weight: bold;color: #0a7a60;">  INFORMATIONS SUR LE DOCUMENT D'APPEL DE FONDS  : </span> <br>
         Référence appel émis : <strong>{{ element.appel.referenceAppel }}</strong>  |
         Date Emission : <strong>{{ element.appel.dateAppel|date('d/m/Y') }}</strong><br> <br>
 
@@ -22,7 +22,7 @@
         Nom : <strong>{% if element.appel.beneficiaire is not null %} {{ element.appel.beneficiaire.libBeneficiaire }}  {% endif %}</strong>  |
         Code : <strong>{% if element.appel.beneficiaire is not null %} {{ element.appel.beneficiaire.code }}  {% endif %}</strong> | Sigle : <strong> {{ element.appel.beneficiaire.sigle }}  </strong> <br> <br>
 
-        <span>  INFORMATIONS SUR L'ENCAISSEMENT  : </span> <br>
+        <span style="text-decoration: underline;font-weight: bold;color: #0a7a60;">  INFORMATIONS SUR L'ENCAISSEMENT  : </span> <br>
         Numéro de compte : <strong>{{ element.numeroCompte }}</strong>  |
         Date Encaissement : <strong>{{ element.dateEncaissement|date('d/m/Y') }}</strong> |
         Montant encaissé : <strong>{{ element.montantEncaisse|number_format(2, ',', '.') }}</strong>
