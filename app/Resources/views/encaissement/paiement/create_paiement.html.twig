@@ -64,7 +64,7 @@
 
         $("#appbundle_paiement_encaissement").change(function () {
             var k = $(this);
-            $("#afficherpaiement").remove();
+            $("#afficherencaissement").remove();
             $.ajax({
                 type: 'GET',
                 url: "{{ path('selectinfo_encaissement')}}",

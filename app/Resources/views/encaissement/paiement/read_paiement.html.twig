@@ -17,7 +17,7 @@
 
                 <a  href="{{ path('create_paiement')}}"  title="Ajouter" class="btn btn-xs btn-success" >
                  <i  class="fa fa-plus"></i></a>
-
+         </div>
          <div class="table-responsive">
              <table id="example-datatable" class="table table-vcenter table-condensed table-bordered">
                  <thead>
@@ -47,6 +47,8 @@
                              {% include 'encaissement/paiement/delete_paiement.html.twig'  %}
                              <a href="#modal-regular1{{ element.id }}" data-toggle="modal" title="Détails" class="btn btn-xs btn-primary"><i class="fa fa-copy"></i></a>
                              {% include 'encaissement/paiement/detail_paiement.html.twig'  %}
+                              <a href="{{ path('read_retenuepaie', {'id': element.id } )}}" data-toggle="tooltip" title="Les retenues de paiement" class="btn btn-xs btn-warning"><i class="fa fa-wrench"></i></a>
+
                          </td>
                      </tr>
                  {% endfor %}

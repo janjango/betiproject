@@ -27,12 +27,12 @@ class Appel
     private $exercice;
     /**
      * @ORM\ManyToOne(targetEntity="Compte", inversedBy="appels")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
      */
     private $compte;
     /**
      * @ORM\ManyToOne(targetEntity="Beneficiaire", inversedBy="appels")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
      */
     private $beneficiaire;
     /**
@@ -61,7 +61,7 @@ class Appel
     /**
      * @var text
      *
-     * @ORM\Column(name="observation", type="text")
+     * @ORM\Column(name="observation", type="text", nullable=true)
      */
     private $observation;
 

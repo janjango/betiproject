@@ -1,5 +1,7 @@
 <?php
+
 namespace AppBundle\Form;
+
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -8,6 +10,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use AppBundle\Repository\AppelRepository;
+
 class EncaissementType extends AbstractType
 {
     /**
@@ -27,8 +30,9 @@ class EncaissementType extends AbstractType
                     return $repository->createQueryBuilder('a')
                         ->where('a.estAnnuler = 0')
                         ->andWhere('a.estParentannuler = 0')
-                        ->andWhere('a.estSolder = 0')
-                        ->orWhere('a.estSolder is null')
+                        ->andWhere('a.estSolder = 0 or a.estSolder is null')
+                       // ->orWhere('')
+
 //                        ->setParameter(1, 'basic')
 //                        ->add('orderBy', 's.sort_order ASC')
                         ;
@@ -54,6 +58,8 @@ class EncaissementType extends AbstractType
                 'attr' =>array(
                     'class' =>'form-control'
                 )))
+
+
              ;
     }
     
@@ -66,6 +72,7 @@ class EncaissementType extends AbstractType
             'data_class' => 'AppBundle\Entity\Encaissement'
         ));
     }
+
     /**
      * {@inheritdoc}
      */
@@ -73,4 +80,6 @@ class EncaissementType extends AbstractType
     {
         return 'appbundle_encaissement';
     }
+
+
 }
