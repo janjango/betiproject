@@ -9,6 +9,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use AppBundle\Entity\Exercice;
 use AppBundle\Form\ExerciceType;
 
+/**
+ * Home controller.
+ *
+ * @Route("/appel")
+ */
 class ExerciceController extends Controller {
 
     /**
@@ -115,8 +120,28 @@ class ExerciceController extends Controller {
     {
         $exercice = $this->getDoctrine()->getManager()->getRepository('AppBundle:Exercice')
             ->find($request->get('id'));
+
         if ($request->getMethod() == 'POST'){
+
             $em = $this->getDoctrine()->getManager();
+            if ( !$exercice->getAppels()->isEmpty()){
+                $this->addFlash(
+                    'warring', "Dans cet exercice est enregistré des appels. On ne peut donc pas le supprimer !"
+                );
+                return $this->redirectToRoute('read_exercice');
+            }
+            if ( !$exercice->getEncaissements()->isEmpty()){
+                $this->addFlash(
+                    'warring', "Dans cet exercice est enregistré des encaissement. On ne peut donc pas le supprimer !"
+                );
+                return $this->redirectToRoute('read_exercice');
+            }
+            if ( !$exercice->getPaiements()->isEmpty()){
+                $this->addFlash(
+                    'warring', "Dans cet exercice est enregistré des paiements. On ne peut donc pas le supprimer !"
+                );
+                return $this->redirectToRoute('read_exercice');
+            }
             $em->remove($exercice);
             $em->flush();
             $this->addFlash(

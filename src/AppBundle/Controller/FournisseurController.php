@@ -9,6 +9,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use AppBundle\Entity\Fournisseur;
 use AppBundle\Form\FournisseurType;
 
+/**
+ * Home controller.
+ *
+ * @Route("/encaissement")
+ */
 class FournisseurController extends Controller {
 
     /**
