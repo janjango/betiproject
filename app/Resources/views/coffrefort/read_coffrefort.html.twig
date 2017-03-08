@@ -30,7 +30,7 @@
 #}
              </h2>
 
-                <a  href="{% if (exercice is not null) %}{{ path('create_coffrefort',{'exercice': exercice })}}  {% else %} {{ path('create_coffrefort',{'exercice': 1 })}}  {% endif %}"  title="Ajouter" class="btn btn-xs btn-success" >
+                <a  href="{{ path('create_coffrefort')}}"  title="Ajouter" class="btn btn-xs btn-success" >
                  <i  class="fa fa-plus"></i></a>
 
          <div class="table-responsive">
@@ -69,7 +69,7 @@
                                                  {{ element.encaissement.appel.referenceAppel }}
                                              </td>
                                              <td class="text-center">
-                                                 <a href="{{ path('update_encaissement', {'id': element.id } )}}" data-toggle="tooltip" title="Edit" class="btn btn-xs btn-default"><i class="fa fa-pencil"></i></a>
+                                                 <a href="{{ path('update_coffrefort', {'id': element.id } )}}" data-toggle="tooltip" title="Edit" class="btn btn-xs btn-default"><i class="fa fa-pencil"></i></a>
                                                  <a href="#modal-regular{{ element.id }}" data-toggle="modal" title="Delete" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></a>
                                                      {% include 'coffrefort/delete_coffrefort.html.twig'  %}
 

@@ -45,14 +45,24 @@
 
 {% block customjavascript %}
     <script>
-        
+        if($("#appbundle_coffrefort_sourceAlimaentation").val() === "encaissement"){
+                $("#appbundle_coffrefort_autreAlimaentation").parent().hide();
+                $("#appbundle_coffrefort_appel").parent().show();
+                $('#appbundle_coffrefort_encaissement').parent().show(); 
+                
+        }else{
+                $("#appbundle_coffrefort_appel").parent().hide();
+                $('#appbundle_coffrefort_encaissement').parent().hide();
+                $("#appbundle_coffrefort_autreAlimaentation").parent().show();
+        }
         $("#appbundle_coffrefort_sourceAlimaentation").change(function () {
             
-            if ($(this).val() == "encaissement") {
+            if ($(this).val() === "encaissement") {
                 $("#appbundle_coffrefort_autreAlimaentation").parent().hide();
                 $("#appbundle_coffrefort_appel").parent().show();
                 $('#appbundle_coffrefort_encaissement').parent().show();
             } else {
+                $("#afficherbeneficiaire").hide();
                 $("#appbundle_coffrefort_appel").parent().hide();
                 $('#appbundle_coffrefort_encaissement').parent().hide();
                 $("#appbundle_coffrefort_autreAlimaentation").parent().show();

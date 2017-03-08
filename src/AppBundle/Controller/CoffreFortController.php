@@ -28,30 +28,41 @@ class CoffreFortController extends Controller {
             ->findAll( Array('libExercice' => 'ASC'));
         
         if($request->get('exercice') !== null){
-            $exercice = $this->getDoctrine()
-                ->getManager()->getRepository('AppBundle:Exercice')
-                ->find($request->get('exercice'));
+            $appels = $this->getDoctrine()
+                ->getManager()->getRepository('AppBundle:Appel')
+                ->findBy(Array('exercice'=>$request->get('exercice')), Array('dateAppel' => 'DESC'));
+        
         }else{
             $exercice = $this->getDoctrine()
                 ->getManager()->getRepository('AppBundle:Exercice')
-                ->findOneBy(Array('estActif'=>true));           
-        }
-
-        
-        $appels = $this->getDoctrine()
+                ->findOneBy(Array('estActif'=>true)); 
+            $appels = $this->getDoctrine()
                 ->getManager()->getRepository('AppBundle:Appel')
                 ->findBy(Array('exercice'=>$exercice->getId()), Array('dateAppel' => 'DESC'));
-     
-        $encaissements = $this->getDoctrine()
+        }
+
+       
+        if($request->get('appel') !== null){
+            
+            $encaissements = $this->getDoctrine()
+                ->getManager()->getRepository('AppBundle:Encaissement')
+                ->findBy(Array('appel'=>$appel->getId()), Array('dateEncaissement' => 'DESC'));              
+
+        }else{
+            $encaissements = $this->getDoctrine()
                 ->getManager()->getRepository('AppBundle:Encaissement')
                 ->findAll( Array('dateEncaissement' => 'DESC'));
-
-                
-        $coffreforts = $this->getDoctrine()
+        } 
+        
+        if($request->get('encaissement') !== null){           
+            $coffreforts = $this->getDoctrine()
+                ->getManager()->getRepository('AppBundle:Coffrefort')
+                ->findBy(Array('encaissement'=>$request->get('encaissement')), Array('dateEmission' => 'DESC'));              
+        }else{
+            $coffreforts = $this->getDoctrine()
                 ->getManager()->getRepository('AppBundle:Coffrefort')
                 ->findAll( Array('dateEmission' => 'DESC'));
-
-        $solde = 0;
+        } 
         
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
         $users = $this->getDoctrine()->getManager()
@@ -63,9 +74,10 @@ class CoffreFortController extends Controller {
             'coffreforts' => $coffreforts, 
             'encaissements' => $encaissements,
             'appels' => $appels,
-            'exercice' => $request->get('exercice'),
             'exercices' => $exercices,
-            'solde' => $solde,
+            'appel' => $request->get('appel'),
+            'exercice' => $request->get('exercice'),
+            'encaissement' => $request->get('encaissement'),
             'sousMenus' => $sousMenus,
             'menus' => $menus,
         ]);
