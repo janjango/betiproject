@@ -1,0 +1,64 @@
+{% extends "home/layout.html.twig" %}
+{% block stylesheet %}
+
+{% endblock %}
+ {% block titletopmeu %}
+     <li>Appels</li>
+     <li><a href="{{ path('read_paiement')}}"> Paiements </a></li>
+     <li><a href="">Retenues paiements </a></li>
+ {% endblock %}
+ {% block content %}
+     <!-- Datatables Content -->
+     <div class="block full">
+         <div class="block-title">
+             <div class="block-options pull-right">
+                 <a href="{{ path('read_paiement')}}" class="btn btn-alt btn-sm btn-default toggle-bordered enable-tooltip" >Retour</a>
+             </div>
+             <h2>Les retenues du paiement N° : <strong> {{ paiement.id }}</strong> | TVA retenue :  {{ paiement.tvaRetenue|number_format(2, ',', '.') }}
+                 | AIB retenue :  {{ paiement.aibRetenu|number_format(2, ',', '.') }}  </h2>
+
+             <a  href="{{ path('create_retenuepaie', {'id': paiement.id}) }}"  title="Ajouter" class="btn btn-xs btn-success" >
+                 <i  class="fa fa-plus"></i></a>
+         </div>
+
+         <div class="table-responsive">
+             <table id="example-datatable" class="table table-vcenter table-condensed table-bordered">
+                 <thead>
+                 <tr>
+                     <th class="text-center ">  Date Retenue </th>
+                     <th class="text-center "> TVA Versée  </th>
+                     <th class="text-center "> TVA Restant </th>
+                     <th class="text-center "> AIB Versé </th>
+                     <th class="text-center ">  AIB Restant </th>
+                     <th class="text-center">Actions</th>
+                 </tr>
+
+                 </thead>
+                 <tbody>
+                 {% set tva=0 %}  {% set aib=0 %}
+                 {% for element in  retenuepaies %}
+                     {% set tva=tva+element.tvaAreverse %}   {% set aib=aib+element.aibAreverse %}
+                     <tr>
+                         <td class="text-center "> {{ element.dateVersement|date('d/m/Y') }} </td>
+                         <td class="text-right "> {{ element.tvaAreverse|number_format(2, ',', '.') }} </td>
+                         <td class="text-right "> {{ (paiement.tvaRetenue-tva)|number_format(2, ',', '.') }} </td>
+                         <td class="text-right  ">  {{ element.aibAreverse|number_format(2, ',', '.') }} </td>
+                         <td class="text-right ">
+                             {{ (paiement.aibRetenu-aib)|number_format(2, ',', '.') }}
+                         </td>
+                         <td class="text-center">
+                             <a href="{{ path('update_retenuepaie', {'id': element.id } )}}" data-toggle="tooltip" title="Edit" class="btn btn-xs btn-default"><i class="fa fa-pencil"></i></a>
+
+                             <a href="#modal-regular{{ element.id }}" data-toggle="modal" title="Delete" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></a>
+                             {% include 'encaissement/retenuepaie/delete_retenuepaie.html.twig'  %}
+                         </td>
+                     </tr>
+                 {% endfor %}
+                 </tbody>
+             </table>
+         </div>
+     </div>
+     <!-- END Datatables Content -->
+
+ {% endblock %}
+

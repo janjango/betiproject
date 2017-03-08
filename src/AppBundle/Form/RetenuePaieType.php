@@ -3,6 +3,8 @@
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,7 +15,27 @@ class RetenuePaieType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('tvaRetenue')->add('aibRetenue')->add('tvaAreverse')->add('aibAreverse')->add('soldeRetenue')->add('paiement')        ;
+        $builder
+            ->add('dateVersement',DateType::class, array(
+                'label' => 'Date Versement',
+                'widget' => 'single_text',
+                'input' => 'datetime',
+                'required' => true,
+                'format' => 'dd/mm/yyyy',
+                'attr' => array('class' => 'input-datepicker form-control ', 'data-date-format' => 'dd/mm/yyyy',),
+            ))
+           ->add('tvaAreverse', NumberType::class, array(
+               'label' => 'TVA Reversée',
+               'required' => false,
+               'attr' =>array(
+                   'class' =>'form-control'
+               )))
+            ->add('aibAreverse', NumberType::class, array(
+                'label' => 'AIB Reversé',
+                'required' => false,
+                'attr' =>array(
+                    'class' =>'form-control'
+                )))  ;
     }
     
     /**

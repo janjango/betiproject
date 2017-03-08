@@ -359,4 +359,28 @@ class Paiement
     {
         return $this->dateEPaiement;
     }
+
+    /**
+     * Set fournisseur
+     *
+     * @param \AppBundle\Entity\Fournisseur $fournisseur
+     *
+     * @return Paiement
+     */
+    public function setFournisseur(\AppBundle\Entity\Fournisseur $fournisseur = null)
+    {
+        $this->fournisseur = $fournisseur;
+
+        return $this;
+    }
+
+    /**
+     * Get fournisseur
+     *
+     * @return \AppBundle\Entity\Fournisseur
+     */
+    public function getFournisseur()
+    {
+        return $this->fournisseur;
+    }
 }

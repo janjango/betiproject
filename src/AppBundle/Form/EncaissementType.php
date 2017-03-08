@@ -30,8 +30,8 @@ class EncaissementType extends AbstractType
                     return $repository->createQueryBuilder('a')
                         ->where('a.estAnnuler = 0')
                         ->andWhere('a.estParentannuler = 0')
-                        ->andWhere('a.estSolder = 0')
-                        ->orWhere('a.estSolder is null')
+                        ->andWhere('a.estSolder = 0 or a.estSolder is null')
+                       // ->orWhere('')
 
 //                        ->setParameter(1, 'basic')
 //                        ->add('orderBy', 's.sort_order ASC')

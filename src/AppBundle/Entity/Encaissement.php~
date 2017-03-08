@@ -350,8 +350,17 @@ class Encaissement
         return $this->paiements;
     }
 
+    public function getMontantpaye()
+    {
+        $i=0;
+        foreach ($this->getPaiements() as $j){
+            $i += $j->getMontantTtc();
+        }
+        return $i;
+    }
+
     public function __toString() {
-        return $this->id;
+        return ''.$this->id;
     }
 
 

@@ -26,6 +26,12 @@ class RetenuePaie
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateVersement", type="datetime", nullable=true, nullable=true)
+     */
+    private $dateVersement;
 
     /**
      * @var string

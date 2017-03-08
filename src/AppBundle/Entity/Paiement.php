@@ -31,7 +31,7 @@ class Paiement
     private $encaissement;
 
     /**
-     * @ORM\OneToMany(targetEntity="RetenuePaie", mappedBy="paiement")
+     * @ORM\OneToMany(targetEntity="RetenuePaie", mappedBy="paiement", cascade={"remove"})
      */
     private $retenuepaies;
 
@@ -383,4 +383,24 @@ class Paiement
     {
         return $this->fournisseur;
     }
+
+    public function getTvaretenueversee()
+    {
+        $i=0;
+        foreach ($this->getRetenuepaies() as $j){
+            $i += $j->getTvaAreverse();
+        }
+        return $i;
+    }
+
+
+    public function getAibretenueversee()
+    {
+        $i=0;
+        foreach ($this->getRetenuepaies() as $j){
+            $i += $j->getAibAreverse();
+        }
+        return $i;
+    }
+
 }

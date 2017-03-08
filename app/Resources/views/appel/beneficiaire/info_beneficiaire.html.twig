@@ -2,13 +2,13 @@
 <div id="afficherbeneficiaire">
     <br>
 <div class="info_beneficiaire  ">
-Nom du Bénéficiaire : <strong>  {{ element.libBeneficiaire }}  </strong>
+    Code du Bénéficiaire : <strong>  {{ element.code }}  </strong> | Nom du Bénéficiaire : <strong>  {{ element.libBeneficiaire }}  </strong>
 {% if element.sigle  %} | Sigle du Bénéficiaire : <strong>     {{ element.sigle }} {% endif %}</strong>
 </div>
     <br>
 <div>
-<label class="control-label" for="compte">Comptes</label>
-<select id="compte" name="compte" class="select-chosen form-control" data-placeholder="Choose a n option" style="width: 250px; display: block;">
+<label class="control-label" for="compte">Numéro de compte Trésor</label>
+<select id="compte" name="compte" class="select-chosen form-control" data-placeholder="Choose a n option" style="width: 250px; display: block;" required="required">
     <option></option><!-- Required for data-placeholder attribute to work with Chosen plugin -->
     {% for elt in  comptes %}
          <option value="{{ elt.id }}"> {{ elt.numero }}</option>

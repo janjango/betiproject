@@ -8,13 +8,13 @@
             </div>
                 <div class="modal-body">
                     <div class="text-left">
-                        <span>  INFORMATIONS SUR LE DOCUMENT D'APPEL DE FONDS  : </span> <br>
+                        <span  style="text-decoration: underline;font-weight: bold;color: #0a7a60;">  INFORMATIONS SUR LE DOCUMENT D'APPEL DE FONDS  : </span> <br>
                         Référence appel émis : <strong>{{ element.encaissement.appel.referenceAppel }}</strong>  |
                         Date Emission : <strong>{{ element.encaissement.appel.dateAppel|date('d/m/Y') }}</strong><br>
 
-                        Structure Bénéficiaire : <br> <br>
+                        Structure Bénéficiaire : <br>
                         Nom : <strong>{% if element.encaissement.appel.beneficiaire is not null %} {{ element.encaissement.appel.beneficiaire.libBeneficiaire }}  {% endif %}</strong>  |
-                        Code : <strong>{% if element.encaissement.appel.beneficiaire is not null %} {{ element.encaissement.appel.beneficiaire.code }}  {% endif %}</strong> | Sigle : <strong> {{ element.encaissement.appel.beneficiaire.sigle }}  </strong> <br> <br>
+                        Code : <strong>{% if element.encaissement.appel.beneficiaire is not null %} {{ element.encaissement.appel.beneficiaire.code }}  {% endif %}</strong> | Sigle : <strong> {{ element.encaissement.appel.beneficiaire.sigle }}  </strong> <br>
 
                         {% if element.encaissement.appel.objetappel is not null %}  Objet : <strong>{{ element.encaissement.appel.objetappel }} </strong> |  {% endif %}
                         Montant : <strong>{{ element.encaissement.appel.montantTtc|number_format(2, ',', '.') }}</strong>  francs CFA <br>  <br>
@@ -22,20 +22,26 @@
                         {% if element.encaissement.appel.compte is not null %} Numéro du compte trésor : <strong> {{ element.encaissement.appel.compte.numero  }}  </strong>  |
                          Intitulé du compte Trésor : <strong> {{ element.encaissement.appel.compte.intitule }}  </strong> <br> <br>  {% endif %}
 
-                        <span>  INFORMATIONS SUR L'ENCAISSEMENT  : </span> <br>
+                        <span style="text-decoration: underline;font-weight: bold;color: #0a7a60;">  INFORMATIONS SUR L'ENCAISSEMENT  : </span> <br>
                         Numéro de compte : <strong>{{ element.encaissement.numeroCompte }}</strong>  |
                         Date Encaissement : <strong>{{ element.encaissement.dateEncaissement|date('d/m/Y') }}</strong> |
                         Montant encaissé : <strong>{{ element.encaissement.montantEncaisse|number_format(2, ',', '.') }}</strong><br> <br>
 
-                        <span>  INFORMATIONS SUR LE PAIEMENT  : </span> <br>
+                        <span  style="text-decoration: underline;font-weight: bold;color: #0a7a60;">  INFORMATIONS SUR LE PAIEMENT  : </span> <br>
                         Date du paiement : <strong> {{ element.dateEPaiement|date('d/m/Y') }} </strong>  |
                         Référence chèque : <strong> {{ element.refCheque }}</strong> |
-                        Référence virement : <strong> {{ element.refVirement }} </strong> <br> <br>
+                        Référence virement : <strong> {{ element.refVirement }} </strong> <br>
 
-                        Montant Hors taxe : <strong>  {{ element.montantTtc|number_format(2, ',', '.') }} </strong> |
-                        Montant TVA retenue : <strong>  {{ element.tvaRetenue|number_format(2, ',', '.') }} </strong> |
-                        Montant AIB retenue : <strong>  {{ element.aibRetenu|number_format(2, ',', '.') }} </strong> |
-                        Montant TTC : <strong>  {{ element.montantTtc|number_format(2, ',', '.') }} </strong> <br> <br>
+                        {% set tva=0 %}  {% set aib=0 %}  {% for elt in  element.retenuepaies %}
+                            {% set tva=tva+elt.tvaAreverse %}   {% set aib=aib+elt.aibAreverse %} {% endfor %}
+                        Montant Hors taxe : <strong>  {{ element.montantTtc|number_format(2, ',', '.') }} </strong> F CFA |
+                        Montant TVA retenue : <strong>  {{ element.tvaRetenue|number_format(2, ',', '.') }} </strong> F CFA ;
+                        Montant TVA versé : <strong>  {{ tva|number_format(2, ',', '.') }} </strong> F CFA ;
+                        Montant TVA restant à verser : <strong>  {{ (element.tvaRetenue-tva)|number_format(2, ',', '.') }} </strong> F CFA |
+                        Montant AIB retenue : <strong>  {{ element.aibRetenu|number_format(2, ',', '.') }} </strong> F CFA
+                        Montant AIB versé : <strong>  {{ aib|number_format(2, ',', '.') }} </strong> F CFA ;
+                        Montant AIB restant à verser : <strong>  {{ (element.aibRetenu-aib)|number_format(2, ',', '.') }} </strong> F CFA |
+                        Montant TTC : <strong>  {{ element.montantTtc|number_format(2, ',', '.') }} </strong> F CFA <br>
 
                         Fournisseur : <br>
                         Nom : <strong> {{ element.fournisseur.nom }} </strong>  |
