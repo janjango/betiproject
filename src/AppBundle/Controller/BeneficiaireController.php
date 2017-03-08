@@ -9,6 +9,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use AppBundle\Entity\Beneficiaire;
 use AppBundle\Form\BeneficiaireType;
 
+/**
+ * Home controller.
+ *
+ * @Route("/appel")
+ */
 class BeneficiaireController extends Controller {
 
     /**

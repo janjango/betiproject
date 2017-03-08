@@ -9,10 +9,15 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use AppBundle\Entity\Encaissement;
 use AppBundle\Form\EncaissementType;
 
+/**
+ * Home controller.
+ *
+ * @Route("encaissement")
+ */
 class EncaissementController extends Controller {
 
     /**
-     * @Route("/encaissement/read", name="read_encaissement")
+     * @Route("/read", name="read_encaissement")
      * @Method("GET")
      */
     public function read_encaissementAction(Request $request) {
@@ -43,7 +48,7 @@ class EncaissementController extends Controller {
     /**
      * Creates a new demand entity.
      *
-     * @Route("/encaissement/create", name="create_encaissement")
+     * @Route("/create", name="create_encaissement")
      * @Method({"GET", "POST"})
      */
     public function create_encaissementAction(Request $request)
@@ -94,7 +99,7 @@ class EncaissementController extends Controller {
     /**
      * Creates a new demand entity.
      *
-     * @Route("/encaissement/update", name="update_encaissement")
+     * @Route("/update", name="update_encaissement")
      * @Method({"GET", "POST"})
      */
     public function update_encaissementAction(Request $request)
@@ -142,7 +147,7 @@ class EncaissementController extends Controller {
     /**
      * Creates a new demand entity.
      *
-     * @Route("/encaissement/delete", name="delete_encaissement")
+     * @Route("/delete", name="delete_encaissement")
      * @Method({"GET", "POST"})
      */
     public function delete_encaissementAction(Request $request)
@@ -168,7 +173,7 @@ class EncaissementController extends Controller {
     /**
      * Creates a new demand entity.
      *
-     * @Route("/encaissement/selectinfo", name="selectinfo_encaissement")
+     * @Route("/selectinfo", name="selectinfo_encaissement")
      * @Method({"GET"})
      */
     public function selectinfo_encaissementAction(Request $request)

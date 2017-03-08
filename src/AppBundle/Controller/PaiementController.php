@@ -6,6 +6,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use AppBundle\Entity\Paiement;
 use AppBundle\Form\PaiementType;
+
+/**
+ * Home controller.
+ *
+ * @Route("/encaissement")
+ */
 class PaiementController extends Controller {
     /**
      * @Route("/paiement/read", name="read_paiement")

@@ -9,6 +9,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use AppBundle\Entity\Compte;
 use AppBundle\Form\CompteType;
 
+/**
+ * Home controller.
+ *
+ * @Route("/appel")
+ */
 class CompteController extends Controller {
 
     /**

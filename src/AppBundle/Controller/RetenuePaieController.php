@@ -9,6 +9,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use AppBundle\Entity\RetenuePaie;
 use AppBundle\Form\RetenuePaieType;
 
+/**
+ * Home controller.
+ *
+ * @Route("/encaissement")
+ */
 class RetenuePaieController extends Controller {
 
     /**

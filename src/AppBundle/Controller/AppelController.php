@@ -9,10 +9,16 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use AppBundle\Entity\Appel;
 use AppBundle\Form\AppelType;
 
+
+/**
+ * Home controller.
+ *
+ * @Route("/appel")
+ */
 class AppelController extends Controller {
 
     /**
-     * @Route("/appel/read", name="read_appel")
+     * @Route("read", name="read_appel")
      * @Method("GET")
      */
     public function read_appelAction(Request $request) {
@@ -45,7 +51,7 @@ class AppelController extends Controller {
     /**
      * Creates a new demand entity.
      *
-     * @Route("/appel/create", name="create_appel")
+     * @Route("/create", name="create_appel")
      * @Method({"GET", "POST"})
      */
     public function create_appelAction(Request $request)
@@ -92,7 +98,7 @@ class AppelController extends Controller {
     /**
      * Creates a new demand entity.
      *
-     * @Route("/appel/cancel", name="cancel_appel")
+     * @Route("/cancel", name="cancel_appel")
      * @Method({"GET", "POST"})
      */
     public function cancel_appelAction(Request $request)
@@ -140,7 +146,7 @@ class AppelController extends Controller {
     /**
      * Creates a new demand entity.
      *
-     * @Route("/appel/update", name="update_appel")
+     * @Route("/update", name="update_appel")
      * @Method({"GET", "POST"})
      */
     public function update_appelAction(Request $request)
@@ -176,7 +182,7 @@ class AppelController extends Controller {
     /**
      * Creates a new demand entity.
      *
-     * @Route("/appel/delete", name="delete_appel")
+     * @Route("/delete", name="delete_appel")
      * @Method({"GET", "POST"})
      */
     public function delete_appelAction(Request $request)
@@ -185,7 +191,7 @@ class AppelController extends Controller {
             ->find($request->get('id'));
         if ($request->getMethod() == 'POST'){
             $em = $this->getDoctrine()->getManager();
-            
+
             $em->remove($appel);
             $em->flush();
             $this->addFlash(
@@ -202,7 +208,7 @@ class AppelController extends Controller {
     /**
      * Creates a new demand entity.
      *
-     * @Route("/appel/selectinfo", name="selectinfo_appel")
+     * @Route("/selectinfo", name="selectinfo_appel")
      * @Method({"GET"})
      */
     public function selectinfo_beneficiaireAction(Request $request)
