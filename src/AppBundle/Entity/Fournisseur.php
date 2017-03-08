@@ -265,6 +265,6 @@ class Fournisseur
     }
 
     public function __toString() {
-        return $this->code;
+        return $this->nom;
     }
 }
