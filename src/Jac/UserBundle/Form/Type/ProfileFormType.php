@@ -19,6 +19,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
+use Vich\UploaderBundle\Form\Type\VichFileType;
 
 class ProfileFormType extends BaseType {
 
@@ -37,9 +38,13 @@ class ProfileFormType extends BaseType {
 
         // Ajoute le champ personnalisé aux formulaires de mise à jour du profile
         $builder
-//                ->add('plainPassword', ResettingFormType::class, array(
-//                    'required' => false,
-//                ))
+                ->add('plainPassword', RepeatedType::class, array(
+                    'type' => PasswordType::class,
+                    'options' => array('translation_domain' => 'FOSUserBundle'),
+                    'first_options' => array('label' => 'form.new_password'),
+                    'second_options' => array('label' => 'form.new_password_confirmation'),
+                    'invalid_message' => 'fos_user.password.mismatch',
+                ))
                 ->add('firstname', TextType::class, array(
                     'attr' => array(
                         'placeholder' => 'registration.firstname',
@@ -55,7 +60,11 @@ class ProfileFormType extends BaseType {
                         'placeholder' => 'registration.phone',
                     )
                 ))
-
+                ->add('imageFile', VichFileType::class, array(
+                    'required' => false,
+                    'allow_delete' => true, // not mandatory, default is true
+                    'download_link' => true, // not mandatory, default is true
+                ))
         ;
     }
 

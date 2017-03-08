@@ -2,8 +2,14 @@
 {% block content %}
     <div class="content-header content-header-media">
         <div class="header-section">
-            <img src="/bundles/app/img/placeholders/avatars/avatar2.jpg" alt="Avatar" class="pull-right img-circle">
-            <h1>{{ app.user.firstname ~" "~ app.user.lastname}}  <br><small>Life Explorer &amp; Traveller</small></h1>
+            {% if app.user.imageName %}
+                <img src="{{ user_avatars ~'/'~ app.user.imageName }}" alt="Avatar" class="pull-right img-circle">
+            {% else %}
+                <img src="/bundles/app/img/placeholders/avatars/avatar2.jpg" alt="Avatar" class="pull-right img-circle">
+            {% endif %}
+
+
+            <h1>{{ app.user.firstname ~" "~ app.user.lastname}}  <br><small> {{ app.user.service }} &amp; {{ app.user.statut }}  </small></h1>
         </div>
         <!-- For best results use an image with a resolution of 2560x248 pixels (You can also use a blurred image with ratio 10:1 - eg: 1000x100 pixels - it will adjust and look great!) -->
         <img src="/bundles/app/img/placeholders/headers/profile_header.jpg" alt="header image" class="animation-pulseSlow">
@@ -12,92 +18,95 @@
 
     <!-- User Profile Content -->
     <div class="row">
-    <h1>Modification de mon compte</h1>
+        <h1>Modification de mon compte</h1>
 
-    {{ form_start(form) }}
+        {{ form_start(form) }}
         <fieldset>
             <legend>{{ "registration.legend.1" | trans({}, 'FOSUserBundle') }}</legend>
 
             {#{{ form_errors(form) }}   #}
-            
-                <div class="form-group col-sm-3">
-                    {{ form_label(form.username, label|default("Nom d'utilisateur"|trans), { 'label_attr': { 'class': '' } }) }}
-                </div>
-                <div class="form-group col-sm-9">
-                    {{ form_widget(form.username, {'attr' : {'class' : 'form-control', 'placeholder' : 'registration.name'| trans({}, 'FOSUserBundle'), 'readonly' : 'readonly'}}) }}
-                    {{ form_errors(form.username) }}
-                </div>
-                <div class="form-group col-sm-3">
-                    {{ form_label(form.email, label|default('Email'|trans), { 'label_attr': { 'class': '' } }) }}
-                </div>
-                <div class="form-group col-sm-9">
-                    {{ form_widget(form.email, {'attr' : {'class' : 'form-control', 'placeholder' : 'registration.form_email'|trans({}, 'FOSUserBundle'), 'readonly' : 'readonly'}}) }}
-                    {{ form_errors(form.email) }}
-                </div>
-                <div class="form-group col-sm-3">
-                    {{ form_label(form.current_password, label|default('Mot de passe actuel'|trans), { 'label_attr': { 'class': '' } }) }}
-                </div>
-                 <div class="form-group col-sm-9">
-                    {{ form_widget(form.current_password, {'attr' : {'class' : 'form-control', 'placeholder' : 'Mot de passe actuel'|trans}}) }}
-                    {{ form_errors(form.current_password) }}
-                </div>
-                {#
-                <div class="form-group col-sm-3">
-                    {{ form_label(form.plainPassword.plainPassword.first, label|default('Nouveau mot de passe'|trans), { 'label_attr': { 'class': '' } }) }}
-                </div>          
-                <div class="form-group col-sm-9">
-                    {{ form_widget(form.plainPassword.plainPassword.first, {'attr' : {'class' : 'form-control', 'placeholder' : 'Nouveau mot de passe'|trans}}) }}
-                    {{ form_errors(form.plainPassword.plainPassword.first) }}
-                </div>
-                <div class="form-group col-sm-3">
-                    {{ form_label(form.plainPassword.plainPassword.second, label|default('Confirmation nouveau mot de passe'|trans), { 'label_attr': { 'class': '' } }) }}
-                </div>
-                <div class="form-group col-sm-9">
-                    {{ form_widget(form.plainPassword.plainPassword.second, {'attr' : {'class' : 'form-control', 'placeholder' : 'Confirmation nouveau mot de passe'|trans}}) }}
-                    {{ form_errors(form.plainPassword.plainPassword.second) }}
-                </div>
-                #}
-            <legend>{{ "registration.legend.2" | trans({}, 'FOSUserBundle') }}</legend>
-                 <div class="form-group col-sm-3">
-                    {{ form_label(form.firstname, label|default('registration.firstname'|trans({}, 'FOSUserBundle')), { 'label_attr': { 'class': '' } }) }}
-                </div>  
-                <div class="form-group col-sm-9">
-                    {{ form_widget(form.firstname, {'attr' : {'class' : 'form-control' , 'placeholder' : 'registration.firstname'|trans({}, 'FOSUserBundle')}}) }}
-                    {{ form_errors(form.firstname) }}
-                </div>
-                <div class="form-group col-sm-3">
-                    {{ form_label(form.firstname, label|default('registration.lastname'|trans({}, 'FOSUserBundle')), { 'label_attr': { 'class': '' } }) }}
-                </div>  
-                <div class="form-group col-sm-9">
-                    {{ form_widget(form.lastname, {'attr' : {'class' : 'form-control', 'placeholder' : 'registration.lastname'|trans({}, 'FOSUserBundle')}}) }}
-                    {{ form_errors(form.lastname) }}
-                </div> 
-            
-                <div class="form-group col-sm-3 ">
-                    {{ form_label(form.phone, label|default('Téléphone'|trans), { 'label_attr': { 'class': '' } }) }}
-                </div>
-                <div class="form-group col-sm-9 ">
-                    <div class="input-group">
-                        {{ form_widget(form.phone, {'attr' : {'class' : 'form-control', 'placeholder' : 'registration.phone'|trans}}) }}
-                    </div>
-                    {{ form_errors(form.phone) }}
-                </div>
 
-            {% if(form.adresse is defined) %}
-                <div class="form-group col-sm-3">
-                    {{ form_label(form.adresse, label|default('Adresse Entreprise'|trans), { 'label_attr': { 'class': '' } }) }}
+            <div class="form-group col-sm-3">
+                {{ form_label(form.username, label|default("Nom d'utilisateur"|trans), { 'label_attr': { 'class': '' } }) }}
+            </div>
+            <div class="form-group col-sm-9">
+                {{ form_widget(form.username, {'attr' : {'class' : 'form-control', 'placeholder' : 'registration.name'| trans({}, 'FOSUserBundle'), 'readonly': ''}}) }}
+                {{ form_errors(form.username) }}
+            </div>
+            <div class="form-group col-sm-3">
+                {{ form_label(form.email, label|default('Email'|trans), { 'label_attr': { 'class': '' } }) }}
+            </div>
+            <div class="form-group col-sm-9">
+                {{ form_widget(form.email, {'attr' : {'class' : 'form-control', 'placeholder' : 'registration.form_email'|trans({}, 'FOSUserBundle'), 'readonly': ''}}) }}
+                {{ form_errors(form.email) }}
+            </div>
+            <div class="form-group col-sm-3">
+                {{ form_label(form.current_password, label|default('Mot de passe actuel'|trans), { 'label_attr': { 'class': '' } }) }}
+            </div>
+            <div class="form-group col-sm-9">
+                {{ form_widget(form.current_password, {'attr' : {'class' : 'form-control', 'placeholder' : 'Mot de passe actuel'|trans}}) }}
+                {{ form_errors(form.current_password) }}
+            </div>
+
+            <div class="form-group col-sm-3">
+                {{ form_label(form.plainPassword.first, label|default('Nouveau mot de passe'|trans), { 'label_attr': { 'class': '' } }) }}
+            </div>
+            <div class="form-group col-sm-9">
+                {{ form_widget(form.plainPassword.first, {'attr' : {'class' : 'form-control', 'placeholder' : 'Nouveau mot de passe'|trans}}) }}
+                {{ form_errors(form.plainPassword.first) }}
+            </div>
+            <div class="form-group col-sm-3">
+                {{ form_label(form.plainPassword.second, label|default('Confirmation nouveau mot de passe'|trans), { 'label_attr': { 'class': '' } }) }}
+            </div>
+            <div class="form-group col-sm-9">
+                {{ form_widget(form.plainPassword.second, {'attr' : {'class' : 'form-control', 'placeholder' : 'Confirmation nouveau mot de passe'|trans}}) }}
+                {{ form_errors(form.plainPassword.second) }}
+            </div>
+
+            <legend>{{ "registration.legend.2" | trans({}, 'FOSUserBundle') }}</legend>
+            <div class="form-group col-sm-3">
+                {{ form_label(form.firstname, label|default('registration.firstname'|trans({}, 'FOSUserBundle')), { 'label_attr': { 'class': '' } }) }}
+            </div>
+            <div class="form-group col-sm-9">
+                {{ form_widget(form.firstname, {'attr' : {'class' : 'form-control' , 'placeholder' : 'registration.firstname'|trans({}, 'FOSUserBundle'), 'readonly': ''}}) }}
+                {{ form_errors(form.firstname) }}
+            </div>
+            <div class="form-group col-sm-3">
+                {{ form_label(form.firstname, label|default('registration.lastname'|trans({}, 'FOSUserBundle')), { 'label_attr': { 'class': '' } }) }}
+            </div>
+            <div class="form-group col-sm-9">
+                {{ form_widget(form.lastname, {'attr' : {'class' : 'form-control', 'placeholder' : 'registration.lastname'|trans({}, 'FOSUserBundle'), 'readonly': ''}}) }}
+                {{ form_errors(form.lastname) }}
+            </div>
+
+            <div class="form-group col-sm-3 ">
+                {{ form_label(form.phone, label|default('Téléphone'|trans), { 'label_attr': { 'class': '' } }) }}
+            </div>
+            <div class="form-group col-sm-9 ">
+                <div class="input-group">
+                    {{ form_widget(form.phone, {'attr' : {'class' : 'form-control', 'placeholder' : 'registration.phone'|trans,  'readonly': ''}}) }}
                 </div>
-                <div class="form-group col-sm-9">
-                    {{ form_widget(form.adresse, {'attr' : {'class' : 'form-control', 'placeholder' : 'registration.adresse'|trans}}) }}
-                    {{ form_errors(form.adresse) }}
-                </div>
-            {% endif %}
+                {{ form_errors(form.phone) }}
+            </div>
+
+            <div class="form-group col-sm-3">
+                {{ form_label(form.imageFile, label|default('Image profile'|trans), { 'label_attr': { 'class': '' } }) }}
+            </div>
+            <div class="form-group col-sm-9">
+                {{ form_widget(form.imageFile, {'attr' : {'class' : ''}} ) }}
+                {{ form_errors(form.imageFile) }}
+            </div>
             {{ form_rest(form) }}
         </fieldset>
-    <button class="btn btn-primary btn-xs round-xl form-el-offset-1" type="submit">Modifier</button>
-    {{ form_end(form) }}
+        <button class="btn btn-primary btn-xs round-xl form-el-offset-1" type="submit">Modifier</button>
+        {{ form_end(form) }}
 
     </div>
     <!-- END User Profile Content -->
 
+{% endblock %}
+{% block customjavascript %}
+    <script>
+        $('#jac_user_profile_imageFile label').hide();
+    </script>
 {% endblock %}

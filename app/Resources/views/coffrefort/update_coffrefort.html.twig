@@ -1,0 +1,112 @@
+{% extends "home/layout.html.twig" %}
+{% block stylesheet %}
+
+{% endblock %}
+ {% block titletopmeu %}
+     <li>Coffrefort</li>
+     <li><a href="{{ path('read_coffrefort',{'exercice': exercice})}}">Coffrefort</a></li>
+     <li><a href="{{ path('update_coffrefort',{'id': id,'exercice': exercice } )}}">Modification</a></li>
+ {% endblock %}
+ {% block content %}
+
+<div class="row">
+    <div class="block">
+         <!-- Normal Form Title -->
+         <div class="block-title">
+             <div class="block-options pull-right">
+                 <a href="{{ path('read_coffrefort',{'exercice': exercice})}}" class="btn btn-alt btn-sm btn-default toggle-bordered enable-tooltip" >Retour</a>
+             </div>
+             <h2><strong>Modifier Coffrefort</strong> </h2>
+
+         </div>
+         <!-- END Normal Form Title -->
+
+         <!-- Normal Form Content -->
+         <form action="{{ path('update_coffrefort',{'id': id } )}}" method="post" class="form-bordered">
+
+             <div class="form-group">
+                 {{ form_widget(form) }}
+                 {{ form_rest(form) }}
+             </div>
+             <div class="form-group form-actions">
+                 <button type="submit" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i> Modifier</button>
+                 <button type="reset" class="btn btn-sm btn-default"><i class="fa fa-repeat"></i> Annuler</button>
+             </div>
+         </form>
+         <!-- END Normal Form Content -->
+     </div>
+ {% endblock %}
+{% block customjavascript %}
+    <script>
+        if($("#appbundle_coffrefort_sourceAlimaentation").val() === "encaissement"){
+                $("#appbundle_coffrefort_autreAlimaentation").parent().hide();
+                $("#appbundle_coffrefort_appel").parent().show();
+                $('#appbundle_coffrefort_encaissement').parent().show();   
+        }else{
+                $("#appbundle_coffrefort_appel").parent().hide();
+                $('#appbundle_coffrefort_encaissement').parent().hide();
+                $("#appbundle_coffrefort_autreAlimaentation").parent().show();
+        }
+        $("#appbundle_coffrefort_sourceAlimaentation").change(function () {
+            
+            if ($(this).val() === "encaissement") {
+                $("#appbundle_coffrefort_autreAlimaentation").parent().hide();
+                $("#appbundle_coffrefort_appel").parent().show();
+                $('#appbundle_coffrefort_encaissement').parent().show();
+            } else {
+                $("#afficherbeneficiaire").hide();
+                $("#appbundle_coffrefort_appel").parent().hide();
+                $('#appbundle_coffrefort_encaissement').parent().hide();
+                $("#appbundle_coffrefort_autreAlimaentation").parent().show();
+            }
+            
+        });
+
+
+        $("#appbundle_coffrefort_appel").change(function () {
+            var data = {
+                appel_id: $(this).val()
+            };
+            //$('form').spin();
+            //info appel
+            var k = $(this);
+            $("#afficherbeneficiaire").remove();
+            $.ajax({
+                type: 'GET',
+                url: "{{ path('selectinfo_appel')}}",
+                cache: false,
+                data: 'id=' + k.val(),
+                success: function (data) {
+                    // alert(data);
+                    k.parent().after(data);
+                    // location.reload();
+                },
+                error: function () {
+                }
+            });
+
+            // select encaissement
+            $.ajax({
+                type: 'post',
+                url: "{{ path('coffre_select_encaissemnts') }}",
+                data: data
+            }).done(function (data) {
+                var $encaissements_selector = $('#appbundle_coffrefort_encaissement'),
+                        encaissements = data;
+                console.log(data);
+                $encaissements_selector.html('<option>Choississez un encaissement</option>');
+                $("#appbundle_coffrefort_encaissement_chosen").hide();
+                $("#appbundle_coffrefort_encaissement").show();
+                for (var i = 0, total = encaissements.length; i < total; i++) {
+                    console.log(encaissements[i].id);
+                    $encaissements_selector.append('<option value="' + encaissements[i].id + '">' + 'Encaissement N° ' + encaissements[i].id + ', Montant: ' + encaissements[i].montantEncaisse + '</option>');
+                }
+
+            }).fail(function () {
+                alert("error");
+            }).always(function () {
+                //$('form').find('.spinner').hide()
+            });
+        });
+    </script>
+{% endblock %}

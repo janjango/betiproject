@@ -67,17 +67,18 @@
                         <!-- User Info -->
                         <div class="sidebar-section sidebar-user clearfix sidebar-nav-mini-hide">
                             <div class="sidebar-user-avatar">
-                                <a href="page_ready_user_profile.html">
-                                    <img src="/bundles/app/img/placeholders/avatars/avatar2.jpg" alt="avatar">
+                                <a href="{{ path('home_user_profile') }}">
+                                    {% if app.user.imageName %}
+                                        <img src="{{ user_avatars ~'/'~ app.user.imageName }}" alt="Avatar" class="pull-right img-circle">
+                                    {% else %}
+                                        <img src="/bundles/app/img/placeholders/avatars/avatar2.jpg" alt="Avatar" class="pull-right img-circle">
+                                    {% endif %}
                                 </a>
                             </div>
-                            <div class="sidebar-user-name">Bienvenu {{app.user}}</div>
+                            <div class="sidebar-user-name">Bienvenue {{app.user}}</div>
                             <div class="sidebar-user-links">
-                                <a href="page_ready_user_profile.html" data-toggle="tooltip" data-placement="bottom" title="Profile"><i class="gi gi-user"></i></a>
-                                <a href="page_ready_inbox.html" data-toggle="tooltip" data-placement="bottom" title="Messages"><i class="gi gi-envelope"></i></a>
-                                <!-- Opens the user settings modal that can be found at the bottom of each page (page_footer.html in PHP version) -->
-                                <a href="javascript:void(0)" class="enable-tooltip" data-placement="bottom" title="Settings" onclick="$('#modal-user-settings').modal('show');"><i class="gi gi-cogwheel"></i></a>
-                                <a href="login.html" data-toggle="tooltip" data-placement="bottom" title="Logout"><i class="gi gi-exit"></i></a>
+                                <a href="{{ path('home_user_profile') }}" data-toggle="tooltip" data-placement="bottom" title="Profile"><i class="gi gi-user"></i></a>
+                                <a href="{{ path('fos_user_security_logout') }}" data-toggle="tooltip" data-placement="bottom" title="Déconnexion"><i class="gi gi-exit"></i></a>
                             </div>
                         </div>
                         <!-- END User Info -->
@@ -88,7 +89,7 @@
 
                         <ul class="sidebar-nav">
                             {% if (menus is defined) %}
-                                {% for menu in menus %}     
+                                {% for menu in menus %}
                                     <li>
 
                                         <a href="#" class="sidebar-nav-menu">
@@ -96,18 +97,18 @@
                                             <i class="{{ menu.fontIconClass }} sidebar-nav-icon"></i>
                                             <span class="sidebar-nav-mini-hide">{{ menu.libelle }}</span></a>
                                         <ul>
-                                            {% for sousMenu in sousMenus %}    
+                                            {% for sousMenu in sousMenus %}
                                                 {% if  sousMenu.menu.id == menu.id %}
                                                     <a href="{{ path(sousMenu.routeName) }}">{{ sousMenu.libelle }}</a>
-                                                {% endif %}    
-                                            {% endfor %} 
+                                                {% endif %}
+                                            {% endfor %}
                                         </ul>
                                     </li>
                                 {% endfor %}
 
                             {% endif %}
                         </ul>
-                        <!-- END Sidebar Navigation -->                            
+                        <!-- END Sidebar Navigation -->
                     </div>
                     <!-- END Sidebar Content -->
                 </div>
@@ -141,28 +142,33 @@
                                 <i class="fa fa-bars fa-fw"></i>
                             </a>
                         </li>
-                        <!-- END Main Sidebar Toggle Button -->                            
+                        <!-- END Main Sidebar Toggle Button -->
                     </ul>
                     <!-- END Left Header Navigation -->
 
 
 
                     <!-- Right Header Navigation -->
-                    <ul class="nav navbar-nav-custom pull-right">                       
+                    <ul class="nav navbar-nav-custom pull-right">
 
                         <!-- User Dropdown -->
                         <li class="dropdown">
                             <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
-                                <img src="/bundles/app/img/placeholders/avatars/avatar2.jpg" alt="avatar"> <i class="fa fa-angle-down"></i>
+                                {% if app.user.imageName %}
+                                    <img src="{{ user_avatars ~'/'~ app.user.imageName }}" alt="Avatar" class="pull-right img-circle">
+                                {% else %}
+                                    <img src="/bundles/app/img/placeholders/avatars/avatar2.jpg" alt="Avatar" class="pull-right img-circle">
+                                {% endif %}
+                                <i class="fa fa-angle-down"></i>
                             </a>
                             <ul class="dropdown-menu dropdown-custom dropdown-menu-right">
-                                <li class="dropdown-header text-center">Mon Compte</li>                                    
+                                <li class="dropdown-header text-center">Mon Compte</li>
                                 <li class="divider"></li>
                                 <li>
                                     <a href="{{ path('home_user_profile') }}">
                                         <i class="fa fa-user fa-fw pull-right"></i>
                                         Modification
-                                    </a>                                        
+                                    </a>
                                 </li>
                                 <li class="divider"></li>
                                 <li>
@@ -184,8 +190,8 @@
                         {% endblock %}
                     </ul>
                     {% for flash_message in app.session.flashBag.get('success') %}
-                    <div class=" flash-notice alert alert-success alert-dismissable">
-                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <div class=" flash-notice alert alert-success alert-dismissable">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                             {{ flash_message }}
                         </div>
                     {% endfor %}
@@ -203,7 +209,7 @@
                     {% endfor %}
                     {% block content %}
 
-                    {% endblock %} 
+                    {% endblock %}
                 </div>
                 <!-- END Page Content -->
 

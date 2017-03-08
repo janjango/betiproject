@@ -1,45 +1,35 @@
 <?php
-
 namespace AppBundle\Controller;
-
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use AppBundle\Entity\Paiement;
 use AppBundle\Form\PaiementType;
-
 class PaiementController extends Controller {
-
     /**
      * @Route("/paiement/read", name="read_paiement")
      * @Method("GET")
      */
     public function read_paiementAction(Request $request) {
         // replace this example code with whatever you need
-
         $exercice= $this->getDoctrine()
             ->getManager()->getRepository('AppBundle:Exercice')
             ->findOneBy(Array('estActif'=>true));
-
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
         $users = $this->getDoctrine()->getManager()
             ->getRepository('Jac\UserBundle\Entity\User');
         $menus = $users->getMenus($user->getId());
         $sousMenus = $users->getSousMenus($user->getId());
-
         $paiements= $this->getDoctrine()
             ->getManager()->getRepository('AppBundle:Paiement')
             ->findBy(Array('exercice'=>$exercice->getId()),Array('id'=>'ASC'));
-
         return $this->render('encaissement/paiement/read_paiement.html.twig', [
             'paiements' => $paiements,'exercice'=>$exercice,
             'sousMenus' => $sousMenus,
             'menus' => $menus
         ]);
-
     }
-
     /**
      * Creates a new demand entity.
      *
@@ -77,11 +67,9 @@ class PaiementController extends Controller {
 //            }
             $em->persist($paiement);
             $em->flush();
-
             $this->addFlash(
                 'success', "Enregistrement effectué avec succès !"
             );
-
             return $this->redirectToRoute('create_paiement');
         }
         return $this->render('encaissement/paiement/create_paiement.html.twig', [
@@ -90,7 +78,6 @@ class PaiementController extends Controller {
             'menus' => $menus
         ]);
     }
-
     /**
      * Creates a new demand entity.
      *
@@ -129,7 +116,6 @@ class PaiementController extends Controller {
             $this->addFlash(
                 'warning', "Modification effectué avec succès !"
             );
-
             return $this->redirectToRoute('read_paiement');
         }
         return $this->render('encaissement/paiement/update_paiement.html.twig', [
@@ -138,7 +124,6 @@ class PaiementController extends Controller {
             'menus' => $menus
         ]);
     }
-
     /**
      * Creates a new demand entity.
      *
@@ -157,12 +142,10 @@ class PaiementController extends Controller {
             $this->addFlash(
                 'danger', "Suppression effectué avec succès !"
             );
-
             return $this->redirectToRoute('read_paiement');
         }
         return $this->render('encaissement/paiement/delete_paiement.html.twig', [
            'id'   => $request->get('id')
         ]);
     }
-
 }

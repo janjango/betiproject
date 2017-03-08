@@ -12,7 +12,7 @@ class FixturesUser extends AbstractFixture implements OrderedFixtureInterface {
     public function load(ObjectManager $em) {
         //  Create  user1
         $user1 = new User();
-        $user1->setUsername('admin');
+        $user1->setUsername('uadmin');
         $user1->setEnabled(true);
         $user1->setEmail('example@gmail.com');
         $user1->setPlainPassword('adminpass');

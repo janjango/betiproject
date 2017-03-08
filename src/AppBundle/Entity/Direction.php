@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  *
  * @ORM\Entity(repositoryClass="AppBundle\Repository\DirectionRepository")
- * @ORM\Table("Direction")
+ * @ORM\Table("direction")
  * @ORM\HasLifecycleCallbacks()
  */
 class Direction {
@@ -39,8 +39,7 @@ class Direction {
     /**
      * Constructor
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->services = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -49,8 +48,7 @@ class Direction {
      *
      * @return integer
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -61,8 +59,7 @@ class Direction {
      *
      * @return Direction
      */
-    public function setLibelle($libelle)
-    {
+    public function setLibelle($libelle) {
         $this->libelle = $libelle;
 
         return $this;
@@ -73,8 +70,7 @@ class Direction {
      *
      * @return string
      */
-    public function getLibelle()
-    {
+    public function getLibelle() {
         return $this->libelle;
     }
 
@@ -85,8 +81,7 @@ class Direction {
      *
      * @return Direction
      */
-    public function addService(\AppBundle\Entity\Service $service)
-    {
+    public function addService(\AppBundle\Entity\Service $service) {
         $this->services[] = $service;
 
         return $this;
@@ -97,8 +92,7 @@ class Direction {
      *
      * @param \AppBundle\Entity\Service $service
      */
-    public function removeService(\AppBundle\Entity\Service $service)
-    {
+    public function removeService(\AppBundle\Entity\Service $service) {
         $this->services->removeElement($service);
     }
 
@@ -107,12 +101,12 @@ class Direction {
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getServices()
-    {
+    public function getServices() {
         return $this->services;
     }
-    
-    public function __toString(){
+
+    public function __toString() {
         return $this->getLibelle();
     }
+
 }

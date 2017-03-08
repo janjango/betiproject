@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  *
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ServiceRepository")
- * @ORM\Table("Service")
+ * @ORM\Table("service")
  * @ORM\HasLifecycleCallbacks()
  */
 class Service {
@@ -40,14 +40,13 @@ class Service {
      * @ORM\OneToMany(targetEntity="Jac\UserBundle\Entity\User", mappedBy="service")
      */
     private $users;
-    
+
     /**
      * Get id
      *
      * @return integer
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -58,8 +57,7 @@ class Service {
      *
      * @return Service
      */
-    public function setLibelle($libelle)
-    {
+    public function setLibelle($libelle) {
         $this->libelle = $libelle;
 
         return $this;
@@ -70,8 +68,7 @@ class Service {
      *
      * @return string
      */
-    public function getLibelle()
-    {
+    public function getLibelle() {
         return $this->libelle;
     }
 
@@ -82,8 +79,7 @@ class Service {
      *
      * @return Service
      */
-    public function setDirection(\AppBundle\Entity\Direction $direction = null)
-    {
+    public function setDirection(\AppBundle\Entity\Direction $direction = null) {
         $this->direction = $direction;
 
         return $this;
@@ -94,15 +90,14 @@ class Service {
      *
      * @return \AppBundle\Entity\Direction
      */
-    public function getDirection()
-    {
+    public function getDirection() {
         return $this->direction;
     }
+
     /**
      * Constructor
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->users = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -113,8 +108,7 @@ class Service {
      *
      * @return Service
      */
-    public function addUser(\Jac\UserBundle\Entity\User $user)
-    {
+    public function addUser(\Jac\UserBundle\Entity\User $user) {
         $this->users[] = $user;
 
         return $this;
@@ -125,8 +119,7 @@ class Service {
      *
      * @param \Jac\UserBundle\Entity\User $user
      */
-    public function removeUser(\Jac\UserBundle\Entity\User $user)
-    {
+    public function removeUser(\Jac\UserBundle\Entity\User $user) {
         $this->users->removeElement($user);
     }
 
@@ -135,12 +128,12 @@ class Service {
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getUsers()
-    {
+    public function getUsers() {
         return $this->users;
     }
-    
-    public function __toString(){
+
+    public function __toString() {
         return $this->getLibelle();
     }
+
 }

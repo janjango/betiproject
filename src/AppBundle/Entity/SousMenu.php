@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  *
  * @ORM\Entity(repositoryClass="AppBundle\Repository\SousMenuRepository")
- * @ORM\Table("SousMenu")
+ * @ORM\Table("sousmenu")
  * @ORM\HasLifecycleCallbacks()
  */
 class SousMenu {
@@ -47,11 +47,11 @@ class SousMenu {
      * @ORM\OneToMany(targetEntity="Privilege", mappedBy="sousMenu")
      */
     private $privileges;
+
     /**
      * Constructor
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->privileges = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -60,8 +60,7 @@ class SousMenu {
      *
      * @return integer
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -72,8 +71,7 @@ class SousMenu {
      *
      * @return SousMenu
      */
-    public function setLibelle($libelle)
-    {
+    public function setLibelle($libelle) {
         $this->libelle = $libelle;
 
         return $this;
@@ -84,8 +82,7 @@ class SousMenu {
      *
      * @return string
      */
-    public function getLibelle()
-    {
+    public function getLibelle() {
         return $this->libelle;
     }
 
@@ -96,8 +93,7 @@ class SousMenu {
      *
      * @return SousMenu
      */
-    public function setMenu(\AppBundle\Entity\Menu $menu = null)
-    {
+    public function setMenu(\AppBundle\Entity\Menu $menu = null) {
         $this->menu = $menu;
 
         return $this;
@@ -108,8 +104,7 @@ class SousMenu {
      *
      * @return \AppBundle\Entity\Menu
      */
-    public function getMenu()
-    {
+    public function getMenu() {
         return $this->menu;
     }
 
@@ -120,8 +115,7 @@ class SousMenu {
      *
      * @return SousMenu
      */
-    public function addPrivilege(\AppBundle\Entity\Privilege $privilege)
-    {
+    public function addPrivilege(\AppBundle\Entity\Privilege $privilege) {
         $this->privileges[] = $privilege;
 
         return $this;
@@ -132,8 +126,7 @@ class SousMenu {
      *
      * @param \AppBundle\Entity\Privilege $privilege
      */
-    public function removePrivilege(\AppBundle\Entity\Privilege $privilege)
-    {
+    public function removePrivilege(\AppBundle\Entity\Privilege $privilege) {
         $this->privileges->removeElement($privilege);
     }
 
@@ -142,12 +135,11 @@ class SousMenu {
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getPrivileges()
-    {
+    public function getPrivileges() {
         return $this->privileges;
     }
-    
-    public function __toString(){
+
+    public function __toString() {
         return $this->getLibelle();
     }
 
@@ -158,8 +150,7 @@ class SousMenu {
      *
      * @return SousMenu
      */
-    public function setRouteName($routeName)
-    {
+    public function setRouteName($routeName) {
         $this->routeName = $routeName;
 
         return $this;
@@ -170,8 +161,7 @@ class SousMenu {
      *
      * @return string
      */
-    public function getRouteName()
-    {
+    public function getRouteName() {
         return $this->routeName;
     }
 

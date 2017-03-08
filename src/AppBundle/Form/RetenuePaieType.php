@@ -1,13 +1,10 @@
 <?php
-
 namespace AppBundle\Form;
-
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
 class RetenuePaieType extends AbstractType
 {
     /**
@@ -47,7 +44,6 @@ class RetenuePaieType extends AbstractType
             'data_class' => 'AppBundle\Entity\RetenuePaie'
         ));
     }
-
     /**
      * {@inheritdoc}
      */
@@ -55,6 +51,4 @@ class RetenuePaieType extends AbstractType
     {
         return 'appbundle_retenuepaie';
     }
-
-
 }

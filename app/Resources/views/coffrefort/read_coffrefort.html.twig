@@ -1,0 +1,109 @@
+{% extends "home/layout.html.twig" %}
+{% block stylesheet %}
+
+{% endblock %}
+ {% block titletopmeu %}
+    <li>Coffrefort</li>
+    <li><a href="{% if (exercice is not null) %}{{ path('read_coffrefort',{'exercice': exercice})}}  {% else %} {{ path('read_coffrefort',{'exercice': 1})}} {% endif %}">Coffrefort</a></li>
+{% endblock %}
+{% block content %}
+     <!-- Datatables Content -->
+     <div class="block full">
+         <div class="block-title">
+
+             <h2>
+                 <strong> Coffrefort  </strong>
+
+                 <select id="getExo" name="getExo" class="select-chosen ">
+                  <option value="">Exercice</option>
+                     {% for elt in  exercices %}
+                         <option value="{{ elt.id }}"  {% if elt.id==exercice %} selected="true" {% endif %}>{{ elt.libExercice }}</option>
+                     {% endfor %}
+                 </select>
+{#                 
+                 <select id="getAppel" name="getAppel" class="select-chosen ">
+                  <option value="">Appel</option>
+                     {% for elt in  appels %}
+                         <option value="{{ elt.id }}" >{{ elt.referenceAppel }}</option>
+                     {% endfor %}
+                 </select>
+#}
+             </h2>
+
+                <a  href="{{ path('create_coffrefort')}}"  title="Ajouter" class="btn btn-xs btn-success" >
+                 <i  class="fa fa-plus"></i></a>
+
+         <div class="table-responsive">
+             <table id="example-datatable" class="table table-vcenter table-condensed table-bordered">
+                 <thead>
+                 <tr>
+                 <th class="text-center hide"> </th>
+                     <th class="text-center "> Date Emmision</th>
+                     <th class="text-center "> Référence Cheque</th>
+                     <th class="text-center "> Montant Retiré </th>
+                     <th class="text-center "> Référence Encaissement</th>
+                     <th class="text-center "> Référence Appel</th>
+                     
+                     <th class="text-center">  Actions</th>
+                 </tr>
+
+                 </thead>
+                 <tbody>
+                     {% for appel in  appels %} 
+                         {% for encaissement in  encaissements %}
+                             {% if encaissement.appel.id == appel.id  %}
+                                 {% for element in  coffreforts %}
+
+                                     {% if element.encaissement.id == encaissement.id  %}
+                                         <tr>
+                                             <td class="text-left hide">  </td>
+                                             <td class="text-center"> {{ element.dateEmission|date('d/m/Y') }} </td>
+                                             <td class="text-left">{{ element.refCheque }} </td>
+                                             <td class="text-right ">
+                                                 {{ element.montantRetire|number_format(2, ',', '.') }}
+                                             </td>
+                                             <td class="text-right ">
+                                                 {{ element.encaissement }}
+                                             </td>
+                                             <td class="text-right ">
+                                                 {{ element.encaissement.appel.referenceAppel }}
+                                             </td>
+                                             <td class="text-center">
+                                                 <a href="{{ path('update_coffrefort', {'id': element.id } )}}" data-toggle="tooltip" title="Edit" class="btn btn-xs btn-default"><i class="fa fa-pencil"></i></a>
+                                                 <a href="#modal-regular{{ element.id }}" data-toggle="modal" title="Delete" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></a>
+                                                     {% include 'coffrefort/delete_coffrefort.html.twig'  %}
+
+                                             </td>
+                                         </tr>
+                                     {%endif%}
+
+                                 {% endfor %}
+
+                             {% endif %}
+                         {% endfor%}
+                     {% endfor %}
+                 </tbody>
+             </table>
+         </div>
+     </div>
+     <!-- END Datatables Content -->
+
+ {% endblock %}
+
+ {% block customjavascript %}
+     <script>
+         $('#getExo').change(function () {
+             if ($('#getExo').val() === "")
+             {
+
+             }
+             else
+             {
+                 // alert('route de la liste des estdirecteurtechniques de la structure '+$(this).val());
+                 var url = '{{ path("read_coffrefort",{ 'exercice':  'exo', }) }}';
+                 url = url.replace("exo", $(this).val() === "" ? 0 : $(this).val());
+                 location.href = "" + url + "";
+             }
+         });
+     </script>
+ {% endblock customjavascript %}
