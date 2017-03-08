@@ -2,30 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c583bd1b-a9ff-45fe-845d-d6c444980d49" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/Resources/views/encaissement/retenuepaie/create_retenuepaie.html.twig" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/Resources/views/encaissement/retenuepaie/delete_retenuepaie.html.twig" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/Resources/views/encaissement/retenuepaie/read_retenuepaie.html.twig" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/Resources/views/encaissement/retenuepaie/update_retenuepaie.html.twig" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/RetenuePaieController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/appel/appel/detail_appel.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/appel/appel/detail_appel.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/appel/beneficiaire/info_beneficiaire.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/appel/beneficiaire/info_beneficiaire.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/encaissement/encaissement/delete_encaissement.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/encaissement/encaissement/delete_encaissement.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/encaissement/encaissement/info_encaissement.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/encaissement/encaissement/info_encaissement.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/encaissement/encaissement/read_encaissement.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/encaissement/encaissement/read_encaissement.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/encaissement/paiement/create_paiement.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/encaissement/paiement/create_paiement.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/encaissement/paiement/detail_paiement.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/encaissement/paiement/detail_paiement.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/encaissement/paiement/read_paiement.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/encaissement/paiement/read_paiement.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Entity/Appel.php" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/Appel.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Entity/Beneficiaire.php" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/Beneficiaire.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Entity/Compte.php" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/Compte.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Entity/Encaissement.php" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/Encaissement.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Entity/Exercice.php" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/Exercice.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Entity/Fournisseur.php" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/Fournisseur.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Entity/Paiement.php" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/Paiement.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Entity/RetenuePaie.php" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/RetenuePaie.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Form/EncaissementType.php" afterPath="$PROJECT_DIR$/src/AppBundle/Form/EncaissementType.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Form/RetenuePaieType.php" afterPath="$PROJECT_DIR$/src/AppBundle/Form/RetenuePaieType.php" />
     </list>
     <ignored path="betiproject.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -137,18 +115,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AppelType.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/AppBundle/Form/AppelType.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="112" column="0" selection-start-line="112" selection-start-column="0" selection-end-line="112" selection-end-column="0" />
-              <folding>
-                <element signature="e#34#74#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
@@ -164,7 +130,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/Resources/views/appel/appel/read_appel.html.twig" />
         <option value="$PROJECT_DIR$/app/Resources/views/appel/beneficiaire/delete_beneficiaire.html.twig" />
         <option value="$PROJECT_DIR$/src/AppBundle/Entity/CompteBeneficiaire.php" />
         <option value="$PROJECT_DIR$/app/Resources/views/appel/beneficiaire/read_beneficiaire.html.twig" />
@@ -215,6 +180,7 @@
         <option value="$PROJECT_DIR$/src/AppBundle/Entity/Appel.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Entity/Compte.php" />
         <option value="$PROJECT_DIR$/app/Resources/views/encaissement/paiement/create_paiement.html.twig" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -696,12 +662,12 @@
       <workItem from="1488639417957" duration="4442000" />
       <workItem from="1488784465258" duration="15903000" />
       <workItem from="1488870229535" duration="9072000" />
-      <workItem from="1488955503686" duration="6691000" />
+      <workItem from="1488955503686" duration="6742000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="123447000" />
+    <option name="totallyTimeSpent" value="123498000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="886" extended-state="6" />
@@ -763,13 +729,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Repository/FournisseurRepository.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Repository/MenuRepository.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1150,6 +1109,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="288">
           <caret line="19" column="68" selection-start-line="19" selection-start-column="68" selection-end-line="19" selection-end-column="88" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="1" selection-start-line="10" selection-start-column="1" selection-end-line="10" selection-end-column="1" />
           <folding />
         </state>
       </provider>
