@@ -1034,6 +1034,8 @@
   <component name="ChangeListManager">
     <list default="true" id="c583bd1b-a9ff-45fe-845d-d6c444980d49" name="Default" comment="">
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
 <<<<<<< HEAD
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/Resources/views/appel/appel/info_appel.html.twig" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/PaiementController.php" />
@@ -1073,6 +1075,7 @@
 >>>>>>> cb5c4e5c5057c62ca1cf742ce4f7f658ab87edb3
 =======
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+>>>>>>> 26ce4ab72dc5a188015047c444d88ed2e452fe69
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
 >>>>>>> 5f944abbb6f047ef4033ce98d31e913de4eda797
     </list>
@@ -1741,6 +1744,8 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 >>>>>>> 5f944abbb6f047ef4033ce98d31e913de4eda797
@@ -1928,6 +1933,7 @@
 >>>>>>> cb5c4e5c5057c62ca1cf742ce4f7f658ab87edb3
 =======
 >>>>>>> 5f944abbb6f047ef4033ce98d31e913de4eda797
+>>>>>>> 26ce4ab72dc5a188015047c444d88ed2e452fe69
               <option name="myItemId" value="config" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
@@ -2044,14 +2050,21 @@
       <workItem from="1488784465258" duration="15903000" />
       <workItem from="1488870229535" duration="9072000" />
 <<<<<<< HEAD
+      <workItem from="1488955503686" duration="7460000" />
+=======
+<<<<<<< HEAD
 >>>>>>> cb5c4e5c5057c62ca1cf742ce4f7f658ab87edb3
 =======
       <workItem from="1488955503686" duration="6796000" />
 >>>>>>> 5f944abbb6f047ef4033ce98d31e913de4eda797
+>>>>>>> 26ce4ab72dc5a188015047c444d88ed2e452fe69
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
+<<<<<<< HEAD
+    <option name="totallyTimeSpent" value="124216000" />
+=======
 <<<<<<< HEAD
 <<<<<<< HEAD
     <option name="totallyTimeSpent" value="107086000" />
@@ -2061,6 +2074,7 @@
 =======
     <option name="totallyTimeSpent" value="123552000" />
 >>>>>>> 5f944abbb6f047ef4033ce98d31e913de4eda797
+>>>>>>> 26ce4ab72dc5a188015047c444d88ed2e452fe69
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="886" extended-state="7" />
