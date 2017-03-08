@@ -42,4 +42,7 @@ security:
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/home/, role: ROLE_USER }
+        - { path: ^/appel/, role: ROLE_USER }
+        - { path: ^/encaissement/, role: ROLE_USER }
+        - { path: ^/coffrefort/, role: ROLE_USER }
         - { path: ^/rp_backend/, role: ROLE_ADMIN }
