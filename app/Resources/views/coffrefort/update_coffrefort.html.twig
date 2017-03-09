@@ -3,8 +3,8 @@
 
 {% endblock %}
  {% block titletopmeu %}
-     <li>Coffrefort</li>
-     <li><a href="{{ path('read_coffrefort')}}">Coffrefort</a></li>
+     <li>Coffre fort</li>
+     <li><a href="{{ path('read_coffrefort')}}">Retraire pour alimentation du Coffre Fort</a></li>
      <li><a href="{{ path('update_coffrefort')}}">Modification</a></li>
  {% endblock %}
  {% block content %}
@@ -16,7 +16,7 @@
              <div class="block-options pull-right">
                  <a href="{{ path('read_coffrefort')}}" class="btn btn-alt btn-sm btn-default toggle-bordered enable-tooltip" >Retour</a>
              </div>
-             <h2><strong>Modifier Coffrefort</strong> </h2>
+             <h2><strong>Modifier Coffre fort</strong> </h2>
 
          </div>
          <!-- END Normal Form Title -->
@@ -40,17 +40,21 @@
     <script>
         if($("#appbundle_coffrefort_sourceAlimaentation").val() === "encaissement"){
                 $("#appbundle_coffrefort_autreAlimaentation").parent().hide();
+                $("#appbundle_coffrefort_refCheque").parent().hide();               
                 $("#appbundle_coffrefort_appel").parent().show();
-                $('#appbundle_coffrefort_encaissement').parent().show();   
+                $('#appbundle_coffrefort_encaissement').parent().show(); 
+                
         }else{
                 $("#appbundle_coffrefort_appel").parent().hide();
                 $('#appbundle_coffrefort_encaissement').parent().hide();
                 $("#appbundle_coffrefort_autreAlimaentation").parent().show();
+                $("#appbundle_coffrefort_refCheque").parent().show();               
         }
         $("#appbundle_coffrefort_sourceAlimaentation").change(function () {
             
             if ($(this).val() === "encaissement") {
                 $("#appbundle_coffrefort_autreAlimaentation").parent().hide();
+                $("#appbundle_coffrefort_refCheque").parent().hide();               
                 $("#appbundle_coffrefort_appel").parent().show();
                 $('#appbundle_coffrefort_encaissement').parent().show();
             } else {
@@ -58,8 +62,8 @@
                 $("#appbundle_coffrefort_appel").parent().hide();
                 $('#appbundle_coffrefort_encaissement').parent().hide();
                 $("#appbundle_coffrefort_autreAlimaentation").parent().show();
+                $("#appbundle_coffrefort_refCheque").parent().show();               
             }
-            
         });
 
             $("#appbundle_coffrefort_encaissement").change(function () {
