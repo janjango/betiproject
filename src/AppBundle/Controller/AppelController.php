@@ -18,7 +18,7 @@ use AppBundle\Form\AppelType;
 class AppelController extends Controller {
 
     /**
-     * @Route("read", name="read_appel")
+     * @Route("/read", name="read_appel")
      * @Method("GET")
      */
     public function read_appelAction(Request $request) {

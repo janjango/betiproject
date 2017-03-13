@@ -25,7 +25,8 @@
         <span style="text-decoration: underline;font-weight: bold;color: #0a7a60;">  INFORMATIONS SUR L'ENCAISSEMENT  : </span> <br>
         Numéro de compte : <strong>{{ element.numeroCompte }}</strong>  |
         Date Encaissement : <strong>{{ element.dateEncaissement|date('d/m/Y') }}</strong> |
-        Montant encaissé : <strong>{{ element.montantEncaisse|number_format(2, ',', '.') }}</strong>
+        Montant encaissé : <strong>{{ element.montantEncaisse|number_format(2, ',', '.') }}</strong> |
+        Solde : <strong>{{ element.solde |number_format(2, ',', '.') }}</strong>
         <br>
 
     </div>

@@ -3,12 +3,14 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * Coffrefort
  *
  * @ORM\Table(name="coffrefort")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\CoffrefortRepository")
+ * @UniqueEntity("refCheque",
+ *  message="Cette référence existe déjà.")
  */
 class Coffrefort {
     /**
@@ -60,12 +62,10 @@ class Coffrefort {
     private $montantRetire;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="beneficiaire", type="string", length=255, nullable=true)
+     * @ORM\ManyToOne(targetEntity="Beneficiaire")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $beneficiaire;
-
     /**
      * @var string
      *

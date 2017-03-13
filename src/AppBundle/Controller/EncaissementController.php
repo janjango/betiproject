@@ -77,6 +77,7 @@ class EncaissementController extends Controller {
                 ->findOneBy(Array('estActif'=>true));
             $em = $this->getDoctrine()->getManager();
             $encaissement->setExercice($exercice);
+            $encaissement->setSolde($encaissement->getMontantEncaisse());
             if($encaissement->getAppel()->getMontantEncaissement()+$encaissement->getMontantEncaisse() == $encaissement->getAppel()->getMontantTtc()){
                 $encaissement->getAppel()->setEstSolder(true);
             }

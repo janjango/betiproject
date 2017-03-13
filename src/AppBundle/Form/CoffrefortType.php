@@ -24,7 +24,7 @@ class CoffrefortType extends AbstractType {
                     'label' => "Source d'alimaentation",
                     'attr' => array('class' => 'form-control  select-chosen'),
                     'choices' => array(
-                        'Encaissament' => 'encaissement',
+                        'Encaissement' => 'encaissement',
                         'Autre' => "autre",
                     ),
                     'required' => true
@@ -35,7 +35,15 @@ class CoffrefortType extends AbstractType {
                 'label' => 'Encaissement',
                 'placeholder' => 'Choisissez l\'encaissement',
                 'required' => true,
-                'attr' => array('class' => 'form-control  select-chosen')
+                'attr' => array('class' => 'form-control  select-chosen'),
+                'query_builder' => function (EncaissementRepository $repository)
+                {
+                    return $repository->createQueryBuilder('en')
+                        ->join('en.exercice', 'ex')
+                        ->where('ex.estActif = 1')
+                        ->andWhere('en.solde > 0')
+                        ;
+                }
             ))
                 ->add('autreAlimaentation', TextType::class, array(
                     'label' => 'Précisez la source',
@@ -72,7 +80,13 @@ class CoffrefortType extends AbstractType {
                         'class' => 'form-control'
                     )
                 ))
-                // ->add('beneficiaire')
+                ->add('beneficiaire', EntityType::class, array(
+                'class' => 'AppBundle:Beneficiaire',
+                'label' => 'Structure bénéficiaire',
+                'placeholder' => 'Choisissez la structure bénéficiaire',
+                'required' => true,
+                'attr' => array('class' => 'form-control  select-chosen'),
+            ))
                 ->add('observation', TextareaType::class, array(
                     'label' => 'Observation',
                     'required' => false,
@@ -80,6 +94,7 @@ class CoffrefortType extends AbstractType {
                         'class' => 'form-control'
                     )
                 ))
+                    
         ;
     }
 

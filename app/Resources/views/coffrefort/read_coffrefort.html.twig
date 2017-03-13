@@ -3,8 +3,8 @@
 
 {% endblock %}
  {% block titletopmeu %}
-    <li>Coffrefort</li>
-    <li><a href="{{ path('read_coffrefort')}} ">Coffrefort</a></li>
+    <li>Coffre-Fort</li>
+    <li><a href="{{ path('read_coffrefort')}} ">Coffre-Fort</a></li>
 {% endblock %}
 {% block content %}
      <!-- Datatables Content -->
@@ -12,13 +12,13 @@
          <div class="block-title">
 
              <h2>
-                 <strong> Coffrefort de l'Exercice : {{ exercice.libExercice }} </strong>
+                 <strong> Coffre-Fort de l'exercice : {{ exercice.libExercice }} </strong>
 
              </h2>
 
-                <a  href="{{ path('create_coffrefort')}}"  title="Ajouter" class="btn btn-xs btn-success" >
+             <a  href="{{ path('create_coffrefort')}}"  title="Ajouter" class="btn btn-xs btn-success" >
                  <i  class="fa fa-plus"></i></a>
-</div>
+         </div>
          <div class="table-responsive">
              <table id="example-datatable" class="table table-vcenter table-condensed table-bordered">
                  <thead>

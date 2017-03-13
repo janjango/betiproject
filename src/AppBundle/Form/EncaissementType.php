@@ -40,11 +40,11 @@ class EncaissementType extends AbstractType
             ))
             
             ->add('dateCreate',DateType::class, array(
-                'label' => 'Date Encaissement',
+               'label' => 'Date Encaissement',
                 'widget' => 'single_text',
+                'format' => 'dd/MM/yyyy',
                 'input' => 'datetime',
-                'required' => true,
-                'format' => 'dd/mm/yyyy',
+                'required' => true,              
                 'attr' => array('class' => 'input-datepicker form-control ', 'data-date-format' => 'dd/mm/yyyy',),
             ))
             ->add('montantEncaisse', NumberType::class, array(

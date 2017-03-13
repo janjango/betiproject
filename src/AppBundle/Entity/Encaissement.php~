@@ -72,6 +72,13 @@ class Encaissement
      * @ORM\Column(name="userModif", type="string", length=255, nullable=true)
      */
     private $userModif;
+    
+    /**
+     * @var string
+     * @ORM\Column(name="solde", type="decimal", precision=10, scale=2, nullable=true)
+     */
+    private $solde = 0.00;
+    
     /**
      * Get id
      *
@@ -319,7 +326,3 @@ class Encaissement
         return 'Encaissement N° ' . $this->getId() . ', Montant: ' . $this->getMontantEncaisse();
     }
 }
-
-
-
-
