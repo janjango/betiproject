@@ -131,6 +131,7 @@ class EncaissementController extends Controller {
             if($encaissement->getAppel()->getMontantEncaissement()+$encaissement->getMontantEncaisse()-$montant == $encaissement->getAppel()->getMontantTtc()){
                 $encaissement->getAppel()->setEstSolder(true);
             }
+            $encaissement->setSolde($encaissement->getMontantEncaisse());
             $em->flush();
             $this->addFlash(
                 'warning', "Modification effectué avec succès !"

@@ -323,7 +323,7 @@ class Encaissement
         return $i;
     }
     public function __toString() {
-        return 'Encaissement N° ' . $this->getId() . ', Montant: ' . $this->getMontantEncaisse();
+        return 'Encaissement N° ' . $this->getId() . ', Solde: ' . $this->getSolde();
     }
 
     /**
