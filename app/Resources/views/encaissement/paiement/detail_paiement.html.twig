@@ -9,18 +9,24 @@
                 <div class="modal-body">
                     <div class="text-left">
                         <span  style="text-decoration: underline;font-weight: bold;color: #0a7a60;">  INFORMATIONS SUR LE DOCUMENT D'APPEL DE FONDS  : </span> <br>
-                        Référence appel émis : <strong>{{ element.encaissement.appel.referenceAppel }}</strong>  |
+                        {% if element.encaissement.appel.referenceAppel  %} Référence Mandat émis : <strong>{{ element.encaissement.appel.referenceAppel }}</strong>  | {% endif %}
+                        {% if element.encaissement.appel.referenceAppelfond  %} Référence Appel de fonds : <strong>{{ element.encaissement.appel.referenceAppelfond }}</strong>  | {% endif %}
                         Date Emission : <strong>{{ element.encaissement.appel.dateAppel|date('d/m/Y') }}</strong><br>
 
                         Structure Bénéficiaire : <br>
                         Nom : <strong>{% if element.encaissement.appel.beneficiaire is not null %} {{ element.encaissement.appel.beneficiaire.libBeneficiaire }}  {% endif %}</strong>  |
-                        Code : <strong>{% if element.encaissement.appel.beneficiaire is not null %} {{ element.encaissement.appel.beneficiaire.code }}  {% endif %}</strong> | Sigle : <strong> {{ element.encaissement.appel.beneficiaire.sigle }}  </strong> <br>
+                        {% if element.encaissement.appel.beneficiaire.code  %}  Code : <strong>{{ element.encaissement.appel.beneficiaire.code }}  </strong> | {% endif %}
+                        {% if element.encaissement.appel.beneficiaire.sigle  %} Sigle : <strong> {{ element.encaissement.appel.beneficiaire.sigle }}  </strong>{% endif %} <br> <br>
 
-                        {% if element.encaissement.appel.objetappel is not null %}  Objet : <strong>{{ element.encaissement.appel.objetappel }} </strong> |  {% endif %}
+                        {% if element.encaissement.appel.objetappel  %}  Objet : <strong>{{ element.encaissement.appel.objetappel }} </strong> |  {% endif %}
                         Montant : <strong>{{ element.encaissement.appel.montantTtc|number_format(2, ',', '.') }}</strong>  francs CFA <br>  <br>
 
-                        {% if element.encaissement.appel.compte is not null %} Numéro du compte trésor : <strong> {{ element.encaissement.appel.compte.numero  }}  </strong>  |
-                         Intitulé du compte Trésor : <strong> {{ element.encaissement.appel.compte.intitule }}  </strong> <br> <br>  {% endif %}
+                        {% if element.encaissement.appel.compte %} Numéro du compte trésor : <strong> {{ element.encaissement.appel.compte.numero  }}  </strong>  |
+                         Intitulé du compte Trésor : <strong> {{ element.encaissement.appel.compte.intitule }}  </strong> <br>  {% endif %}
+
+                        {% if element.encaissement.appel.comptebancaire %} Numéro du compte bancaire : <strong> {{ element.encaissement.appel.comptebancaire.numero  }}  </strong>  |
+                          Intitulé du compte bancaire : <strong> {{ element.encaissement.appel.comptebancaire.intitule }} | </strong>
+                            Institution bancaire : <strong> {{ element.encaissement.appel.comptebancaire.institution}} | </strong><br> {% endif %}
 
                         <span style="text-decoration: underline;font-weight: bold;color: #0a7a60;">  INFORMATIONS SUR L'ENCAISSEMENT  : </span> <br>
                         Numéro de compte : <strong>{{ element.encaissement.numeroCompte }}</strong>  |

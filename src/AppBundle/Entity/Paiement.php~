@@ -67,6 +67,13 @@ class Paiement
     /**
      * @var string
      *
+     * @ORM\Column(name="sourceAlimaentation", type="string", length=100, nullable=true)
+     */
+    private $sourceAlimaentation;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="montantHt", type="decimal", precision=10, scale=2)
      */
     private $montantHt;
@@ -92,7 +99,33 @@ class Paiement
      */
     private $aibRetenu;
 
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateCreate", type="datetime", nullable=true, nullable=true)
+     */
+    private $dateCreate;
 
+    /**
+     * @var string
+     * @ORM\Column(name="userCreate", type="string", length=255, nullable=true)
+     */
+    private $userCreate;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateModif", type="datetime", nullable=true)
+     */
+    private $dateModif;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="userModif", type="string", length=255, nullable=true)
+     */
+    private $userModif;
+    
     /**
      * Get id
      *
@@ -403,4 +436,28 @@ class Paiement
         return $i;
     }
 
+
+    /**
+     * Set sourceAlimaentation
+     *
+     * @param string $sourceAlimaentation
+     *
+     * @return Paiement
+     */
+    public function setSourceAlimaentation($sourceAlimaentation)
+    {
+        $this->sourceAlimaentation = $sourceAlimaentation;
+
+        return $this;
+    }
+
+    /**
+     * Get sourceAlimaentation
+     *
+     * @return string
+     */
+    public function getSourceAlimaentation()
+    {
+        return $this->sourceAlimaentation;
+    }
 }

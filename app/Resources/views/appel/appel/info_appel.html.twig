@@ -1,24 +1,30 @@
 <div id="afficherbeneficiaire">
     <br>
     <div class="info_beneficiaire  ">
-        Référence appel émis : <strong>{{ element.referenceAppel }}</strong>  |
+        {% if element.referenceAppel  %} Référence Mandat émis : <strong>{{ element.referenceAppel }}</strong>  | {% endif %}
+        {% if element.referenceAppelfond  %} Référence Appel de fonds : <strong>{{ element.referenceAppelfond }}</strong>  | {% endif %}
         Date Emission : <strong>{{ element.dateAppel|date('d/m/Y') }}</strong><br> <br>
 
-        {% if element.refEngagement is not null %}  Référence Engagement: <strong>{{ element.refEngagement }}</strong>  |
-                                                                                                                        Date Engagement : <strong>{{ element.dateEngagement|date('d/m/Y') }}</strong><br> <br>  {% endif %}
+        {% if element.refEngagement  %}  Référence Engagement: <strong>{{ element.refEngagement }}</strong>  |
+        Date Engagement : <strong>{{ element.dateEngagement|date('d/m/Y') }}</strong><br> <br>  {% endif %}
 
-        {% if element.refBordereau is not null %}  Référence Bordereau: <strong>{{ element.refBordereau }}</strong>  |
-                                                                                                                     Date Bordereau : <strong>{{ element.dateBordereau|date('d/m/Y') }}</strong><br> <br>  {% endif %}
+        {% if element.refBordereau  %}  Référence Bordereau: <strong>{{ element.refBordereau }}</strong>  |
+         Date Bordereau : <strong>{{ element.dateBordereau|date('d/m/Y') }}</strong><br> <br>  {% endif %}
 
-        {% if element.objetappel is not null %}  Objet : <strong>{{ element.objetappel }} </strong> |  {% endif %}
+        {% if element.objetappel %}  Objet : <strong>{{ element.objetappel }} </strong> |  {% endif %}
         Montant : <strong>{{ element.montantTtc|number_format(2, ',', '.') }}</strong>  francs CFA <br>  <br>
 
-        {% if element.compte is not null %} Numéro du compte trésor : <strong> {{ element.compte.numero  }}  </strong>  |
+        {% if element.compte %} Numéro du compte trésor : <strong> {{ element.compte.numero  }}  </strong>  |
         Intitulé du compte Trésor : <strong> {{ element.compte.intitule }}  </strong> <br> <br>  {% endif %}
+
+        {% if element.comptebancaire %} Numéro du compte bancaire : <strong> {{ element.comptebancaire.numero  }}  </strong>  |
+         Intitulé du compte bancaire : <strong> {{ element.comptebancaire.intitule }} | </strong>
+            Institution bancaire : <strong> {{ element.comptebancaire.institution}} | </strong><br> <br>  {% endif %}
 
         Structure Bénéficiaire : <br> <br>
         Nom : <strong>{% if element.beneficiaire is not null %} {{ element.beneficiaire.libBeneficiaire }}  {% endif %}</strong>  |
-        Code : <strong>{% if element.beneficiaire is not null %} {{ element.beneficiaire.code }}  {% endif %}</strong> | Sigle : <strong> {{ element.beneficiaire.sigle }}  </strong> <br> <br>
+        {% if element.beneficiaire.code  %}  Code : <strong>{{ element.beneficiaire.code }}  </strong> | {% endif %}
+        {% if element.beneficiaire.sigle  %} Sigle : <strong> {{ element.beneficiaire.sigle }}  </strong>{% endif %} <br> <br>
 
         {% set mt=0 %}
         Montant total encaissé : <strong>{% for elt in element.encaissements %}{% set mt=mt+elt.montantEncaisse %} {% endfor %}{{ mt|number_format(2, ',', '.') }}</strong> francs CFA

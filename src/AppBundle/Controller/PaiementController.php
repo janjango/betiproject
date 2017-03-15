@@ -55,7 +55,7 @@ class PaiementController extends Controller {
         if ($form->isSubmitted() && $form->isValid()) {
             if($paiement->getEncaissement()->getMontantpaye()+$paiement->getMontantTtc() > $paiement->getEncaissement()->getMontantEncaisse()){
                 $this->addFlash(
-                    'danger', "Le montant payé est supérieur à montant encaissé !"
+                    'danger', "Le montant payé est supérieur au solde de l'encaissement !"
                 );
                 return $this->render('encaissement/paiement/create_paiement.html.twig', [
                     'form'   => $form->createView(),
@@ -71,6 +71,8 @@ class PaiementController extends Controller {
 //            if($paiement->getAppel()->getMontantPaiement()+$paiement->getMontantEncaisse() == $paiement->getAppel()->getMontantTtc()){
 //                $paiement->getAppel()->setEstSolder(true);
 //            }
+            $paiement->setUserCreate($this->getUser()->getUsername());
+            $paiement->setDateCreate(new \ Datetime());
             $em->persist($paiement);
             $em->flush();
             $this->addFlash(
@@ -106,7 +108,7 @@ class PaiementController extends Controller {
         if ($form->isSubmitted() && $form->isValid()) {
             if($paiement->getEncaissement()->getMontantpaye()+$paiement->getMontantTtc()-$montant > $paiement->getEncaissement()->getMontantEncaisse()){
                 $this->addFlash(
-                    'danger', "Le montant payé est supérieur à montant encaissé!"
+                    'danger', "Le montant payé est supérieur au solde de l'encaissement !"
                 );
                 return $this->render('encaissement/paiement/update_paiement.html.twig', [
                     'form'   => $form->createView(), 'id'   => $request->get('id'),
@@ -118,6 +120,8 @@ class PaiementController extends Controller {
 //            if($paiement->getAppel()->getMontantPaiement()+$paiement->getMontantEncaisse()-$montant == $paiement->getAppel()->getMontantTtc()){
 //                $paiement->getAppel()->setEstSolder(true);
 //            }
+            $paiement->setUserModif($this->getUser()->getUsername());
+            $paiement->setDateModif(new \ Datetime());
             $em->flush();
             $this->addFlash(
                 'warning', "Modification effectué avec succès !"

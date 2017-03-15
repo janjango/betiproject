@@ -41,7 +41,7 @@ class CoffrefortType extends AbstractType {
                     return $repository->createQueryBuilder('en')
                         ->join('en.exercice', 'ex')
                         ->where('ex.estActif = 1')
-                        ->andWhere('en.solde > 0')
+                      // ->andWhere('en.solde > 0')
                         ;
                 }
             ))
@@ -80,13 +80,6 @@ class CoffrefortType extends AbstractType {
                         'class' => 'form-control'
                     )
                 ))
-                ->add('beneficiaire', EntityType::class, array(
-                'class' => 'AppBundle:Beneficiaire',
-                'label' => 'Structure bénéficiaire',
-                'placeholder' => 'Choisissez la structure bénéficiaire',
-                'required' => true,
-                'attr' => array('class' => 'form-control  select-chosen'),
-            ))
                 ->add('observation', TextareaType::class, array(
                     'label' => 'Observation',
                     'required' => false,

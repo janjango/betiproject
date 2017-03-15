@@ -36,12 +36,24 @@
                      <tr>
                       <td class="text-center "> {{ element.id }} </td>
                          <td class="text-center"> {{ element.dateEncaissement|date('d/m/Y') }} </td>
-                         <td class="text-left">{{ element.appel.referenceAppel }} </td>
+                         <td class="text-left">
+                             {% if element.appel.referenceAppel %}
+                                 {{ element.appel.referenceAppel }}
+                             {% else %}
+                                 {{ element.appel.referenceAppelfond }}
+                             {% endif %}
+                         </td>
                          <td class="text-right ">
                              {{ element.montantEncaisse|number_format(2, ',', '.') }}
                          </td>
                         <td class="text-left ">
-                             {{ element.numeroCompte }}
+                            {% if element.appel.compte %}
+                                {{ element.appel.compte.numero }}
+                            {% else %}
+                                {% if element.appel.comptebancaire %}
+                                    {{ element.appel.comptebancaire.numero }}
+                                {% endif %}
+                            {% endif %}
                          </td>
                          <td class="text-center">
                             <a href="{{ path('update_encaissement', {'id': element.id } )}}" data-toggle="tooltip" title="Edit" class="btn btn-xs btn-default"><i class="fa fa-pencil"></i></a>

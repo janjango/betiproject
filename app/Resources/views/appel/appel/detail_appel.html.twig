@@ -9,29 +9,35 @@
                 <div class="modal-body">
                     <div class="text-left">
                         <span  style="text-decoration: underline;font-weight: bold;color: #0a7a60;">  INFORMATIONS SUR LE DOCUMENT D'APPEL DE FONDS  : </span> <br>
-                        Référence appel émis : <strong>{{ element.referenceAppel }}</strong>  |
-                        Date Emission : <strong>{{ element.dateAppel|date('d/m/Y') }}</strong>
+                        {% if element.referenceAppel  %} Référence Mandat émis : <strong>{{ element.referenceAppel }}</strong>  | {% endif %}
+                        {% if element.referenceAppelfond  %} Référence Appel de fonds : <strong>{{ element.referenceAppelfond }}</strong>  | {% endif %}
+                        Date Emission : <strong>{{ element.dateAppel|date('d/m/Y') }}</strong><br>
 
-                        {% if element.refEngagement is not null %} <br>  Référence Engagement: <strong>{{ element.refEngagement }}</strong>  |
+                        {% if element.refEngagement  %} <br>  Référence Engagement: <strong>{{ element.refEngagement }}</strong>  |
                         Date Engagement : <strong>{{ element.dateEngagement|date('d/m/Y') }}</strong><br>  {% endif %}
 
-                        {% if element.refBordereau is not null %}  Référence Bordereau: <strong>{{ element.refBordereau }}</strong>  |
+                        {% if element.refBordereau  %}  Référence Bordereau: <strong>{{ element.refBordereau }}</strong>  |
                         Date Bordereau : <strong>{{ element.dateBordereau|date('d/m/Y') }}</strong><br>  {% endif %}
 
-                        {% if element.objetappel %}|  Objet : <strong>{{ element.objetappel }} </strong> |  {% endif %}
-                        Montant : <strong>{{ element.montantTtc|number_format(2, ',', '.') }}</strong>  francs CFA <br>
+                        {% if element.compte %} Numéro du compte trésor : <strong> {{ element.compte.numero  }}  </strong>  |
+                       Intitulé du compte Trésor : <strong> {{ element.compte.intitule }}  </strong> <br>  {% endif %}
 
-                        {% if element.compte is not null %} Numéro du compte trésor : <strong> {{ element.compte.numero  }}  </strong>  |
-                        Intitulé du compte : <strong> {{ element.compte.intitule }}  </strong>  {% endif %} <br> <br>
+                        {% if element.comptebancaire %} Numéro du compte bancaire : <strong> {{ element.comptebancaire.numero  }}  </strong>  |
+                        Intitulé du compte bancaire : <strong> {{ element.comptebancaire.intitule }} | </strong>
+                        Institution bancaire : <strong> {{ element.comptebancaire.institution}} | </strong><br> {% endif %}
+
+                        Montant de l'appel: <strong>{{ element.montantTtc|number_format(2, ',', '.') }}</strong>  francs CFA <br><br>
 
                         <span  style="text-decoration: underline;font-weight: bold;color: #0a7a60;">  INFORMATIONS SUR LA STRUCTURE BENEFICIAIRE  : </span> <br>
                         Nom : <strong>{% if element.beneficiaire is not null %} {{ element.beneficiaire.libBeneficiaire }}  {% endif %}</strong>  |
-                        Code : <strong>{% if element.beneficiaire is not null %} {{ element.beneficiaire.code }}  {% endif %}</strong> | Sigle : <strong> {{ element.beneficiaire.sigle }}  </strong> <br> <br>
+                        {% if element.beneficiaire.code  %}  Code : <strong>{{ element.beneficiaire.code }}  </strong> | {% endif %}
+                        {% if element.beneficiaire.sigle  %} Sigle : <strong> {{ element.beneficiaire.sigle }}  </strong>{% endif %} <br> <br>
 
                         <span  style="text-decoration: underline;font-weight: bold;color: #0a7a60;">  INFORMATIONS SUR LE SOLDE ET LES ENCAISSEMENTS : </span> <br>
                         Solde : <strong> {{ valsolde|number_format(2, ',', '.') }}</strong> francs CFA <br>
                         {% set mt=0 %}
-                        Montant total encaissé : <strong>{% for elt in element.encaissements %}{% set mt=mt+elt.montantEncaisse %} {% endfor %}{{ mt|number_format(2, ',', '.') }}</strong> francs CFA <br>  <br>
+                        Montant total encaissé : <strong>{% for elt in element.encaissements %}{% set mt=mt+elt.montantEncaisse %} {% endfor %}
+                            {{ mt|number_format(2, ',', '.') }}</strong> francs CFA | Montant restant à encaisser : {{ (element.montantTtc-mt)|number_format(2, ',', '.') }}<br>  <br>
 
                         {% if element.estAnnuler==1 or element.estParentannuler==1 %} <strong style="color: #c7254e"> Opération d'annulation d'appel ...</strong> {% endif %}
                     </div>

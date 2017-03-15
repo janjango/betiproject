@@ -25,8 +25,7 @@ class PaiementType extends AbstractType
                     'Virement' => 'one',
                     'Chèque' => "two",
                 ),
-                'required' => true,
-                'mapped'=> false,
+                'required' => true
             ))
 
             ->add('fournisseur', EntityType::class, array(
@@ -54,11 +53,13 @@ class PaiementType extends AbstractType
             ))
             ->add('refCheque', TextType::class, array(
                 'label' => 'Référence Chèque',
+                'required' => false,
                 'attr' =>array(
                     'class' =>'form-control'
                 )))
             ->add('refVirement', TextType::class, array(
                 'label' => 'Référence Virement',
+                'required' => false,
                 'attr' =>array(
                     'class' =>'form-control'
                 )))
@@ -67,13 +68,6 @@ class PaiementType extends AbstractType
                 'attr' =>array(
                     'class' =>'form-control'
                 )))
-
-            ->add('montantTtc', NumberType::class, array(
-                'label' => 'Montant TTC',
-                'attr' =>array(
-                    'class' =>'form-control'
-                )))
-
             ->add('tvaRetenue', NumberType::class, array(
                 'label' => 'TVA Retenue',
                 'attr' =>array(
@@ -85,6 +79,13 @@ class PaiementType extends AbstractType
                 'attr' =>array(
                     'class' =>'form-control'
                 )))
+            ->add('montantTtc', NumberType::class, array(
+                'label' => 'Montant TTC',
+                'attr' =>array(
+                    'class' =>'form-control'
+                )))
+
+
 
            ;
     }

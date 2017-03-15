@@ -65,6 +65,13 @@ class Paiement
     private $refVirement;
 
     /**
+     * @var string; Virement ou Chèque
+     *
+     * @ORM\Column(name="sourceAlimaentation", type="string", length=100, nullable=true)
+     */
+    private $sourceAlimaentation;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="montantHt", type="decimal", precision=10, scale=2)
@@ -92,7 +99,33 @@ class Paiement
      */
     private $aibRetenu;
 
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateCreate", type="datetime", nullable=true, nullable=true)
+     */
+    private $dateCreate;
 
+    /**
+     * @var string
+     * @ORM\Column(name="userCreate", type="string", length=255, nullable=true)
+     */
+    private $userCreate;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateModif", type="datetime", nullable=true)
+     */
+    private $dateModif;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="userModif", type="string", length=255, nullable=true)
+     */
+    private $userModif;
+    
     /**
      * Get id
      *
@@ -403,4 +436,124 @@ class Paiement
         return $i;
     }
 
+
+    /**
+     * Set sourceAlimaentation
+     *
+     * @param string $sourceAlimaentation
+     *
+     * @return Paiement
+     */
+    public function setSourceAlimaentation($sourceAlimaentation)
+    {
+        $this->sourceAlimaentation = $sourceAlimaentation;
+
+        return $this;
+    }
+
+    /**
+     * Get sourceAlimaentation
+     *
+     * @return string
+     */
+    public function getSourceAlimaentation()
+    {
+        return $this->sourceAlimaentation;
+    }
+
+    /**
+     * Set dateCreate
+     *
+     * @param \DateTime $dateCreate
+     *
+     * @return Paiement
+     */
+    public function setDateCreate($dateCreate)
+    {
+        $this->dateCreate = $dateCreate;
+
+        return $this;
+    }
+
+    /**
+     * Get dateCreate
+     *
+     * @return \DateTime
+     */
+    public function getDateCreate()
+    {
+        return $this->dateCreate;
+    }
+
+    /**
+     * Set userCreate
+     *
+     * @param string $userCreate
+     *
+     * @return Paiement
+     */
+    public function setUserCreate($userCreate)
+    {
+        $this->userCreate = $userCreate;
+
+        return $this;
+    }
+
+    /**
+     * Get userCreate
+     *
+     * @return string
+     */
+    public function getUserCreate()
+    {
+        return $this->userCreate;
+    }
+
+    /**
+     * Set dateModif
+     *
+     * @param \DateTime $dateModif
+     *
+     * @return Paiement
+     */
+    public function setDateModif($dateModif)
+    {
+        $this->dateModif = $dateModif;
+
+        return $this;
+    }
+
+    /**
+     * Get dateModif
+     *
+     * @return \DateTime
+     */
+    public function getDateModif()
+    {
+        return $this->dateModif;
+    }
+
+    /**
+     * Set userModif
+     *
+     * @param string $userModif
+     *
+     * @return Paiement
+     */
+    public function setUserModif($userModif)
+    {
+        $this->userModif = $userModif;
+
+        return $this;
+    }
+
+    /**
+     * Get userModif
+     *
+     * @return string
+     */
+    public function getUserModif()
+    {
+        return $this->userModif;
+    }
 }

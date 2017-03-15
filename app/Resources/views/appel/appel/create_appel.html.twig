@@ -15,7 +15,7 @@
         <div class="block-options pull-right">
             <a href="{{ path('read_appel',{'exercice': exercice})}}" class="btn btn-alt btn-sm btn-default toggle-bordered enable-tooltip" >Retour</a>
         </div>
-        <h2><strong>Nouveau document d'appel</strong> </h2>
+        <h2><strong>Nouveau document d'appel de fonds</strong> </h2>
 
     </div>
     <!-- END Normal Form Title -->
@@ -70,15 +70,46 @@
                 $("#appbundle_appel_dateEngagement").parent().show();
                 $("#appbundle_appel_refBordereau").parent().show();
                 $("#appbundle_appel_dateBordereau").parent().show();
+                $("#appbundle_appel_compte").parent().show();
+                $("#appbundle_appel_comptebancaire").parent().hide();
+                $("#appbundle_appel_referenceAppel").parent().show();
+                $("#appbundle_appel_referenceAppelfond").parent().hide();
+
             }else{
                 // alert('ok');
                 $("#appbundle_appel_refEngagement").parent().hide();
                 $("#appbundle_appel_dateEngagement").parent().hide();
                 $("#appbundle_appel_refBordereau").parent().hide();
                 $("#appbundle_appel_dateBordereau").parent().hide();
+                $("#appbundle_appel_compte").parent().hide();
+                $("#appbundle_appel_comptebancaire").parent().show();
+                $("#appbundle_appel_referenceAppel").parent().hide();
+                $("#appbundle_appel_referenceAppelfond").parent().show();
             }
 
         })
+        if( $("#appbundle_appel_sourceAlimaentation").val()=='one'){
+            // alert('ok');
+            $("#appbundle_appel_refEngagement").parent().show();
+            $("#appbundle_appel_dateEngagement").parent().show();
+            $("#appbundle_appel_refBordereau").parent().show();
+            $("#appbundle_appel_dateBordereau").parent().show();
+            $("#appbundle_appel_compte").parent().show();
+            $("#appbundle_appel_comptebancaire").parent().hide();
+            $("#appbundle_appel_referenceAppel").parent().show();
+            $("#appbundle_appel_referenceAppelfond").parent().hide();
+
+        }else{
+            // alert('ok');
+            $("#appbundle_appel_refEngagement").parent().hide();
+            $("#appbundle_appel_dateEngagement").parent().hide();
+            $("#appbundle_appel_refBordereau").parent().hide();
+            $("#appbundle_appel_dateBordereau").parent().hide();
+            $("#appbundle_appel_compte").parent().hide();
+            $("#appbundle_appel_comptebancaire").parent().show();
+            $("#appbundle_appel_referenceAppel").parent().hide();
+            $("#appbundle_appel_referenceAppelfond").parent().show();
+        }
 
     </script>
 {% endblock %}

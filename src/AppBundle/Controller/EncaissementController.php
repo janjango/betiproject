@@ -59,6 +59,7 @@ class EncaissementController extends Controller {
         $menus = $users->getMenus($user->getId());
         $sousMenus = $users->getSousMenus($user->getId());
         $encaissement = new Encaissement();
+
         $form = $this->createForm('AppBundle\Form\EncaissementType', $encaissement);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -81,6 +82,8 @@ class EncaissementController extends Controller {
             if($encaissement->getAppel()->getMontantEncaissement()+$encaissement->getMontantEncaisse() == $encaissement->getAppel()->getMontantTtc()){
                 $encaissement->getAppel()->setEstSolder(true);
             }
+            $encaissement->setUserCreate($this->getUser()->getUsername());
+            $encaissement->setDateCreate(new \ Datetime());
             $em->persist($encaissement);
             $em->flush();
 
@@ -113,6 +116,7 @@ class EncaissementController extends Controller {
         
         $encaissement = $this->getDoctrine()->getManager()->getRepository('AppBundle:Encaissement')
             ->find($request->get('id'));
+
         $montant =$encaissement->getMontantEncaisse();
         $form = $this->createForm('AppBundle\Form\EncaissementType', $encaissement);
         $form->handleRequest($request);
@@ -131,6 +135,8 @@ class EncaissementController extends Controller {
             if($encaissement->getAppel()->getMontantEncaissement()+$encaissement->getMontantEncaisse()-$montant == $encaissement->getAppel()->getMontantTtc()){
                 $encaissement->getAppel()->setEstSolder(true);
             }
+            $encaissement->setUserModif($this->getUser()->getUsername());
+            $encaissement->setDateModif(new \ Datetime());
             $em->flush();
             $this->addFlash(
                 'warning', "Modification effectué avec succès !"
@@ -156,6 +162,18 @@ class EncaissementController extends Controller {
         $encaissement = $this->getDoctrine()->getManager()->getRepository('AppBundle:Encaissement')
             ->find($request->get('id'));
         if ($request->getMethod() == 'POST'){
+            if ( !$encaissement->getPaiements()->isEmpty()){
+                $this->addFlash(
+                    'warring', "Il existe déjà au moins un Paiement enregistré pour cet encaissement. On ne peut donc pas le supprimer !"
+                );
+                return $this->redirectToRoute('read_encaissement');
+            }
+            if ( !$encaissement->getPaiements()->isEmpty()){
+                $this->addFlash(
+                    'warring', "Il existe déjà au moins un Paiement enregistré pour cet encaissement. On ne peut donc pas le supprimer !"
+                );
+                return $this->redirectToRoute('read_encaissement');
+            }
             $em = $this->getDoctrine()->getManager();
             $encaissement->getAppel()->setEstSolder(false);
             $em->remove($encaissement);

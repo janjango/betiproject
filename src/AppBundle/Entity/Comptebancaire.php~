@@ -5,29 +5,18 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Exercice
+ * Compte
  *
- * @ORM\Table(name="exercice")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\ExerciceRepository")
+ * @ORM\Table(name="comptebancaire")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ComptebancaireRepository")
  */
-class Exercice
+class Comptebancaire
 {
     /**
-     * @ORM\OneToMany(targetEntity="Appel", mappedBy="exercice")
+     * @ORM\OneToMany(targetEntity="Appel", mappedBy="comptebancaire", cascade={"remove"})
      */
     private $appels;
-    /**
-     * @ORM\OneToMany(targetEntity="Coffrefort", mappedBy="exercice")
-     */
-    private $coffreforts;
-    /**
-     * @ORM\OneToMany(targetEntity="Encaissement", mappedBy="exercice")
-     */
-    private $encaissements;
-    /**
-     * @ORM\OneToMany(targetEntity="Paiement", mappedBy="exercice")
-     */
-    private $paiements;
+
     /**
      * @var int
      *
@@ -40,17 +29,23 @@ class Exercice
     /**
      * @var string
      *
-     * @ORM\Column(name="libExercice", type="string", length=10)
+     * @ORM\Column(name="numero", type="string", length=50)
      */
-    private $libExercice;
+    private $numero;
 
     /**
-     * @var bool
+     * @var string
      *
-     * @ORM\Column(name="estActif", type="boolean")
+     * @ORM\Column(name="intitule", type="string", length=255, nullable=true)
      */
-    private $estActif;
-
+    private $intitule;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="institution", type="string", length=255, nullable=true)
+     */
+    private $institution;
 
     /**
      * @var \DateTime
@@ -93,6 +88,7 @@ class Exercice
      */
     private $userdelete;
 
+
     /**
      * Get id
      *
@@ -104,52 +100,53 @@ class Exercice
     }
 
     /**
-     * Set libExercice
+     * Set numero
      *
-     * @param string $libExercice
+     * @param string $numero
      *
-     * @return Exercice
+     * @return Compte
      */
-    public function setLibExercice($libExercice)
+    public function setNumero($numero)
     {
-        $this->libExercice = $libExercice;
+        $this->numero = $numero;
 
         return $this;
     }
 
     /**
-     * Get libExercice
+     * Get numero
      *
      * @return string
      */
-    public function getLibExercice()
+    public function getNumero()
     {
-        return $this->libExercice;
+        return $this->numero;
     }
 
     /**
-     * Set estActif
+     * Set intitule
      *
-     * @param boolean $estActif
+     * @param string $intitule
      *
-     * @return Exercice
+     * @return Compte
      */
-    public function setEstActif($estActif)
+    public function setIntitule($intitule)
     {
-        $this->estActif = $estActif;
+        $this->intitule = $intitule;
 
         return $this;
     }
 
     /**
-     * Get estActif
+     * Get intitule
      *
-     * @return bool
+     * @return string
      */
-    public function getEstActif()
+    public function getIntitule()
     {
-        return $this->estActif;
+        return $this->intitule;
     }
+
     /**
      * Constructor
      */
@@ -163,7 +160,7 @@ class Exercice
      *
      * @param \AppBundle\Entity\Appel $appel
      *
-     * @return Exercice
+     * @return Compte
      */
     public function addAppel(\AppBundle\Entity\Appel $appel)
     {
@@ -193,105 +190,27 @@ class Exercice
     }
 
     /**
-     * Add encaissement
+     * Set institution
      *
-     * @param \AppBundle\Entity\Encaissement $encaissement
+     * @param string $institution
      *
-     * @return Exercice
+     * @return Compte
      */
-    public function addEncaissement(\AppBundle\Entity\Encaissement $encaissement)
+    public function setInstitution($institution)
     {
-        $this->encaissements[] = $encaissement;
+        $this->institution = $institution;
 
         return $this;
     }
 
     /**
-     * Remove encaissement
+     * Get institution
      *
-     * @param \AppBundle\Entity\Encaissement $encaissement
+     * @return string
      */
-    public function removeEncaissement(\AppBundle\Entity\Encaissement $encaissement)
+    public function getInstitution()
     {
-        $this->encaissements->removeElement($encaissement);
-    }
-
-    /**
-     * Get encaissements
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getEncaissements()
-    {
-        return $this->encaissements;
-    }
-
-    /**
-     * Add paiement
-     *
-     * @param \AppBundle\Entity\Paiement $paiement
-     *
-     * @return Exercice
-     */
-    public function addPaiement(\AppBundle\Entity\Paiement $paiement)
-    {
-        $this->paiements[] = $paiement;
-
-        return $this;
-    }
-
-    /**
-     * Remove paiement
-     *
-     * @param \AppBundle\Entity\Paiement $paiement
-     */
-    public function removePaiement(\AppBundle\Entity\Paiement $paiement)
-    {
-        $this->paiements->removeElement($paiement);
-    }
-
-    /**
-     * Get paiements
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getPaiements()
-    {
-        return $this->paiements;
-    }
-
-    /**
-     * Add coffrefort
-     *
-     * @param \AppBundle\Entity\Coffrefort $coffrefort
-     *
-     * @return Exercice
-     */
-    public function addCoffrefort(\AppBundle\Entity\Coffrefort $coffrefort)
-    {
-        $this->coffreforts[] = $coffrefort;
-
-        return $this;
-    }
-
-    /**
-     * Remove coffrefort
-     *
-     * @param \AppBundle\Entity\Coffrefort $coffrefort
-     */
-    public function removeCoffrefort(\AppBundle\Entity\Coffrefort $coffrefort)
-    {
-        $this->coffreforts->removeElement($coffrefort);
-    }
-
-    /**
-     * Get coffreforts
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getCoffreforts()
-    {
-        return $this->coffreforts;
+        return $this->institution;
     }
 
     /**
@@ -299,7 +218,7 @@ class Exercice
      *
      * @param \DateTime $dateCreate
      *
-     * @return Exercice
+     * @return Compte
      */
     public function setDateCreate($dateCreate)
     {
@@ -323,7 +242,7 @@ class Exercice
      *
      * @param string $userCreate
      *
-     * @return Exercice
+     * @return Compte
      */
     public function setUserCreate($userCreate)
     {
@@ -347,7 +266,7 @@ class Exercice
      *
      * @param \DateTime $dateModif
      *
-     * @return Exercice
+     * @return Compte
      */
     public function setDateModif($dateModif)
     {
@@ -371,7 +290,7 @@ class Exercice
      *
      * @param string $userModif
      *
-     * @return Exercice
+     * @return Compte
      */
     public function setUserModif($userModif)
     {
@@ -395,7 +314,7 @@ class Exercice
      *
      * @param \DateTime $datedelete
      *
-     * @return Exercice
+     * @return Compte
      */
     public function setDatedelete($datedelete)
     {
@@ -419,7 +338,7 @@ class Exercice
      *
      * @param string $userdelete
      *
-     * @return Exercice
+     * @return Compte
      */
     public function setUserdelete($userdelete)
     {
@@ -436,5 +355,9 @@ class Exercice
     public function getUserdelete()
     {
         return $this->userdelete;
+    }
+
+    public function __toString() {
+        return 'N° ' . $this->getNumero() . ', Intitulé : ' . $this->getIntitule(). ', Instituion : ' . $this->getInstitution();
     }
 }

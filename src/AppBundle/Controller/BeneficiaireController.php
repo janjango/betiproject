@@ -145,12 +145,8 @@ class BeneficiaireController extends Controller {
         $beneficiaire = $this->getDoctrine()->getManager()->getRepository('AppBundle:Beneficiaire')
             ->find($request->get('id'));
 
-        $comptes = $this->getDoctrine()->getManager()->getRepository('AppBundle:Compte')
-            ->findBy(Array('beneficiaire'=>$request->get('id')));
-
         return $this->render('appel/beneficiaire/info_beneficiaire.html.twig', [
             'element'   => $beneficiaire,
-            'comptes'   => $comptes
         ]);
     }
 

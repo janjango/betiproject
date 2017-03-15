@@ -29,14 +29,22 @@ class AppelType extends AbstractType
                     'Appel de fonds sur autre budget' => "two",
                 ),
                 'required' => true,
-                'mapped'=> false,
             ))
 
             ->add('referenceAppel', TextType::class, array(
-                'label' => 'Référence Appel émis',
+                'label' => 'Référence Mandat émis',
+                'required' => false,
                 'attr' =>array(
                     'class' =>'form-control'
                 )))
+
+            ->add('referenceAppelfond', TextType::class, array(
+                'label' => 'Référence Appel de fonds',
+                'required' => false,
+                'attr' =>array(
+                    'class' =>'form-control'
+                )))
+
             ->add('dateAppel',DateType::class, array(
                     'label' => 'Date Emission',
                     'widget' => 'single_text',
@@ -84,8 +92,22 @@ class AppelType extends AbstractType
             ->add('beneficiaire', EntityType::class, array(
                 'class' => 'AppBundle:Beneficiaire',
                 'label' => 'Structure Bénéficiaire',
-                'placeholder' => 'Choose an option',
+                'placeholder' => 'Choissez le Bénéficiaire',
                 'required' => true,
+                'attr' => array('class' => 'form-control  select-chosen')
+            ))
+            ->add('compte', EntityType::class, array(
+                'class' => 'AppBundle:Compte',
+                'label' => 'Compte Trésor',
+                'placeholder' => 'Choissez le compte',
+                'required' => false,
+                'attr' => array('class' => 'form-control  select-chosen')
+            ))
+            ->add('comptebancaire', EntityType::class, array(
+                'class' => 'AppBundle:Comptebancaire',
+                'label' => 'Compte Bancaire',
+                'placeholder' => 'Choissez le compte',
+                'required' => false,
                 'attr' => array('class' => 'form-control  select-chosen')
             ))
 //            ->add('objetappel', EntityType::class, array(

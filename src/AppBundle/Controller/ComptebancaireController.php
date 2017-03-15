@@ -6,21 +6,21 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use AppBundle\Entity\Compte;
-use AppBundle\Form\CompteType;
+use AppBundle\Entity\Comptebancaire;
+use AppBundle\Form\ComptebancaireType;
 
 /**
  * Home controller.
  *
  * @Route("/appel")
  */
-class CompteController extends Controller {
+class ComptebancaireController extends Controller {
 
     /**
-     * @Route("/compte/read", name="read_compte")
+     * @Route("/comptebancaire/read", name="read_comptebancaire")
      * @Method("GET")
      */
-    public function read_compteAction(Request $request) {
+    public function read_comptebancaireAction(Request $request) {
         // replace this example code with whatever you need
 
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
@@ -30,10 +30,10 @@ class CompteController extends Controller {
         $sousMenus = $users->getSousMenus($user->getId());
 
         $comptes= $this->getDoctrine()
-            ->getManager()->getRepository('AppBundle:Compte')
+            ->getManager()->getRepository('AppBundle:Comptebancaire')
             ->findAll();
 
-        return $this->render('appel/compte/read_compte.html.twig', [
+        return $this->render('appel/comptebancaire/read_compte.html.twig', [
             'comptes' => $comptes,
             'sousMenus' => $sousMenus,
             'menus' => $menus
@@ -44,7 +44,7 @@ class CompteController extends Controller {
     /**
      * Creates a new demand entity.
      *
-     * @Route("/compte/create", name="create_compte")
+     * @Route("/comptebancaire/create", name="create_comptebancaire")
      * @Method({"GET", "POST"})
      */
     public function create_compteAction(Request $request)
@@ -54,9 +54,9 @@ class CompteController extends Controller {
             ->getRepository('Jac\UserBundle\Entity\User');
         $menus = $users->getMenus($user->getId());
         $sousMenus = $users->getSousMenus($user->getId());
-        $compte = new Compte();
+        $compte = new Comptebancaire();
 
-        $form = $this->createForm('AppBundle\Form\CompteType', $compte);
+        $form = $this->createForm('AppBundle\Form\ComptebancaireType', $compte);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -68,9 +68,9 @@ class CompteController extends Controller {
                 'success', "Enregistrement effectué avec succès !"
             );
 
-            return $this->redirectToRoute('create_compte');
+            return $this->redirectToRoute('create_comptebancaire');
         }
-        return $this->render('appel/compte/create_compte.html.twig', [
+        return $this->render('appel/comptebancaire/create_compte.html.twig', [
              'form'   => $form->createView(),
             'sousMenus' => $sousMenus,
             'menus' => $menus
@@ -80,10 +80,10 @@ class CompteController extends Controller {
     /**
      * Creates a new demand entity.
      *
-     * @Route("/compte/update", name="update_compte")
+     * @Route("/comptebancaire/update", name="update_comptebancaire")
      * @Method({"GET", "POST"})
      */
-    public function update_compteAction(Request $request)
+    public function update_comptebancaireAction(Request $request)
     {
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
         $users = $this->getDoctrine()->getManager()
@@ -91,9 +91,9 @@ class CompteController extends Controller {
         $menus = $users->getMenus($user->getId());
         $sousMenus = $users->getSousMenus($user->getId());
 
-        $compte = $this->getDoctrine()->getManager()->getRepository('AppBundle:Compte')
+        $compte = $this->getDoctrine()->getManager()->getRepository('AppBundle:Comptebancaire')
             ->find($request->get('id'));
-        $form = $this->createForm('AppBundle\Form\CompteType', $compte);
+        $form = $this->createForm('AppBundle\Form\ComptebancaireType', $compte);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -104,9 +104,9 @@ class CompteController extends Controller {
                 'warning', "Modification effectué avec succès !"
             );
 
-            return $this->redirectToRoute('read_compte');
+            return $this->redirectToRoute('read_comptebancaire');
         }
-        return $this->render('appel/compte/update_compte.html.twig', [
+        return $this->render('appel/comptebancaire/update_compte.html.twig', [
             'form'   => $form->createView(), 'id'   => $request->get('id'),
             'sousMenus' => $sousMenus,
             'menus' => $menus,
@@ -117,12 +117,12 @@ class CompteController extends Controller {
     /**
      * Creates a new demand entity.
      *
-     * @Route("/compte/delete", name="delete_compte")
+     * @Route("/comptebancaire/delete", name="delete_comptebancaire")
      * @Method({"GET", "POST"})
      */
-    public function delete_compteAction(Request $request)
+    public function delete_comptebancaireAction(Request $request)
     {
-        $compte = $this->getDoctrine()->getManager()->getRepository('AppBundle:Compte')
+        $compte = $this->getDoctrine()->getManager()->getRepository('AppBundle:Comptebancaire')
             ->find($request->get('id'));
         if ($request->getMethod() == 'POST'){
             if ( !$compte->getAppels()->isEmpty()){
@@ -138,9 +138,9 @@ class CompteController extends Controller {
                 'danger', "Suppression effectué avec succès !"
             );
 
-            return $this->redirectToRoute('read_compte');
+            return $this->redirectToRoute('read_comptebancaire');
         }
-        return $this->render('appel/compte/delete_compte.html.twig', [
+        return $this->render('appel/comptebancaire/delete_compte.html.twig', [
            'id'   => $request->get('id')
         ]);
     }

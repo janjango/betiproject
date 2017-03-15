@@ -11,9 +11,9 @@
      <div class="block full">
          <div class="block-title">
 
-             <h2>Liste des comptes trésors</h2>
+             <h2>Liste des comptes bancaires</h2>
 
-             <a  href="{{ path('create_compte') }}"  title="Ajouter" class="btn btn-xs btn-success" >
+             <a  href="{{ path('create_comptebancaire') }}"  title="Ajouter" class="btn btn-xs btn-success" >
                  <i  class="fa fa-plus"></i></a>
          </div>
 
@@ -24,7 +24,7 @@
                      <th class="text-center hide"></th>
                      <th class="text-center "> Numéro</th>
                      <th class="text-center "> Intitulé </th>
-                     <th class="text-center hide"> Institution</th>
+                     <th class="text-center "> Institution</th>
                      <th class="text-center hide"> email </th>
                      <th class="text-center">Actions</th>
                  </tr>
@@ -36,15 +36,15 @@
                          <td class="text-left hide"></td>
                          <td class="text-left ">{{ element.numero }}</td>
                          <td class="text-left "> {{ element.intitule }}</td>
-                         <td class="text-left  hide"> {{ element.institution }} </td>
+                         <td class="text-left  "> {{ element.institution }} </td>
                          <td class="text-center hide">
 
                          </td>
                          <td class="text-center">
-                             <a href="{{ path('update_compte', {'id': element.id } )}}" data-toggle="tooltip" title="Edit" class="btn btn-xs btn-default"><i class="fa fa-pencil"></i></a>
+                             <a href="{{ path('update_comptebancaire', {'id': element.id } )}}" data-toggle="tooltip" title="Edit" class="btn btn-xs btn-default"><i class="fa fa-pencil"></i></a>
 
                              <a href="#modal-regular{{ element.id }}" data-toggle="modal" title="Delete" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></a>
-                             {% include 'appel/compte/delete_compte.html.twig'  %}
+                             {% include 'appel/comptebancaire/delete_compte.html.twig'  %}
                          </td>
                      </tr>
                  {% endfor %}

@@ -31,6 +31,11 @@ class Appel
      */
     private $compte;
     /**
+     * @ORM\ManyToOne(targetEntity="Comptebancaire", inversedBy="appels")
+     * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
+     */
+    private $comptebancaire;
+    /**
      * @ORM\ManyToOne(targetEntity="Beneficiaire", inversedBy="appels")
      * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
      */
@@ -50,6 +55,20 @@ class Appel
      * @ORM\Column(name="referenceAppel", type="string", length=255)
      */
     private $referenceAppel;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="referenceAppelfond", type="string", length=255, nullable=true)
+     */
+    private $referenceAppelfond;
+
+    /**
+     * @var string; Appel de fonds sur budget national ou Appel de fonds sur autre budget
+     *
+     * @ORM\Column(name="sourceAlimaentation", type="string", length=100, nullable=true)
+     */
+    private $sourceAlimaentation;
 
     /**
      * @var \DateTime
@@ -140,6 +159,20 @@ class Appel
      * @ORM\Column(name="userModif", type="string", length=255, nullable=true)
      */
     private $userModif;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="datedelete", type="datetime", nullable=true)
+     */
+    private $datedelete;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="$userdelete", type="string", length=255, nullable=true)
+     */
+    private $userdelete;
 
     /**
      * @var bool
@@ -857,5 +890,125 @@ class Appel
     public function getEstSolder()
     {
         return $this->estSolder;
+    }
+
+    /**
+     * Set datedelete
+     *
+     * @param \DateTime $datedelete
+     *
+     * @return Appel
+     */
+    public function setDatedelete($datedelete)
+    {
+        $this->datedelete = $datedelete;
+
+        return $this;
+    }
+
+    /**
+     * Get datedelete
+     *
+     * @return \DateTime
+     */
+    public function getDatedelete()
+    {
+        return $this->datedelete;
+    }
+
+    /**
+     * Set userdelete
+     *
+     * @param string $userdelete
+     *
+     * @return Appel
+     */
+    public function setUserdelete($userdelete)
+    {
+        $this->userdelete = $userdelete;
+
+        return $this;
+    }
+
+    /**
+     * Get userdelete
+     *
+     * @return string
+     */
+    public function getUserdelete()
+    {
+        return $this->userdelete;
+    }
+
+    /**
+     * Set referenceAppelfond
+     *
+     * @param string $referenceAppelfond
+     *
+     * @return Appel
+     */
+    public function setReferenceAppelfond($referenceAppelfond)
+    {
+        $this->referenceAppelfond = $referenceAppelfond;
+
+        return $this;
+    }
+
+    /**
+     * Get referenceAppelfond
+     *
+     * @return string
+     */
+    public function getReferenceAppelfond()
+    {
+        return $this->referenceAppelfond;
+    }
+
+    /**
+     * Set comptebancaire
+     *
+     * @param \AppBundle\Entity\Comptebancaire $comptebancaire
+     *
+     * @return Appel
+     */
+    public function setComptebancaire(\AppBundle\Entity\Comptebancaire $comptebancaire = null)
+    {
+        $this->comptebancaire = $comptebancaire;
+
+        return $this;
+    }
+
+    /**
+     * Get comptebancaire
+     *
+     * @return \AppBundle\Entity\Comptebancaire
+     */
+    public function getComptebancaire()
+    {
+        return $this->comptebancaire;
+    }
+
+    /**
+     * Set sourceAlimaentation
+     *
+     * @param string $sourceAlimaentation
+     *
+     * @return Appel
+     */
+    public function setSourceAlimaentation($sourceAlimaentation)
+    {
+        $this->sourceAlimaentation = $sourceAlimaentation;
+
+        return $this;
+    }
+
+    /**
+     * Get sourceAlimaentation
+     *
+     * @return string
+     */
+    public function getSourceAlimaentation()
+    {
+        return $this->sourceAlimaentation;
     }
 }
