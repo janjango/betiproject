@@ -137,6 +137,8 @@ class EncaissementController extends Controller {
             }
             $encaissement->setUserModif($this->getUser()->getUsername());
             $encaissement->setDateModif(new \ Datetime());
+
+            $encaissement->setSolde($encaissement->getMontantEncaisse());
             $em->flush();
             $this->addFlash(
                 'warning', "Modification effectué avec succès !"

@@ -85,7 +85,8 @@ class CoffreFortController extends Controller {
             //update solde encaissement
            // $this->updateSoldeEncaissement($coffrefort);
             $em->flush();
-
+            $coffrefort->getEncaissement()->setSolde($coffrefort->getEncaissement()->getMontantEncaisse()-$coffrefort->getEncaissement()->getMontantpaye());
+            $em->flush();
             $this->addFlash(
                     'success', "Enregistrement effectué avec succès !"
             );
@@ -136,6 +137,8 @@ class CoffreFortController extends Controller {
             //$this->updateSoldeEncaissement($coffrefort);
             $coffrefort->setBeneficiaire($coffrefort->getEncaissement()->getAppel()->getBeneficiaire());
             $em->flush();
+            $coffrefort->getEncaissement()->setSolde($coffrefort->getEncaissement()->getMontantEncaisse()-$coffrefort->getEncaissement()->getMontantpaye());
+            $em->flush();
             $this->addFlash(
                     'warning', "Modification effectué avec succès !"
             );
@@ -159,9 +162,12 @@ class CoffreFortController extends Controller {
                 ->getManager()
                 ->getRepository('AppBundle:Coffrefort')
                 ->find($request->get('id'));
+        $mt=$coffrefort->getMontantRetire();
         if ($request->getMethod() == 'POST') {
             $em = $this->getDoctrine()->getManager();
             $em->remove($coffrefort);
+            $coffrefort->getEncaissement()->setSolde($coffrefort->getEncaissement()->getMontantEncaisse()-$coffrefort->getEncaissement()->getMontantpaye()+$mt);
+            //$em->flush();
             $em->flush();
             $this->addFlash(
                     'danger', "Suppression effectué avec succès !"

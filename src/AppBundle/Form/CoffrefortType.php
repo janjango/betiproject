@@ -41,7 +41,7 @@ class CoffrefortType extends AbstractType {
                     return $repository->createQueryBuilder('en')
                         ->join('en.exercice', 'ex')
                         ->where('ex.estActif = 1')
-                      // ->andWhere('en.solde > 0')
+                       ->andWhere('en.solde > 0')
                         ;
                 }
             ))

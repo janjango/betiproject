@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use AppBundle\Repository\EncaissementRepository;
 
 class PaiementType extends AbstractType
 {
@@ -41,7 +42,15 @@ class PaiementType extends AbstractType
                 'label' => 'Encaissement',
                 'placeholder' => 'Choisissez l\'encaissement',
                 'required' => true,
-                'attr' => array('class' => 'form-control  select-chosen')
+                'attr' => array('class' => 'form-control  select-chosen'),
+                'query_builder' => function (EncaissementRepository $repository)
+                {
+                    return $repository->createQueryBuilder('en')
+                        ->join('en.exercice', 'ex')
+                        ->where('ex.estActif = 1')
+                        ->andWhere('en.solde > 0')
+                        ;
+                }
             ))
             ->add('dateEPaiement',DateType::class, array(
                 'label' => 'Date Paiement',

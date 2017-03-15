@@ -75,6 +75,8 @@ class PaiementController extends Controller {
             $paiement->setDateCreate(new \ Datetime());
             $em->persist($paiement);
             $em->flush();
+            $paiement->getEncaissement()->setSolde($paiement->getEncaissement()->getMontantEncaisse()-$paiement->getEncaissement()->getMontantpaye());
+            $em->flush();
             $this->addFlash(
                 'success', "Enregistrement effectué avec succès !"
             );
@@ -123,6 +125,8 @@ class PaiementController extends Controller {
             $paiement->setUserModif($this->getUser()->getUsername());
             $paiement->setDateModif(new \ Datetime());
             $em->flush();
+            $paiement->getEncaissement()->setSolde($paiement->getEncaissement()->getMontantEncaisse()-$paiement->getEncaissement()->getMontantpaye());
+            $em->flush();
             $this->addFlash(
                 'warning', "Modification effectué avec succès !"
             );
@@ -144,10 +148,12 @@ class PaiementController extends Controller {
     {
         $paiement = $this->getDoctrine()->getManager()->getRepository('AppBundle:Paiement')
             ->find($request->get('id'));
+        $montant =$paiement->getMontantTtc();
         if ($request->getMethod() == 'POST'){
             $em = $this->getDoctrine()->getManager();
             //$paiement->getAppel()->setEstSolder(false);
             $em->remove($paiement);
+            $paiement->getEncaissement()->setSolde($paiement->getEncaissement()->getMontantEncaisse()-$paiement->getEncaissement()->getMontantpaye()+$montant);
             $em->flush();
             $this->addFlash(
                 'danger', "Suppression effectué avec succès !"
