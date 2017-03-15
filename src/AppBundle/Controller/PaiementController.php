@@ -55,7 +55,7 @@ class PaiementController extends Controller {
         if ($form->isSubmitted() && $form->isValid()) {
             if($paiement->getEncaissement()->getMontantpaye()+$paiement->getMontantTtc() > $paiement->getEncaissement()->getMontantEncaisse()){
                 $this->addFlash(
-                    'danger', "Le montant payé est supérieur à montant encaissé !"
+                    'danger', "Le montant payé est supérieur au solde de l'encaissement !"
                 );
                 return $this->render('encaissement/paiement/create_paiement.html.twig', [
                     'form'   => $form->createView(),
@@ -71,7 +71,11 @@ class PaiementController extends Controller {
 //            if($paiement->getAppel()->getMontantPaiement()+$paiement->getMontantEncaisse() == $paiement->getAppel()->getMontantTtc()){
 //                $paiement->getAppel()->setEstSolder(true);
 //            }
+            $paiement->setUserCreate($this->getUser()->getUsername());
+            $paiement->setDateCreate(new \ Datetime());
             $em->persist($paiement);
+            $em->flush();
+            $paiement->getEncaissement()->setSolde($paiement->getEncaissement()->getMontantEncaisse()-$paiement->getEncaissement()->getMontantpaye());
             $em->flush();
             $this->addFlash(
                 'success', "Enregistrement effectué avec succès !"
@@ -106,7 +110,7 @@ class PaiementController extends Controller {
         if ($form->isSubmitted() && $form->isValid()) {
             if($paiement->getEncaissement()->getMontantpaye()+$paiement->getMontantTtc()-$montant > $paiement->getEncaissement()->getMontantEncaisse()){
                 $this->addFlash(
-                    'danger', "Le montant payé est supérieur à montant encaissé!"
+                    'danger', "Le montant payé est supérieur au solde de l'encaissement !"
                 );
                 return $this->render('encaissement/paiement/update_paiement.html.twig', [
                     'form'   => $form->createView(), 'id'   => $request->get('id'),
@@ -118,6 +122,10 @@ class PaiementController extends Controller {
 //            if($paiement->getAppel()->getMontantPaiement()+$paiement->getMontantEncaisse()-$montant == $paiement->getAppel()->getMontantTtc()){
 //                $paiement->getAppel()->setEstSolder(true);
 //            }
+            $paiement->setUserModif($this->getUser()->getUsername());
+            $paiement->setDateModif(new \ Datetime());
+            $em->flush();
+            $paiement->getEncaissement()->setSolde($paiement->getEncaissement()->getMontantEncaisse()-$paiement->getEncaissement()->getMontantpaye());
             $em->flush();
             $this->addFlash(
                 'warning', "Modification effectué avec succès !"
@@ -140,10 +148,12 @@ class PaiementController extends Controller {
     {
         $paiement = $this->getDoctrine()->getManager()->getRepository('AppBundle:Paiement')
             ->find($request->get('id'));
+        $montant =$paiement->getMontantTtc();
         if ($request->getMethod() == 'POST'){
             $em = $this->getDoctrine()->getManager();
             //$paiement->getAppel()->setEstSolder(false);
             $em->remove($paiement);
+            $paiement->getEncaissement()->setSolde($paiement->getEncaissement()->getMontantEncaisse()-$paiement->getEncaissement()->getMontantpaye()+$montant);
             $em->flush();
             $this->addFlash(
                 'danger', "Suppression effectué avec succès !"

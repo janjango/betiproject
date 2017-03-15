@@ -80,6 +80,27 @@
             });
         });
 
+        $('#appbundle_paiement_montantHt').keypress(function () {
+            $('#appbundle_paiement_tvaRetenue').val($(this).val()*0.18);
+            $('#appbundle_paiement_montantTtc').val(parseFloat($(this).val())+parseFloat($('#appbundle_paiement_tvaRetenue').val())+parseFloat($('#appbundle_paiement_aibRetenu').val()));
+        })
+        $('#appbundle_appel_montantHt').keydown(function () {
+            $('#appbundle_paiement_tvaRetenue').val($(this).val()*0.18);
+            $('#appbundle_paiement_montantTtc').val(parseFloat($(this).val())+parseFloat($('#appbundle_paiement_tvaRetenue').val())+parseFloat($('#appbundle_paiement_aibRetenu').val()));
+        })
+        $('#appbundle_paiement_tvaRetenue').keypress(function () {
+            $('#appbundle_paiement_montantTtc').val(parseFloat($(this).val())+parseFloat($('#appbundle_paiement_montantHt').val())+parseFloat($('#appbundle_paiement_aibRetenu').val()));
+        })
+        $('#appbundle_paiement_tvaRetenue').keydown(function () {
+            $('#appbundle_paiement_montantTtc').val(parseFloat($(this).val())+parseFloat($('#appbundle_paiement_montantHt').val())+parseFloat($('#appbundle_paiement_aibRetenu').val()));
+        })
+        $('#appbundle_paiement_aibRetenu').keypress(function () {
+            $('#appbundle_paiement_montantTtc').val(parseFloat($(this).val())+parseFloat($('#appbundle_paiement_montantHt').val())+parseFloat($('#appbundle_paiement_tvaRetenue').val()));
+        })
+        $('#appbundle_paiement_aibRetenu').keydown(function () {
+            $('#appbundle_paiement_montantTtc').val(parseFloat($(this).val())+parseFloat($('#appbundle_paiement_montantHt').val())+parseFloat($('#appbundle_paiement_tvaRetenue').val()));
+        })
+
         $("#appbundle_paiement_sourceAlimaentation").change(function () {
             if( $(this).val()=='one'){
                 // alert('ok');
@@ -92,6 +113,16 @@
             }
 
         })
+
+        if( $("#appbundle_paiement_sourceAlimaentation").val()=='one'){
+            // alert('ok');
+            $("#appbundle_paiement_refVirement").parent().show();
+            $("#appbundle_paiement_refCheque").parent().hide();
+        }else{
+            // alert('ok');
+            $("#appbundle_paiement_refVirement").parent().hide();
+            $("#appbundle_paiement_refCheque").parent().show();
+        }
 
     </script>
 {% endblock %}

@@ -121,6 +121,12 @@ class FournisseurController extends Controller {
         $fournisseur = $this->getDoctrine()->getManager()->getRepository('AppBundle:Fournisseur')
             ->find($request->get('id'));
         if ($request->getMethod() == 'POST'){
+            if ( !$fournisseur->getPaiements()->isEmpty()){
+                $this->addFlash(
+                    'warring', "Il existe déjà au moins un Paiement enregistré pour ce fournisseur. On ne peut donc pas le supprimer !"
+                );
+                return $this->redirectToRoute('read_fournisseur');
+            }
             $em = $this->getDoctrine()->getManager();
             $em->remove($fournisseur);
             $em->flush();

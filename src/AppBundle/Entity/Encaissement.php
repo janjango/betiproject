@@ -14,6 +14,10 @@ class Encaissement
      */
     private $paiements;
     /**
+     * @ORM\OneToMany(targetEntity="Coffrefort", mappedBy="encaissement", cascade={"remove"})
+     */
+    private $coffreforts;
+    /**
      * @ORM\ManyToOne(targetEntity="Exercice", inversedBy="encaissements")
      * @ORM\JoinColumn(nullable=true)
      */
@@ -40,7 +44,7 @@ class Encaissement
     /**
      * @var string
      *
-     * @ORM\Column(name="numeroCompte", type="string", length=255)
+     * @ORM\Column(name="numeroCompte", type="string", length=255, nullable=true)
      */
     private $numeroCompte;
     /**
@@ -314,14 +318,20 @@ class Encaissement
     {
         return $this->paiements;
     }
+    
     public function getMontantpaye()
     {
         $i=0;
         foreach ($this->getPaiements() as $j){
             $i += $j->getMontantTtc();
         }
+        foreach ($this->getCoffreforts() as $j){
+            $i += $j->getMontantRetire();
+        }
+
         return $i;
     }
+
     public function __toString() {
         return 'Encaissement N° ' . $this->getId() . ', Solde: ' . $this->getSolde();
     }
@@ -348,5 +358,39 @@ class Encaissement
     public function getSolde()
     {
         return $this->solde;
+    }
+
+    /**
+     * Add coffrefort
+     *
+     * @param \AppBundle\Entity\Coffrefort $coffrefort
+     *
+     * @return Encaissement
+     */
+    public function addCoffrefort(\AppBundle\Entity\Coffrefort $coffrefort)
+    {
+        $this->coffreforts[] = $coffrefort;
+
+        return $this;
+    }
+
+    /**
+     * Remove coffrefort
+     *
+     * @param \AppBundle\Entity\Coffrefort $coffrefort
+     */
+    public function removeCoffrefort(\AppBundle\Entity\Coffrefort $coffrefort)
+    {
+        $this->coffreforts->removeElement($coffrefort);
+    }
+
+    /**
+     * Get coffreforts
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCoffreforts()
+    {
+        return $this->coffreforts;
     }
 }

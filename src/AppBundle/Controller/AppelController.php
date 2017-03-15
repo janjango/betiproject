@@ -77,7 +77,6 @@ class AppelController extends Controller {
             $appel->setEstParentannuler(false);
             $appel->setEstEncaisser(false);
             $appel->setExercice($exercice);
-            $appel->setCompte($this->getDoctrine()->getManager()->getRepository('AppBundle:Compte')->find($request->get('compte')));
             $em->persist($appel);
             $em->flush();
             $this->addFlash(
@@ -167,10 +166,16 @@ class AppelController extends Controller {
         $form = $this->createForm('AppBundle\Form\AppelType', $appel);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            if ( !$appel->getEncaissements()->isEmpty()){
+                $this->addFlash(
+                    'warring', "Cet appel a déjà fait objet d'encaissement. On ne peut donc pas le modifier !"
+                );
+                return $this->redirectToRoute('read_appel', array('exercice' => $appel->getExercice()->getId()));
+            }
             $em = $this->getDoctrine()->getManager();
             $appel->setUserModif($this->getUser()->getUsername());
             $appel->setDateModif(new \ Datetime());
-            $appel->setCompte($this->getDoctrine()->getManager()->getRepository('AppBundle:Compte')->find($request->get('compte')));
+            //$appel->setCompte($this->getDoctrine()->getManager()->getRepository('AppBundle:Compte')->find($request->get('compte')));
             $em->flush();
             $this->addFlash(
                 'warning', "Modification effectué avec succès !"
@@ -196,6 +201,12 @@ class AppelController extends Controller {
         $appel = $this->getDoctrine()->getManager()->getRepository('AppBundle:Appel')
             ->find($request->get('id'));
         if ($request->getMethod() == 'POST'){
+            if ( !$appel->getEncaissements()->isEmpty()){
+                $this->addFlash(
+                    'warring', "Il existe déjà au moins un encaissement pour cet Appel. On ne peut donc pas le supprimer !"
+                );
+                return $this->redirectToRoute('read_appel');
+            }
             $em = $this->getDoctrine()->getManager();
 
             $em->remove($appel);

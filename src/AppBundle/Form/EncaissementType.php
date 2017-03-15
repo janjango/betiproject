@@ -52,12 +52,6 @@ class EncaissementType extends AbstractType
                 'attr' =>array(
                     'class' =>'form-control'
                 )))
-            ->add('numeroCompte', TextType::class, array(
-                'label' => 'Numéro de compte',
-                'required' => false,
-                'attr' =>array(
-                    'class' =>'form-control'
-                )))
 
 
              ;

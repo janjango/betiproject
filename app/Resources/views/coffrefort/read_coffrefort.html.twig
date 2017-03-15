@@ -24,7 +24,7 @@
                  <thead>
                  <tr>
                  <th class="text-center hide"> </th>
-                     <th class="text-center "> Date Emmision</th>
+                     <th class="text-center "> Date </th>
                      <th class="text-center "> Référence Cheque</th>
                      <th class="text-center "> Montant Retiré </th>
                      <th class="text-center "> Référence Encaissement</th>
@@ -47,7 +47,11 @@
                                                  {{ element.encaissement }}
                                              </td>
                                              <td class="text-right ">
-                                                 {{ element.encaissement.appel.referenceAppel }}
+                                                 {% if element.encaissement.appel.referenceAppel %}
+                                                     {{ element.encaissement.appel.referenceAppel }}
+                                                 {% else %}
+                                                     {{ element.encaissement.appel.referenceAppelfond }}
+                                                 {% endif %}
                                              </td>
                                              <td class="text-center">
                                                  <a href="{{ path('update_coffrefort', {'id': element.id } )}}" data-toggle="tooltip" title="Edit" class="btn btn-xs btn-default"><i class="fa fa-pencil"></i></a>

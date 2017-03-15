@@ -7,7 +7,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class CompteType extends AbstractType
+class ComptebancaireType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -26,7 +26,13 @@ class CompteType extends AbstractType
                 'required' => false,
                 'attr' =>array(
                     'class' =>'form-control'
-                ))) ;
+                )))
+            ->add('institution', TextType::class, array(
+            'label' => 'Institution',
+            'required' => false,
+            'attr' =>array(
+                'class' =>'form-control'
+            )))  ;
     }
     
     /**
@@ -35,7 +41,7 @@ class CompteType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Compte'
+            'data_class' => 'AppBundle\Entity\Comptebancaire'
         ));
     }
 
@@ -44,7 +50,7 @@ class CompteType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'appbundle_compte';
+        return 'appbundle_comptebancaire';
     }
 
 

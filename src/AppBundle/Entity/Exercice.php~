@@ -53,6 +53,47 @@ class Exercice
 
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateCreate", type="datetime", nullable=true, nullable=true)
+     */
+    private $dateCreate;
+
+    /**
+     * @var string
+     * @ORM\Column(name="userCreate", type="string", length=255, nullable=true)
+     */
+    private $userCreate;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateModif", type="datetime", nullable=true)
+     */
+    private $dateModif;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="userModif", type="string", length=255, nullable=true)
+     */
+    private $userModif;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="datedelete", type="datetime", nullable=true)
+     */
+    private $datedelete;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="$userdelete", type="string", length=255, nullable=true)
+     */
+    private $userdelete;
+
+    /**
      * Get id
      *
      * @return int
@@ -217,5 +258,183 @@ class Exercice
     public function getPaiements()
     {
         return $this->paiements;
+    }
+
+    /**
+     * Add coffrefort
+     *
+     * @param \AppBundle\Entity\Coffrefort $coffrefort
+     *
+     * @return Exercice
+     */
+    public function addCoffrefort(\AppBundle\Entity\Coffrefort $coffrefort)
+    {
+        $this->coffreforts[] = $coffrefort;
+
+        return $this;
+    }
+
+    /**
+     * Remove coffrefort
+     *
+     * @param \AppBundle\Entity\Coffrefort $coffrefort
+     */
+    public function removeCoffrefort(\AppBundle\Entity\Coffrefort $coffrefort)
+    {
+        $this->coffreforts->removeElement($coffrefort);
+    }
+
+    /**
+     * Get coffreforts
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCoffreforts()
+    {
+        return $this->coffreforts;
+    }
+
+    /**
+     * Set dateCreate
+     *
+     * @param \DateTime $dateCreate
+     *
+     * @return Exercice
+     */
+    public function setDateCreate($dateCreate)
+    {
+        $this->dateCreate = $dateCreate;
+
+        return $this;
+    }
+
+    /**
+     * Get dateCreate
+     *
+     * @return \DateTime
+     */
+    public function getDateCreate()
+    {
+        return $this->dateCreate;
+    }
+
+    /**
+     * Set userCreate
+     *
+     * @param string $userCreate
+     *
+     * @return Exercice
+     */
+    public function setUserCreate($userCreate)
+    {
+        $this->userCreate = $userCreate;
+
+        return $this;
+    }
+
+    /**
+     * Get userCreate
+     *
+     * @return string
+     */
+    public function getUserCreate()
+    {
+        return $this->userCreate;
+    }
+
+    /**
+     * Set dateModif
+     *
+     * @param \DateTime $dateModif
+     *
+     * @return Exercice
+     */
+    public function setDateModif($dateModif)
+    {
+        $this->dateModif = $dateModif;
+
+        return $this;
+    }
+
+    /**
+     * Get dateModif
+     *
+     * @return \DateTime
+     */
+    public function getDateModif()
+    {
+        return $this->dateModif;
+    }
+
+    /**
+     * Set userModif
+     *
+     * @param string $userModif
+     *
+     * @return Exercice
+     */
+    public function setUserModif($userModif)
+    {
+        $this->userModif = $userModif;
+
+        return $this;
+    }
+
+    /**
+     * Get userModif
+     *
+     * @return string
+     */
+    public function getUserModif()
+    {
+        return $this->userModif;
+    }
+
+    /**
+     * Set datedelete
+     *
+     * @param \DateTime $datedelete
+     *
+     * @return Exercice
+     */
+    public function setDatedelete($datedelete)
+    {
+        $this->datedelete = $datedelete;
+
+        return $this;
+    }
+
+    /**
+     * Get datedelete
+     *
+     * @return \DateTime
+     */
+    public function getDatedelete()
+    {
+        return $this->datedelete;
+    }
+
+    /**
+     * Set userdelete
+     *
+     * @param string $userdelete
+     *
+     * @return Exercice
+     */
+    public function setUserdelete($userdelete)
+    {
+        $this->userdelete = $userdelete;
+
+        return $this;
+    }
+
+    /**
+     * Get userdelete
+     *
+     * @return string
+     */
+    public function getUserdelete()
+    {
+        return $this->userdelete;
     }
 }

@@ -29,7 +29,7 @@ class ExerciceController extends Controller {
         $sousMenus = $users->getSousMenus($user->getId());
 
         $exercices = $this->getDoctrine()->getManager()
-            ->getRepository('AppBundle\Entity\Exercice')->findAll();
+            ->getRepository('AppBundle\Entity\Exercice')->findBy(Array('userdelete'=>null));
         
         return $this->render('appel/exercice/read_exercice.html.twig', [
             'exercices' => $exercices,
@@ -55,6 +55,9 @@ class ExerciceController extends Controller {
 
         $exercice = new Exercice();
         $exercice->setEstActif(false);
+        $exercice->setUserCreate($user->getUsername());
+        $exercice->setDateCreate(new \ Datetime());
+
         $form = $this->createForm('AppBundle\Form\ExerciceType', $exercice);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -91,6 +94,9 @@ class ExerciceController extends Controller {
         
         $exercice = $this->getDoctrine()->getManager()->getRepository('AppBundle:Exercice')
             ->find($request->get('id'));
+        $exercice->setUserModif($user->getUsername());
+        $exercice->setDateModif(new \ Datetime());
+
         $form = $this->createForm('AppBundle\Form\ExerciceType', $exercice);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -120,6 +126,7 @@ class ExerciceController extends Controller {
     {
         $exercice = $this->getDoctrine()->getManager()->getRepository('AppBundle:Exercice')
             ->find($request->get('id'));
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
 
         if ($request->getMethod() == 'POST'){
 
@@ -142,7 +149,16 @@ class ExerciceController extends Controller {
                 );
                 return $this->redirectToRoute('read_exercice');
             }
-            $em->remove($exercice);
+            if ( !$exercice->getCoffreforts()->isEmpty()){
+                $this->addFlash(
+                    'warring', "Dans cet exercice est enregistré des coffres forts. On ne peut donc pas le supprimer !"
+                );
+                return $this->redirectToRoute('read_exercice');
+            }
+
+            $exercice->setUserdelete($user->getUsername());
+            $exercice->setDatedelete(new \ Datetime());
+
             $em->flush();
             $this->addFlash(
                 'danger', "Suppression effectué avec succès !"
@@ -165,7 +181,10 @@ class ExerciceController extends Controller {
     {
         $exercice = $this->getDoctrine()->getManager()->getRepository('AppBundle:Exercice')
             ->find($request->get('id'));
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
         $exercice->setEstActif(true);
+        $exercice->setUserModif($user->getUsername());
+        $exercice->setDateModif(new \ Datetime());
 
         $exercices= $this->getDoctrine()
             ->getManager()->getRepository('AppBundle:Exercice')

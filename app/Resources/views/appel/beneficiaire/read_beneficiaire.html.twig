@@ -46,8 +46,6 @@
                              <a href="#modal-regular{{ element.id }}" data-toggle="modal" title="Delete" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></a>
                              {% include 'appel/beneficiaire/delete_beneficiaire.html.twig'  %}
 
-                             <a href="{{ path('read_compte', {'id': element.id } )}}" data-toggle="tooltip" title="Les comptes" class="btn btn-xs btn-primary"> <i class="fa fa-copy"></i></a>
-
                          </td>
                      </tr>
                  {% endfor %}

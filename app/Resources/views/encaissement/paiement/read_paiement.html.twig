@@ -24,8 +24,8 @@
                  <tr>
                  <th class="text-center "> N°</th>
                      <th class="text-center "> Date Paiement</th>
-                     <th class="text-center "> Référence Chèque</th>
-                     <th class="text-center "> Référence Virement </th>
+                     <th class="text-center "> N° Encaissement</th>
+                     <th class="text-center hide"> Référence Virement </th>
                      <th class="text-center "> Montant Ttc</th>
                      <th class="text-center">  Actions</th>
                  </tr>
@@ -36,9 +36,9 @@
                      <tr>
                       <td class="text-center "> {{ element.id }} </td>
                          <td class="text-center"> {{ element.dateEPaiement|date('d/m/Y') }} </td>
-                         <td class="text-left">{{ element.refCheque }} </td>
-                         <td class="text-left">{{ element.refVirement }} </td>
-                        <td class="text-left ">
+                         <td class="text-center">{{ element.encaissement.id }} </td>
+                         <td class="text-left hide">{{ element.refVirement }} </td>
+                        <td class="text-right ">
                              {{ element.montantTtc|number_format(2, ',', '.') }}
                          </td>
                          <td class="text-center">

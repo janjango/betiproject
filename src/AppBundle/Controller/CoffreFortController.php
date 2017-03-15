@@ -64,7 +64,7 @@ class CoffreFortController extends Controller {
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            if ($coffrefort->getMontantRetire() > $coffrefort->getEncaissement()->getSolde()) {
+            if ($coffrefort->getMontantRetire()+$coffrefort->getEncaissement()->getMontantpaye() > $coffrefort->getEncaissement()->getMontantEncaisse()) {
                 $this->addFlash(
                         'danger', "Le montant retiré est supérieur au solde de l'encaissement !"
                 );
@@ -80,11 +80,13 @@ class CoffreFortController extends Controller {
             $coffrefort->setExercice($exercice);
             $coffrefort->setUserCreate($this->getUser()->getUsername());
             $coffrefort->setDateCreate(new \ Datetime());
+            $coffrefort->setBeneficiaire($coffrefort->getEncaissement()->getAppel()->getBeneficiaire());
             $em->persist($coffrefort);
             //update solde encaissement
-            $this->updateSoldeEncaissement($coffrefort);
+           // $this->updateSoldeEncaissement($coffrefort);
             $em->flush();
-
+            $coffrefort->getEncaissement()->setSolde($coffrefort->getEncaissement()->getMontantEncaisse()-$coffrefort->getEncaissement()->getMontantpaye());
+            $em->flush();
             $this->addFlash(
                     'success', "Enregistrement effectué avec succès !"
             );
@@ -114,14 +116,28 @@ class CoffreFortController extends Controller {
         $sousMenus = $users->getSousMenus($user->getId());
         $coffrefort = $this->getDoctrine()->getManager()->getRepository('AppBundle:Coffrefort')
                 ->find($request->get('id'));
+        $montant =$coffrefort->getMontantRetire();
         $form = $this->createForm('AppBundle\Form\CoffrefortType', $coffrefort);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            if($coffrefort->getEncaissement()->getMontantpaye()+$coffrefort->getMontantRetire()-$montant > $coffrefort->getEncaissement()->getMontantEncaisse()){
+                $this->addFlash(
+                    'danger', "Le montant retiré est supérieur au solde de l'encaissement !"
+                );
+                return $this->render('coffrefort/update_coffrefort.html.twig', [
+                    'form' => $form->createView(), 'id' => $request->get('id'), 'coffrefort' => $coffrefort,
+                    'sousMenus' => $sousMenus,
+                    'menus' => $menus
+                ]);
+            }
             $em = $this->getDoctrine()->getManager();
             $coffrefort->setUserModif($this->getUser()->getUsername());
             $coffrefort->setDateModif(new \ Datetime());
             //update solde encaissement
-            $this->updateSoldeEncaissement($coffrefort);
+            //$this->updateSoldeEncaissement($coffrefort);
+            $coffrefort->setBeneficiaire($coffrefort->getEncaissement()->getAppel()->getBeneficiaire());
+            $em->flush();
+            $coffrefort->getEncaissement()->setSolde($coffrefort->getEncaissement()->getMontantEncaisse()-$coffrefort->getEncaissement()->getMontantpaye());
             $em->flush();
             $this->addFlash(
                     'warning', "Modification effectué avec succès !"
@@ -146,9 +162,12 @@ class CoffreFortController extends Controller {
                 ->getManager()
                 ->getRepository('AppBundle:Coffrefort')
                 ->find($request->get('id'));
+        $mt=$coffrefort->getMontantRetire();
         if ($request->getMethod() == 'POST') {
             $em = $this->getDoctrine()->getManager();
             $em->remove($coffrefort);
+            $coffrefort->getEncaissement()->setSolde($coffrefort->getEncaissement()->getMontantEncaisse()-$coffrefort->getEncaissement()->getMontantpaye()+$mt);
+            //$em->flush();
             $em->flush();
             $this->addFlash(
                     'danger', "Suppression effectué avec succès !"
@@ -171,10 +190,18 @@ class CoffreFortController extends Controller {
         return new JsonResponse($encaissements);
     }
 
-    private function updateSoldeEncaissement($coffrefort) {
-        //update solde encaissement
-        $solde = $coffrefort->getEncaissement()->getSolde() - $coffrefort->getMontantRetire();
-        $coffrefort->getEncaissement()->setSolde($solde);
-        return $solde;
-    }
+//    private function updateSoldeaugmenteEncaissement($coffrefort) {
+//        //update solde encaissement
+//        $solde = $coffrefort->getEncaissement()->getSolde() + $coffrefort->getMontantRetire();
+//        $coffrefort->getEncaissement()->setSolde($solde);
+//        return $solde;
+//    }
+//
+//    private function updateSoldediminuEncaissement($coffrefort) {
+//        //update solde encaissement
+//        $solde = $coffrefort->getEncaissement()->getSolde() - $coffrefort->getMontantRetire();
+//        $coffrefort->getEncaissement()->setSolde($solde);
+//        return $solde;
+//    }
+
 }
